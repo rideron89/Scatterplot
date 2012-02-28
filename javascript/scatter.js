@@ -21,8 +21,8 @@ function Scatterplot(id1, id2)
 	this.dataTime = 1;
 	
 	// These values in units (not pixels)
-	this.lowestX = 0.0;
-	this.lowestY = 2.0;
+	this.lowestX = 0;
+	this.lowestY = 2;
 	this.highestX = 3100;
 	this.highestY = 95000;
 	this.xDividers = 10;
@@ -59,7 +59,6 @@ function Scatterplot(id1, id2)
 		for(var i = 0; i <= this.xDividers; i++)
 		{
 			x = ((this.width-this.padding*2)/this.xDividers*i+this.padding);
-			//text = parseInt(this.highestX/this.xDividers*i);
 			text = this.lowestX+((this.highestX+Math.abs(this.lowestX))/this.xDividers*i);
 
 			this.context.globalAlpha = this.alphaHigh;
@@ -75,8 +74,8 @@ function Scatterplot(id1, id2)
 		// Add y-axis dividers
 		for(i = 0; i <= this.yDividers; i++)
 		{
-			y = this.padding+(((this.height-this.padding*2)/this.yDividers)*i);
-			text = parseInt(this.highestY/this.yDividers*(this.yDividers-i));
+			y = this.padding+(((this.height-this.padding*2)/this.yDividers)*(this.yDividers-i));
+			text = parseInt(this.lowestY+((this.highestY+Math.abs(this.lowestY))/this.yDividers*i));
 
 			this.context.globalAlpha = this.alphaHigh;
 			this.context.moveTo((this.padding+5), y);
@@ -135,8 +134,8 @@ function Scatterplot(id1, id2)
 	 */
 	this.plotDataPoints = function()
 	{
-		var x = 0;
-		var y = 0;
+		var x = 0.0;
+		var y = 0.0;
 		
 		this.dataContext.strokeStyle = this.color2;
 		this.dataContext.fillStyle = this.color2;
@@ -145,13 +144,23 @@ function Scatterplot(id1, id2)
 		var start = new Date();
 		
 		// Read all the data points and draw them
-		for(var i = 0; i < this.data.length; i++)
+		for(var i = 5; i < 6; i++)
 		{
-			x = (this.padding) + ((this.width-this.padding*2)/this.highestX)*this.data[i][0];
+			x = this.width - (this.padding * 2);
+			//x = x / (this.highestX + Math.abs(this.lowestX))
+			x = x / this.highestX;
+			//x = x * this.data[i][0];
+			x = x * 30.0;
+			x = x + this.padding*2;
 			y = (this.height-this.padding) - ((this.height-this.padding*2)/this.highestY)*this.data[i][1];
 			
 			this.dataContext.moveTo(x, y);
 			this.dataContext.arc(x, y, 2, 0, (2*Math.PI), false);
+			
+			document.getElementById("pointValues").innerHTML = "x: " + this.data[i][0] + "<br />";
+			document.getElementById("pointValues").innerHTML += "y: " + this.data[i][1] + "<br /><br />";
+			document.getElementById("pointValues").innerHTML += "X: " + x + "<br />";
+			document.getElementById("pointValues").innerHTML += "Y: " + y;
 		}
 		
 		// Fill in the data points
@@ -195,7 +204,7 @@ function Scatterplot(id1, id2)
 		// Make sure we clear the existing data!
 		this.data = new Array();
 		
-		for(var i = 6; i < points.length-1; i++)
+		for(var i = 6; i < points.length; i++)
 		{
 			point = parseFloat(points[i]); // we need to convert the String to a float!
 			this.data.push([point, (lowestY+i-6)]);
@@ -206,27 +215,22 @@ function Scatterplot(id1, id2)
 		}
 		
 		// Find our highest values and add ~5% to them (for padding)
-		this.highestX = parseInt(highestX+highestX*0.05+1);
-		this.highestY = parseInt(highestY+highestY*0.05+1);
+		this.highestX = parseInt(highestX+(highestX+Math.abs(lowestX))*0.05);
+		//this.highestY = parseInt(highestY+highestY*0.05+1);
+		this.highestY = parseInt(highestY+(highestY+Math.abs(lowestY))*0.05);
 		// Here we want to make sure they're multiples of 5
-		this.highestX = this.highestX+(5-parseInt(this.highestX%5));
-		this.highestY = this.highestY+(5-parseInt(this.highestY%5));
-		// And here we check to see if we must make our number negative
-		if(highestX < 0) this.highestX *= -1;
-		if(highestY < 0) this.highestY *= -1;
+		while(this.highestX % 5 != 0) this.highestX++;
+		while(this.highestY % 5 != 0) this.highestY++;
 		
 		// Find our lowest values and add ~5% to them (for padding)
-		this.lowestX = parseInt(Math.abs(lowestX)-Math.abs(lowestX)*0.05-1);
-		this.lowestY = lowestY-(Math.abs(lowestY)+parseInt(Math.abs(lowestY)*0.05+1));
+		this.lowestX = parseInt(lowestX-(highestX+Math.abs(lowestX))*0.05);
+		this.lowestY = parseInt(lowestY-(highestY+Math.abs(lowestY))*0.05);
 		// Here we want to make sure they're multiples of 5
-		this.lowestX = this.lowestX+(5-parseInt(this.lowestX%5));
-		//this.lowestY = this.lowestY+(5-parseInt(this.lowestY%5));
-		// And here we check to see if we must make our number negative
-		if(lowestX <= 0) this.lowestX *= -1;
-		if(lowestY <= 0) this.lowestY *= -1;
+		while(this.lowestX % 5 != 0) this.lowestX--;
+		while(this.lowestY % 5 != 0) this.lowestY--;
 		
 		document.getElementById("dataMetrics").innerHTML = "Lowest Y: " + lowestY + " (" + this.lowestY + ")<br />";
-		document.getElementById("dataMetrics").innerHTML += "Highest Y: " + highestY + "<br /><br />";
+		document.getElementById("dataMetrics").innerHTML += "Highest Y: " + highestY + " (" + this.highestY + ")<br /><br />";
 		document.getElementById("dataMetrics").innerHTML += "Lowest X: " + lowestX + " (" + this.lowestX + ")<br />";
 		document.getElementById("dataMetrics").innerHTML += "Highest X: " + highestX + " (" + this.highestX + ")";
 		

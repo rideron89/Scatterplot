@@ -1,0 +1,98 @@
+#mainBox
+{
+	width: 90%;
+	
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#midPane
+{
+	display: box;
+		box-orient: horizontal;
+		box-pack: start;
+		box-align: start;
+
+	display: -moz-box;
+		-moz-box: horizontal;
+		-moz-box-pack: start;
+		-moz-box-align: start;
+
+	display: -webkit-box;
+		-webkit-box-orient: horizontal;
+		-webkit-box-pack: start;
+		-webkit-box-align: start;
+}
+
+#leftSettings
+{
+	text-align: center;
+}
+
+#canvasDiv
+{
+	position: relative;
+	margin-left: 50px;
+	
+	width: 640px;
+}
+
+#canvasTitle
+{
+	position: absolute;
+	z-index: 3;
+	
+	left: 25%;
+	
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+#yAxisTitle
+{
+	position: absolute;
+	z-index: 3;
+	top: 175px;
+	left: -30px;
+	
+	-moz-transform: rotate(270deg);
+	-moz-transform-origin: 50% 50%;
+	-webkit-transform: rotate(270deg);
+	-webkit-transform-origin: 50% 50%;
+}
+
+#xAxisTitle
+{
+	position: absolute;
+	z-index: 3;
+	left: 275px;
+	top: 350px;
+}
+
+#bottomPane
+{
+	margin-left: auto;
+	margin-right: auto;
+	
+	text-align: center;
+}
+
+#dataTime, #dataGraphed, #dataMetrics
+{
+	margin-bottom: 9px;
+	padding-bottom: 9px;
+	
+	border-bottom: 1px solid #888888;
+}
+
+#scatterplot
+{
+	position: absolute;
+	z-index: 1;
+}
+
+#scatterPlots
+{
+	position: absolute;
+	z-index: 2;
+}

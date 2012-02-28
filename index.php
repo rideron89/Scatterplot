@@ -71,7 +71,7 @@
 					<div id="rangeDiv">
 						Graph Time (Seconds)<br />
 						<span id="rangeLow"></span>
-						<input id="timeRange" type="range" min ="64665" max="73901" step="100" value="67165" onchange="updateRange()" />
+						<input id="timeRange" type="range" min ="64665" max="73901" step="100" value="64665" onchange="updateRange()" />
 						<span id="rangeHigh"></span><br />
 						<span id="rangeCurrent"></span>
 					</div>
@@ -82,6 +82,7 @@
 						<div id="dataLoaded"></div>
 						<div id="dataGraphed"></div>
 						<div id="dataMetrics"></div>
+						<div id="pointValues"></div>
 					</div>
 				</div>
 				

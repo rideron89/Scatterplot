@@ -144,23 +144,41 @@ function Scatterplot(id1, id2)
 		var start = new Date();
 		
 		// Read all the data points and draw them
-		for(var i = 5; i < 6; i++)
+		for(var i = 0; i < this.data.length; i++)
 		{
+			/* Find the X-coordinate's location on the graph. */
+			
+			// find the width of the graph (minus padding)
 			x = this.width - (this.padding * 2);
+			
+			// find the number of pixels between each coordinate
 			if(this.lowestX < 0) x = x / (this.highestX + Math.abs(this.lowestX));
 			else x = x / (this.highestX - this.lowestX);
+			
+			// locate the x-coordinate's location on the graph
 			x = x * (this.data[i][0] - this.lowestX) + this.padding;
 			
-			y = (this.height-this.padding) - ((this.height-this.padding*2)/this.highestY)*this.data[i][1];
+			/* Find the Y-coordinate's location on the graph. */
 			
+			// find the height of the graph (minus padding)
+			y = this.height - (this.padding * 2);
+			
+			// find the number of pixels between each coordinate
+			if(this.lowestY < 0) y = y / (this.highestY + Math.abs(this.lowestY));
+			else y = y / (this.highestY - this.lowestY);
+			
+			// locate the y-coordinate's location on the graph
+			y = this.height - (y * (this.data[i][1] - this.lowestY)) - this.padding;
+			
+			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);
 			this.dataContext.arc(x, y, 2, 0, (2*Math.PI), false);
 			
-			document.getElementById("pointValues").innerHTML = "Max+Min: " + (this.highestX+Math.abs(this.lowestX)) + "<br />";
+			/*document.getElementById("pointValues").innerHTML = "Max+Min: " + (this.highestX+Math.abs(this.lowestX)) + "<br />";
 			document.getElementById("pointValues").innerHTML += "x: " + this.data[i][0] + "<br />";
 			document.getElementById("pointValues").innerHTML += "y: " + this.data[i][1] + "<br /><br />";
 			document.getElementById("pointValues").innerHTML += "X: " + x + "<br />";
-			document.getElementById("pointValues").innerHTML += "Y: " + y;
+			document.getElementById("pointValues").innerHTML += "Y: " + y;*/
 		}
 		
 		// Fill in the data points

@@ -146,18 +146,18 @@ function Scatterplot(id1, id2)
 		// Read all the data points and draw them
 		for(var i = 5; i < 6; i++)
 		{
-			x = this.width;
-			x = x - this.padding*2;
-			if(this.lowestX < 0) x = x / (this.highestX+Math.abs(this.lowestX));
-			else	x = x / (this.highestX-this.lowestX);
-			x = x * 5;
-			x = x + this.padding;
+			x = this.width - (this.padding * 2);
+			if(this.lowestX < 0) x = x / (this.highestX + Math.abs(this.lowestX));
+			else x = x / (this.highestX - this.lowestX);
+			x = x * (this.data[i][0] - this.lowestX) + this.padding;
+			
 			y = (this.height-this.padding) - ((this.height-this.padding*2)/this.highestY)*this.data[i][1];
 			
 			this.dataContext.moveTo(x, y);
 			this.dataContext.arc(x, y, 2, 0, (2*Math.PI), false);
 			
-			document.getElementById("pointValues").innerHTML = "x: " + this.data[i][0] + "<br />";
+			document.getElementById("pointValues").innerHTML = "Max+Min: " + (this.highestX+Math.abs(this.lowestX)) + "<br />";
+			document.getElementById("pointValues").innerHTML += "x: " + this.data[i][0] + "<br />";
 			document.getElementById("pointValues").innerHTML += "y: " + this.data[i][1] + "<br /><br />";
 			document.getElementById("pointValues").innerHTML += "X: " + x + "<br />";
 			document.getElementById("pointValues").innerHTML += "Y: " + y;
@@ -228,8 +228,6 @@ function Scatterplot(id1, id2)
 		// Here we want to make sure they're multiples of 5
 		while(this.lowestX % 5 != 0) this.lowestX--;
 		while(this.lowestY % 5 != 0) this.lowestY--;
-		
-		this.lowestX = 0;
 		
 		document.getElementById("dataMetrics").innerHTML = "Lowest Y: " + lowestY + " (" + this.lowestY + ")<br />";
 		document.getElementById("dataMetrics").innerHTML += "Highest Y: " + highestY + " (" + this.highestY + ")<br /><br />";

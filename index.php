@@ -9,9 +9,9 @@
 		<title>
 			Scatterplot
 		</title>
-		<link href="/styles/general.css" rel="stylesheet" type="text/css" />
-		<link href="/styles/communityBarStyle.css" rel="stylesheet" type="text/css" />
-		<link href="/styles/scatter.css" rel="stylesheet" type="text/css" />
+		<!--<link href="/styles/general.css" rel="stylesheet" type="text/css" />
+		<link href="/styles/communityBarStyle.css" rel="stylesheet" type="text/css" />-->
+		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
 		<script src="javascript/scatter.js"></script>
 		<script>
 			var graph = new Scatterplot("scatterplot", "scatterPlots");

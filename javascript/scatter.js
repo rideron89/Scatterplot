@@ -173,12 +173,6 @@ function Scatterplot(id1, id2)
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);
 			this.dataContext.arc(x, y, 2, 0, (2*Math.PI), false);
-			
-			/*document.getElementById("pointValues").innerHTML = "Max+Min: " + (this.highestX+Math.abs(this.lowestX)) + "<br />";
-			document.getElementById("pointValues").innerHTML += "x: " + this.data[i][0] + "<br />";
-			document.getElementById("pointValues").innerHTML += "y: " + this.data[i][1] + "<br /><br />";
-			document.getElementById("pointValues").innerHTML += "X: " + x + "<br />";
-			document.getElementById("pointValues").innerHTML += "Y: " + y;*/
 		}
 		
 		// Fill in the data points
@@ -246,11 +240,6 @@ function Scatterplot(id1, id2)
 		// Here we want to make sure they're multiples of 5
 		while(this.lowestX % 5 != 0) this.lowestX--;
 		while(this.lowestY % 5 != 0) this.lowestY--;
-		
-		document.getElementById("dataMetrics").innerHTML = "Lowest Y: " + lowestY + " (" + this.lowestY + ")<br />";
-		document.getElementById("dataMetrics").innerHTML += "Highest Y: " + highestY + " (" + this.highestY + ")<br /><br />";
-		document.getElementById("dataMetrics").innerHTML += "Lowest X: " + lowestX + " (" + this.lowestX + ")<br />";
-		document.getElementById("dataMetrics").innerHTML += "Highest X: " + highestX + " (" + this.highestX + ")";
 		
 		// Remove the temporarily stored data
 		document.getElementById("data").innerHTML = "";

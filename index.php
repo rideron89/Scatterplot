@@ -81,8 +81,6 @@
 						<div id="dataTime"></div>
 						<div id="dataLoaded"></div>
 						<div id="dataGraphed"></div>
-						<div id="dataMetrics"></div>
-						<div id="pointValues"></div>
 					</div>
 				</div>
 				

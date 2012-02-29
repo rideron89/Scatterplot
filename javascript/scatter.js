@@ -148,8 +148,9 @@ function Scatterplot(id1, id2)
 		{
 			x = this.width;
 			x = x - this.padding*2;
-			x = x / this.highestX;
-			x = x * 3;
+			if(this.lowestX < 0) x = x / (this.highestX+Math.abs(this.lowestX));
+			else	x = x / (this.highestX-this.lowestX);
+			x = x * 5;
 			x = x + this.padding;
 			y = (this.height-this.padding) - ((this.height-this.padding*2)/this.highestY)*this.data[i][1];
 			

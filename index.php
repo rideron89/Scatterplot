@@ -1,16 +1,9 @@
-<?php
-	//include_once($_SERVER["DOCUMENT_ROOT"] . "/php/login.php");
-	
-	//do_login();
-?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>
 			Scatterplot
 		</title>
-		<!--<link href="/styles/general.css" rel="stylesheet" type="text/css" />
-		<link href="/styles/communityBarStyle.css" rel="stylesheet" type="text/css" />-->
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
 		<script src="javascript/scatter.js"></script>
 		<script>
@@ -23,8 +16,8 @@
 				if(document.getElementById("graphDataList").value.indexOf("scat") != -1)
 				{
 					document.getElementById("canvasTitle").innerHTML = "Polarized Imaging Nephelometer";
-					document.getElementById("yAxisTitle").innerHTML = "Degrees";
-					document.getElementById("xAxisTitle").innerHTML = "X-Axis";
+					document.getElementById("xAxisTitle").innerHTML = "P11 or Phase Function [degrees]";
+					document.getElementById("yAxisTitle").innerHTML = "Y-Axis";
 					document.getElementById("rangeDiv").style.display = "block";
 					graph.doScatter(document.getElementById("timeRange").value);
 				}
@@ -43,19 +36,37 @@
 				go();
 				document.getElementById("rangeCurrent").innerHTML = document.getElementById("timeRange").value;
 			}
+			
+			/*
+			 * decrement()
+			 * 
+			 * Decrement the Time range's value by it's 'step'.
+			 */
+			function decrement()
+			{
+				var range = document.getElementById("timeRange");
+				
+				range.value = parseInt(range.value) - parseInt(range.step);
+				
+				updateRange();
+			}
+			
+			/*
+			 * increment()
+			 * 
+			 * Increment the Time range's value by it's 'step'.
+			 */
+			function increment()
+			{
+				var range = document.getElementById("timeRange");
+				
+				range.value = parseInt(range.value) + parseInt(range.step);
+				
+				updateRange();
+			}
 		</script>
 	</head>
 	<body onload="updateRange()">
-		<div id="communityBar">
-			<?php
-				//include($_SERVER["DOCUMENT_ROOT"] . "/php/communityBar.php");
-			?>
-		</div>
-		
-		<div id="headerBox">
-			<div id="logoText"></div>
-		</div>
-		
 		<div id="mainBox">
 			<div id="topPane">
 			</div>
@@ -70,9 +81,9 @@
 					<br /><br />
 					<div id="rangeDiv">
 						Graph Time (Seconds)<br />
-						<span id="rangeLow"></span>
-						<input id="timeRange" type="range" min ="64665" max="73901" step="100" value="64665" onchange="updateRange()" />
-						<span id="rangeHigh"></span><br />
+						<input id="timeMinus" type="button" value="-" onclick="decrement()" />
+						<input id="timeRange" type="range" min ="64665" max="73901" step="30" value="64665" onchange="updateRange()" />
+						<input id="timePlus" type="button" value="+" onclick="increment()" /><br />
 						<span id="rangeCurrent"></span>
 					</div>
 					<br /><br />

@@ -58,14 +58,29 @@ function Scatterplot(id1, id2)
 		// Add x-axis dividers
 		for(var i = 0; i <= this.xDividers; i++)
 		{
-			x = ((this.width-this.padding*2)/this.xDividers*i+this.padding);
-			text = this.lowestX+((this.highestX+Math.abs(this.lowestX))/this.xDividers*i);
+			x = this.width - (this.padding * 2);
+			
+			if(this.lowestX < 0) x = x / (this.highestX + Math.abs(this.lowestX));
+			else x = x / (this.highestX - this.lowestX);
+			
+			x = x * (Math.pow(10, i));
+			
+			x = x + this.padding;
+			
+			text = Math.pow(10, i);
+			
+			
+			//x = ((this.width-this.padding*2)/this.xDividers*i+this.padding);
+			//text = this.lowestX+((this.highestX+Math.abs(this.lowestX))/this.xDividers*i);
 
 			this.context.globalAlpha = this.alphaHigh;
 			this.context.moveTo(x, (this.height-this.padding-5));
 			this.context.lineTo(x, (this.height-this.padding+5));
 
-			this.context.fillText(text, (x-(this.context.measureText(text).width/2)), (this.height-this.padding+20));
+			if((i % 2) != 0)
+				this.context.fillText(text, (x-(this.context.measureText(text).width/2)), (this.height-this.padding+20));
+			else
+				this.context.fillText(text, (x-(this.context.measureText(text).width/2)), (this.height-this.padding+30));
 			
 			this.context.globalAlpha = this.alphaLow;
 			this.context.lineTo(x, this.padding);
@@ -226,19 +241,33 @@ function Scatterplot(id1, id2)
 				lowestX = point;
 		}
 		
+		this.highestX = lowestX;
+		this.lowestX = 0;
+		
+		// Find the highest log scale form of X
+		for(i = 0; this.highestX < highestX; i++)
+		{
+			this.highestX = Math.pow(10, i);
+		}
+		
+		this.xDividers = i-1;
+		
+		// Find the lowest log scale form of Y
+		for(i = 0; this.lowestX > lowestX; i++)
+		{
+			this.lowestX = -1 * Math.pow(10, i);
+		}
+		
 		// Find our highest values and add ~5% to them (for padding)
-		this.highestX = parseInt(highestX+(highestX+Math.abs(lowestX))*0.05);
-		//this.highestY = parseInt(highestY+highestY*0.05+1);
 		this.highestY = parseInt(highestY+(highestY+Math.abs(lowestY))*0.05);
 		// Here we want to make sure they're multiples of 5
-		while(this.highestX % 5 != 0) this.highestX++;
 		while(this.highestY % 5 != 0) this.highestY++;
 		
 		// Find our lowest values and add ~5% to them (for padding)
-		this.lowestX = parseInt(lowestX-(highestX+Math.abs(lowestX))*0.05);
+		//this.lowestX = parseInt(lowestX-(highestX+Math.abs(lowestX))*0.05);
 		this.lowestY = parseInt(lowestY-(highestY+Math.abs(lowestY))*0.05);
 		// Here we want to make sure they're multiples of 5
-		while(this.lowestX % 5 != 0) this.lowestX--;
+		//while(this.lowestX % 5 != 0) this.lowestX--;
 		while(this.lowestY % 5 != 0) this.lowestY--;
 		
 		// Remove the temporarily stored data
@@ -323,7 +352,7 @@ function Scatterplot(id1, id2)
 		
 		this.prepareScatterData();
 		
-		document.getElementById("dataTime").innerHTML = "<b>" + this.data.length + "</b> data entries read";
+		document.getElementById("dataTime").innerHTML = "<b>" + this.data.length + "</b> data points read";
 		document.getElementById("dataLoaded").innerHTML = "Loaded in " + (end.getTime()-start.getTime())/100 + " seconds";
 	};
 	

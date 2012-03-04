@@ -30,9 +30,9 @@ function Scatterplot(id1, id2)
 	
 	// Color values
 	this.color1 = "black";
-	this.color2 = "purple";
+	this.color2 = "#0fb4e7";
 	this.alphaHigh = 1.0;
-	this.alphaLow = 0.1;
+	this.alphaLow = 0.2;
 	
 	this.clear = function()
 	{
@@ -54,52 +54,46 @@ function Scatterplot(id1, id2)
 		this.context.strokeStyle = this.color1;
 		this.context.font = "bold 7pt sans-serif";
 		this.context.lineWidth = 1;
-
-		// Add x-axis dividers
-		for(var i = 0; i <= this.xDividers; i++)
-		{
-			x = this.width - (this.padding * 2);
-			
-			if(this.lowestX < 0) x = x / (this.highestX + Math.abs(this.lowestX));
-			else x = x / (this.highestX - this.lowestX);
-			
-			x = x * (Math.pow(10, i));
-			
-			x = x + this.padding;
-			
-			text = Math.pow(10, i);
-			
-			
-			//x = ((this.width-this.padding*2)/this.xDividers*i+this.padding);
-			//text = this.lowestX+((this.highestX+Math.abs(this.lowestX))/this.xDividers*i);
-
-			this.context.globalAlpha = this.alphaHigh;
-			this.context.moveTo(x, (this.height-this.padding-5));
-			this.context.lineTo(x, (this.height-this.padding+5));
-
-			if((i % 2) != 0)
-				this.context.fillText(text, (x-(this.context.measureText(text).width/2)), (this.height-this.padding+20));
-			else
-				this.context.fillText(text, (x-(this.context.measureText(text).width/2)), (this.height-this.padding+30));
-			
-			this.context.globalAlpha = this.alphaLow;
-			this.context.lineTo(x, this.padding);
-		}
-
+		
 		// Add y-axis dividers
-		for(i = 0; i <= this.yDividers; i++)
+		for(var i = 0; i <= this.yDividers; i++)
 		{
-			y = this.padding+(((this.height-this.padding*2)/this.yDividers)*(this.yDividers-i));
-			text = parseInt(this.lowestY+((this.highestY+Math.abs(this.lowestY))/this.yDividers*i));
-
+			y = this.height - (this.padding * 2); // find the height of just the graph space
+			y = y / this.yDividers * i; // find the pixel-count of a divider
+			y = y + this.padding; // add initial (top) padding to the Y value
+			
+			// Because 0 is at the top-left, we must start from the highest Y
+			text = Math.pow(10, (this.yDividers-i-1));
+			
+			// Place the Y value next to it's divider
 			this.context.globalAlpha = this.alphaHigh;
-			this.context.moveTo((this.padding+5), y);
-			this.context.lineTo((this.padding-5), y);
-
 			this.context.fillText(text, (this.padding-this.context.measureText(text).width-10), (y+3));
 			
+			// Place transparent gridlines
 			this.context.globalAlpha = this.alphaLow;
+			this.context.moveTo((this.padding-5), y);
 			this.context.lineTo((this.width-this.padding), y);
+		}
+		
+		// Add x-axis dividers
+		for(i = 0; i <= this.xDividers; i++)
+		{
+			x = this.width - (this.padding * 2); // find the width of just the graph space
+			x = x / this.xDividers * i; // find the pixel-count of a divider
+			x = x + this.padding; // add initial (left) padding to the X value
+			
+			text = this.highestX + Math.abs(this.lowestX);
+			text = text / this.xDividers * i;
+			text = parseInt(this.lowestX + text);
+			
+			// Place the X value next to it's divider
+			this.context.globalAlpha = this.alphaHigh;
+			this.context.fillText(text, (x-this.context.measureText(text).width/2), (this.height-this.padding+20));
+			
+			// Place transparent gridlines
+			this.context.globalAlpha = this.alphaLow;
+			this.context.moveTo(x, (this.height-this.padding+5));
+			this.context.lineTo(x, this.padding);
 		}
 		
 		this.context.fill();
@@ -151,6 +145,8 @@ function Scatterplot(id1, id2)
 	{
 		var x = 0.0;
 		var y = 0.0;
+		var temp = 0.0;
+		var yTotal = 0.0;
 		
 		this.dataContext.strokeStyle = this.color2;
 		this.dataContext.fillStyle = this.color2;
@@ -159,35 +155,51 @@ function Scatterplot(id1, id2)
 		var start = new Date();
 		
 		// Read all the data points and draw them
-		for(var i = 0; i < this.data.length; i++)
+		//for(var i = 0; i < this.data.length; i++)
+		for(var i = 0; i < 1; i++)
 		{
 			/* Find the X-coordinate's location on the graph. */
+			x = this.width - (this.padding * 2); // find the width of just the graph space
+			x = x / (this.highestX - this.lowestX); // find the pixel-count of each coordinate
+			x = x * (this.data[i][0] - this.lowestX) + this.padding; // locate the x-coordinate's location
 			
-			// find the width of the graph (minus padding)
-			x = this.width - (this.padding * 2);
+			// TEMPORARY - REMOVE!!!
+			this.data[i][1] = 2;
 			
-			// find the number of pixels between each coordinate
-			if(this.lowestX < 0) x = x / (this.highestX + Math.abs(this.lowestX));
-			else x = x / (this.highestX - this.lowestX);
-			
-			// locate the x-coordinate's location on the graph
-			x = x * (this.data[i][0] - this.lowestX) + this.padding;
+			temp = this.height - (this.padding * 2);
+			temp = temp / (this.highestX - this.lowestX);
 			
 			/* Find the Y-coordinate's location on the graph. */
+			for(var j = 0; y < this.data[i][1]; j++)
+			{
+				yTotal += (Math.pow(10, j-1), Math.pow(10, j)) * temp;
+				y = Math.pow(10, j);
+			}
+			
+			temp = yTotal + (this.data[i][1] * temp);
+			temp = temp + this.padding;
+			
+			//temp = this.data[i][1] / temp;
 			
 			// find the height of the graph (minus padding)
-			y = this.height - (this.padding * 2);
+			/*y = this.height - (this.padding * 2);
 			
 			// find the number of pixels between each coordinate
 			if(this.lowestY < 0) y = y / (this.highestY + Math.abs(this.lowestY));
 			else y = y / (this.highestY - this.lowestY);
 			
 			// locate the y-coordinate's location on the graph
-			y = this.height - (y * (this.data[i][1] - this.lowestY)) - this.padding;
+			y = this.height - (y * (this.data[i][1] - this.lowestY)) - this.padding;*/
 			
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);
 			this.dataContext.arc(x, y, 2, 0, (2*Math.PI), false);
+			
+			// Print out some data metrics (X and Y values)
+			document.getElementById("dataMetrics").innerHTML += "<br />(" + this.data[i][0] + ", " + this.data[i][1] + ")";
+			document.getElementById("dataMetrics").innerHTML += "<br />X: " + x;
+			document.getElementById("dataMetrics").innerHTML += "<br />Y: " + y;
+			document.getElementById("dataMetrics").innerHTML += "<br /><br />temp: " + temp;
 		}
 		
 		// Fill in the data points
@@ -218,60 +230,68 @@ function Scatterplot(id1, id2)
 	this.prepareScatterData = function()
 	{
 		var points = new Array();
-		var point = 0.0;
+		var y = 0.0;
+		var lowestX = 2; // As of now, our lowest X-value will be 2
 		var highestX = 0.0;
+		var lowestY = 0.0;
 		var highestY = 0.0;
-		var lowestX = 0.0;
-		var lowestY = 2;
 		
-		points = document.getElementById("data").innerHTML.split(",");
-		lowestX = parseFloat(points[3]);
-		highestY = points.length-6;
+		points = document.getElementById("data").innerHTML.split(","); // break-up the y-values
+		highestX = points.length-6; // make the highest X-value the number of actual values we have
+		lowestY = parseFloat(points[6]); // pick the first number we find to be our lowest Y-value
 		
 		// Make sure we clear the existing data!
 		this.data = new Array();
 		
+		/* Formulate the data points into an array. */
 		for(var i = 6; i < points.length; i++)
 		{
-			point = parseFloat(points[i]); // we need to convert the String to a float!
-			this.data.push([point, (lowestY+i-6)]);
-			if(point > highestX) // find the highest X value
-				highestX = point;
-			if(point < lowestX) // find the lowest X value
-				lowestX = point;
+			y = parseFloat(points[i]); // we need to convert the String to a float!
+			this.data.push([(lowestX+i-6), y]); // add the data points to the array
+			
+			if(y > highestY) // find the highest Y value
+				highestY = y;
+			if(y < lowestY) // find the lowest Y value
+				lowestY = y;
 		}
 		
-		this.highestX = lowestX;
-		this.lowestX = 0;
+		// Initialize some low/high values
+		this.highestY = lowestY;
+		this.lowestY = 0;
 		
-		// Find the highest log scale form of X
-		for(i = 0; this.highestX < highestX; i++)
+		/* Find the highest log scale form of Y. */
+		for(i = 0; this.highestY < highestY; i++)
 		{
-			this.highestX = Math.pow(10, i);
+			this.highestY = Math.pow(10, i);
 		}
 		
-		this.xDividers = i-1;
+		// We might have used (i-1), but we want to include the lowest (0.1)
+		this.yDividers = i;
 		
 		// Find the lowest log scale form of Y
-		for(i = 0; this.lowestX > lowestX; i++)
+		for(i = 0; this.lowestY > lowestX; i++)
 		{
-			this.lowestX = -1 * Math.pow(10, i);
+			this.lowestY = -1 * Math.pow(10, i);
 		}
 		
 		// Find our highest values and add ~5% to them (for padding)
-		this.highestY = parseInt(highestY+(highestY+Math.abs(lowestY))*0.05);
+		this.highestX = parseInt(highestX+(highestY+Math.abs(lowestX))*0.05);
 		// Here we want to make sure they're multiples of 5
-		while(this.highestY % 5 != 0) this.highestY++;
+		while(this.highestX % 5 != 0) this.highestX++;
 		
 		// Find our lowest values and add ~5% to them (for padding)
-		//this.lowestX = parseInt(lowestX-(highestX+Math.abs(lowestX))*0.05);
-		this.lowestY = parseInt(lowestY-(highestY+Math.abs(lowestY))*0.05);
+		this.lowestX = parseInt(lowestX-(highestX+Math.abs(lowestX))*0.05);
 		// Here we want to make sure they're multiples of 5
-		//while(this.lowestX % 5 != 0) this.lowestX--;
-		while(this.lowestY % 5 != 0) this.lowestY--;
+		while(this.lowestX % 5 != 0) this.lowestX--;
 		
 		// Remove the temporarily stored data
 		document.getElementById("data").innerHTML = "";
+		
+		// Keep track of some metrics stuff
+		document.getElementById("dataMetrics").innerHTML = "Lowest X: " + lowestX;
+		document.getElementById("dataMetrics").innerHTML += "<br />Highest X: " + highestX;
+		document.getElementById("dataMetrics").innerHTML += "<br /><br />Lowest Y: " + lowestY;
+		document.getElementById("dataMetrics").innerHTML += "<br />Highest Y: " + highestY;
 	};
 	
 	/*

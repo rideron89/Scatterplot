@@ -74,7 +74,7 @@
 			<div id="midPane">
 				<!-- Settings on left-hand side of screen -->
 				<div id="leftSettings">
-					<select id="graphDataList" class="ui-widget ui-widget-text" type="select" title="Please note redrawing the graph may take time." onchange="go()">
+					<select id="graphDataList" class="ui-widget ui-widget-text" title="Please note redrawing the graph may take time." onchange="go()">
 						<option value="scat.txt">Scat  Data</option>
 						<option value="data.txt">Other Data</option>
 					</select>
@@ -92,6 +92,7 @@
 						<div id="dataTime"></div>
 						<div id="dataLoaded"></div>
 						<div id="dataGraphed"></div>
+						<div id="dataMetrics"></div>
 					</div>
 				</div>
 				

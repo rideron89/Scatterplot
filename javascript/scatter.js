@@ -146,7 +146,6 @@ function Scatterplot(id1, id2)
 		var x = 0.0;
 		var y = 0.0;
 		var temp = 0.0;
-		var yTotal = 0.0;
 		
 		this.dataContext.strokeStyle = this.color2;
 		this.dataContext.fillStyle = this.color2;
@@ -164,32 +163,28 @@ function Scatterplot(id1, id2)
 			x = x * (this.data[i][0] - this.lowestX) + this.padding; // locate the x-coordinate's location
 			
 			// TEMPORARY - REMOVE!!!
-			this.data[i][1] = 2;
-			
-			temp = this.height - (this.padding * 2);
-			temp = temp / (this.highestX - this.lowestX);
+			this.data[i][1] = 12;
 			
 			/* Find the Y-coordinate's location on the graph. */
-			for(var j = 0; y < this.data[i][1]; j++)
+			for(var j = 0; y <= this.data[i][1]; j++)
 			{
-				yTotal += (Math.pow(10, j-1), Math.pow(10, j)) * temp;
 				y = Math.pow(10, j);
 			}
 			
-			temp = yTotal + (this.data[i][1] * temp);
-			temp = temp + this.padding;
+			/*
+			 * Math.pow(10, j) == this.highestX * 10
+			 */
 			
-			//temp = this.data[i][1] / temp;
+			y = this.height - (this.padding * 2); // find the height of the graph space
+			y = y / this.yDividers * (this.yDividers - j + 1); // find the pixel-count for each divider
+			y = y + this.padding; // add initial (top) padding
 			
-			// find the height of the graph (minus padding)
-			/*y = this.height - (this.padding * 2);
+			temp = this.height - (this.padding * 2); // find the height of the graph space
+			temp = temp / (Math.pow(10, (j-1)) / Math.pow(10, (j-2))); // find the pixel-count of just the section we need
+			temp = temp / this.yDividers; // we need to scale down the pixel-count of our section
+			temp = temp * (this.data[i][1] - Math.pow(10, (j-3)));
 			
-			// find the number of pixels between each coordinate
-			if(this.lowestY < 0) y = y / (this.highestY + Math.abs(this.lowestY));
-			else y = y / (this.highestY - this.lowestY);
-			
-			// locate the y-coordinate's location on the graph
-			y = this.height - (y * (this.data[i][1] - this.lowestY)) - this.padding;*/
+			y = y - temp;
 			
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);

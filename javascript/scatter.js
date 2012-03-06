@@ -163,28 +163,22 @@ function Scatterplot(id1, id2)
 			x = x * (this.data[i][0] - this.lowestX) + this.padding; // locate the x-coordinate's location
 			
 			// TEMPORARY - REMOVE!!!
-			this.data[i][1] = 12;
+			this.data[i][1] = 11;
 			
-			/* Find the Y-coordinate's location on the graph. */
-			for(var j = 0; y <= this.data[i][1]; j++)
-			{
+			for(var j = 0; y < this.data[i][1]; j++)
 				y = Math.pow(10, j);
-			}
 			
-			/*
-			 * Math.pow(10, j) == this.highestX * 10
-			 */
+			y = this.height - (this.padding * 2);
+			y = y / this.yDividers * ((this.yDividers + 1) - (j + 1));
+			y = y + this.padding;
 			
-			y = this.height - (this.padding * 2); // find the height of the graph space
-			y = y / this.yDividers * (this.yDividers - j + 1); // find the pixel-count for each divider
-			y = y + this.padding; // add initial (top) padding
+			temp = this.height - (this.padding * 2);
+			temp = temp / (this.yDividers + 1);
+			//temp = temp / (Math.pow(10, j) / Math.pow(10, j-1));
+			temp = temp / (Math.pow(10, j-1) / Math.pow(10, j) * 100);
 			
-			temp = this.height - (this.padding * 2); // find the height of the graph space
-			temp = temp / (Math.pow(10, (j-1)) / Math.pow(10, (j-2))); // find the pixel-count of just the section we need
-			temp = temp / this.yDividers; // we need to scale down the pixel-count of our section
-			temp = temp * (this.data[i][1] - Math.pow(10, (j-3)));
-			
-			y = y - temp;
+			//y = y + ((Math.pow(10, j-1) - this.data[i][1]) * temp);
+			y = y + (this.data[i][1] / Math.pow(10, j) * 100);
 			
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);
@@ -195,6 +189,7 @@ function Scatterplot(id1, id2)
 			document.getElementById("dataMetrics").innerHTML += "<br />X: " + x;
 			document.getElementById("dataMetrics").innerHTML += "<br />Y: " + y;
 			document.getElementById("dataMetrics").innerHTML += "<br /><br />temp: " + temp;
+			document.getElementById("dataMetrics").innerHTML += "<br />j: " + j;
 		}
 		
 		// Fill in the data points

@@ -163,22 +163,20 @@ function Scatterplot(id1, id2)
 			x = x * (this.data[i][0] - this.lowestX) + this.padding; // locate the x-coordinate's location
 			
 			// TEMPORARY - REMOVE!!!
-			this.data[i][1] = 11;
+			this.data[i][1] = 10;
 			
 			for(var j = 0; y < this.data[i][1]; j++)
 				y = Math.pow(10, j);
 			
 			y = this.height - (this.padding * 2);
-			y = y / this.yDividers * ((this.yDividers + 1) - (j + 1));
+			y = y / this.yDividers * ((this.yDividers + 1) - (j));
 			y = y + this.padding;
 			
 			temp = this.height - (this.padding * 2);
 			temp = temp / (this.yDividers + 1);
-			//temp = temp / (Math.pow(10, j) / Math.pow(10, j-1));
 			temp = temp / (Math.pow(10, j-1) / Math.pow(10, j) * 100);
 			
-			//y = y + ((Math.pow(10, j-1) - this.data[i][1]) * temp);
-			y = y + (this.data[i][1] / Math.pow(10, j) * 100);
+			y = y - (temp * this.data[i][1] / Math.pow(10, j-2));
 			
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);

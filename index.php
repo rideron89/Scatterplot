@@ -82,7 +82,7 @@
 					<div id="rangeDiv">
 						Graph Time (Seconds)<br />
 						<input id="timeMinus" type="button" value="-" onclick="decrement()" />
-						<input id="timeRange" type="range" min ="64665" max="73901" step="30" value="64665" onchange="updateRange()" />
+						<input id="timeRange" type="range" min ="64665" max="73901" step="30" value="67395" onchange="updateRange()" />
 						<input id="timePlus" type="button" value="+" onclick="increment()" /><br />
 						<span id="rangeCurrent"></span>
 					</div>

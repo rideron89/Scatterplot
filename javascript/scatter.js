@@ -30,7 +30,7 @@ function Scatterplot(id1, id2)
 	
 	// Color values
 	this.color1 = "black";
-	this.color2 = "#0fb4e7";
+	this.color2 = "red";
 	this.alphaHigh = 1.0;
 	this.alphaLow = 0.2;
 	
@@ -79,30 +79,53 @@ function Scatterplot(id1, id2)
 		
 		for(var j = 0; lowY < Math.abs(this.lowestY); j++)
 		{
-			lowY = Math.pow(10, j);
+			lowY = Math.pow(10, j-1);
 		}
 		
+		// Find the lowest Y value (but don't go above 0)
 		if(this.lowestY <= 0)
 			lowY *= -1;
+		else
+			lowY = 0;
 		
 		document.getElementById("dataMetrics").innerHTML += "<br /><br />j: " + j;
 		document.getElementById("dataMetrics").innerHTML += "<br />lowY: " + lowY;
 		
-		// Add y-axis dividers
+		// Add the positive y-axis dividers
 		for(i = 0; i <= this.yDividers; i++)
 		{
 			y = this.height - (this.padding * 2); // find the height of just the graph space
-			y = y / (this.yDividers + j) * i; // find the pixel-count of a divider
+			y = y / (this.yDividers + j) * i; // find the pixel-count of the divider
 			y = y + this.padding; // add initial (top) padding to the Y value
 			
 			// Because 0 is at the top-left, we must start from the highest Y
-			text = Math.pow(10, (this.yDividers-i-1));
+			if(i == this.yDividers)
+				text = 0;
+			else
+				text = Math.pow(10, (this.yDividers-i-2));
 			
 			// Place the Y value next to it's divider
 			this.context.globalAlpha = this.alphaHigh;
 			this.context.fillText(text, (this.padding-this.context.measureText(text).width-10), (y+3));
 			
 			// Place transparent gridlines
+			this.context.globalAlpha = this.alphaLow;
+			this.context.moveTo((this.padding-5), y);
+			this.context.lineTo((this.width-this.padding), y);
+		}
+		
+		// Add the negative y-axis dividers
+		for(i = 0; i < j; i++)
+		{
+			y = this.height - (this.padding * 2); // find the height of just the graph space
+			y = y / (this.yDividers + j) * i; // find the pixel-count of the divider
+			y = this.height - y - this.padding;
+			
+			text = -1 * Math.pow(10, (j-i-2));
+			
+			this.context.globalAlpha = this.alphaHigh
+			this.context.fillText(text, (this.padding-this.context.measureText(text).width-10), (y+3));
+			
 			this.context.globalAlpha = this.alphaLow;
 			this.context.moveTo((this.padding-5), y);
 			this.context.lineTo((this.width-this.padding), y);
@@ -266,7 +289,8 @@ function Scatterplot(id1, id2)
 		}
 		
 		// We might have used (i-1), but we want to include the lowest (0.1)
-		this.yDividers = i;
+		// We add one because we want to include 0
+		this.yDividers = i+1;
 		
 		// Find the lowest log scale form of Y
 		for(i = 0; this.lowestY > lowestY; i++)

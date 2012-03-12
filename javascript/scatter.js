@@ -319,12 +319,6 @@ function Scatterplot(id1, id2)
 		
 		// Remove the temporarily stored data
 		document.getElementById("data").innerHTML = "";
-		
-		// Keep track of some metrics stuff
-		document.getElementById("dataMetrics").innerHTML = "Lowest X: " + lowestX;
-		document.getElementById("dataMetrics").innerHTML += "<br />Highest X: " + highestX;
-		document.getElementById("dataMetrics").innerHTML += "<br /><br />Lowest Y: " + lowestY;
-		document.getElementById("dataMetrics").innerHTML += "<br />Highest Y: " + highestY;
 	};
 	
 	/*
@@ -390,6 +384,31 @@ function Scatterplot(id1, id2)
 		xmlhttp.open("POST", "php/getData.php", false);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xmlhttp.send("dataFile="+this.dataFile+"&time="+this.dataTime);
+	};
+	
+	this.getTimes = function()
+	{
+		if(window.XMLHttpRequest)
+			xmlhttp = new XMLHttpRequest();
+		else
+			xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+
+		xmlhttp.onreadystatechange = function()
+		{
+			if(xmlhttp.readyState == 4)
+			{
+				var times = xmlhttp.responseText.split(",");
+				
+				var select = document.getElementById("timeSelect");
+				
+				for(var i = 0; i < times.length-1; i++)
+					select.options[select.options.length] = new Option(times[i], times[i]);
+			}
+		};
+
+		xmlhttp.open("POST", "php/getTimes.php", false);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send("dataFile="+this.dataFile);
 	};
 	
 	this.doScatter = function(time)

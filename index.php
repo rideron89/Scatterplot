@@ -9,7 +9,13 @@
 		<script>
 			var graph = new Scatterplot("scatterplot", "scatterPlots");
 			
-			function go()
+			function init()
+			{
+				updateRange();
+				graph.getTimes();
+			}
+			
+			function go(time)
 			{
 				graph.init(document.getElementById("graphDataList").value);
 				
@@ -19,7 +25,7 @@
 					document.getElementById("xAxisTitle").innerHTML = "P11 or Phase Function [degrees]";
 					document.getElementById("yAxisTitle").innerHTML = "Y-Axis";
 					document.getElementById("rangeDiv").style.display = "block";
-					graph.doScatter(document.getElementById("timeRange").value);
+					graph.doScatter(time);
 				}
 				else
 				{
@@ -33,8 +39,13 @@
 			
 			function updateRange()
 			{
-				go();
+				go(document.getElementById("timeRange").value);
 				document.getElementById("rangeCurrent").innerHTML = document.getElementById("timeRange").value;
+			}
+			
+			function updateSelect()
+			{
+				go(document.getElementById("timeSelect").value);
 			}
 			
 			/*
@@ -66,7 +77,7 @@
 			}
 		</script>
 	</head>
-	<body onload="updateRange()">
+	<body onload="init();">
 		<div id="mainBox">
 			<div id="topPane">
 			</div>
@@ -79,13 +90,22 @@
 						<option value="data.txt">Other Data</option>
 					</select>
 					<br /><br />
-					<div id="rangeDiv">
+					<div id="rangeDiv" title="These times are less precise than below.">
 						Graph Time (Seconds)<br />
 						<input id="timeMinus" type="button" value="-" onclick="decrement()" />
 						<input id="timeRange" type="range" min ="64665" max="73901" step="30" value="0" onchange="updateRange()" />
 						<input id="timePlus" type="button" value="+" onclick="increment()" /><br />
 						<span id="rangeCurrent"></span>
 					</div>
+					
+					<br />
+					
+					<div id="timeSelectDiv" title="These times are more precise than above.">
+						Start time (UTC):
+						<select id="timeSelect" onchange="updateSelect()">
+						</select>
+					</div>
+					
 					<br /><br />
 					<div id="loadingIcon"></div>
 					<div id="infoDiv" class="ui-content">
@@ -106,8 +126,8 @@
 			</div>
 			
 			<div id="bottomPane">
-				<div id="data" style="display: none; visibility: hidden;">
-				</div>
+				<div id="data" style="display: none; visibility: hidden;"></div>
+				<div id="times"></div>
 			</div>
 		</div>
 	</body>

@@ -91,9 +91,6 @@ function Scatterplot(id1, id2)
 		else
 			lowY = 0;
 		
-		document.getElementById("dataMetrics").innerHTML += "<br /><br />j: " + j;
-		document.getElementById("dataMetrics").innerHTML += "<br />lowY: " + lowY;
-		
 		// Add the positive y-axis dividers
 		for(i = 0; i <= this.yDividers; i++)
 		{
@@ -193,47 +190,48 @@ function Scatterplot(id1, id2)
 		
 		// Read all the data points and draw them
 		//for(var i = 0; i < this.data.length; i++)
-		for(var i = 0; i < 1; i++)
+		for(var i = 0; i < this.data.length; i++)
 		{
 			/* Find the X-coordinate's location on the graph. */
 			x = this.width - (this.padding * 2); // find the width of just the graph space
 			x = x / (this.highestX - this.lowestX); // find the pixel-count of each coordinate
 			x = x * (this.data[i][0] - this.lowestX) + this.padding; // locate the x-coordinate's location
 			
-			// TEMPORARY - REMOVE!!!
-			this.data[i][1] = 2;
+			y = 0;
 			
-			for(var j = 0; y < this.data[i][1]; j++)
+			// find the highest power of 10 our y-coordinate is greater than
+			for(var j = 0; y < Math.abs(this.data[i][1]); j++)
 				y = Math.pow(10, j);
 			
 			if(this.data[i][1] > 0)
 			{
 				y = this.height - (this.padding * 2); // find the height of just the graph space
 				y = y / (this.yDividers + this.yDividersNegative) * (this.yDividers - j); // find the pixel-count of each each divider
-				temp = y / 100;
-				temp = temp / (this.data[i][1] / Math.pow(10, j));
-				y = y + this.padding;
+				temp = this.height - (this.padding * 2);
+				temp = temp / (this.yDividers + this.yDividersNegative) / 100;
+				temp = temp * (this.data[i][1] / Math.pow(10, j-1) * 100);
+				y = y - temp;
 			}
 			else if(this.data[i][1] == 0)
 			{
 				y = this.height - (this.padding * 2);
 				y = y / (this.yDividers + this.yDividersNegative) * this.yDividers;
-				y = y + this.padding;
 			}
 			else
 			{
+				y = this.height - (this.padding * 2);
+				y = y / (this.yDividers + this.yDividersNegative) * (this.yDividers + j);
+				temp = this.height - (this.padding * 2);
+				temp = temp / (this.yDividers + this.yDividersNegative) / 100;
+				temp = temp * (Math.abs(this.data[i][1]) / Math.pow(10, j-1) * 100);
+				y = y + temp;
 			}
+			
+			y = y + this.padding;
 			
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);
 			this.dataContext.arc(x, y, 2, 0, (2*Math.PI), false);
-			
-			// Print out some data metrics (X and Y values)
-			document.getElementById("dataMetrics").innerHTML += "<br />(" + this.data[i][0] + ", " + this.data[i][1] + ")";
-			document.getElementById("dataMetrics").innerHTML += "<br />X: " + x;
-			document.getElementById("dataMetrics").innerHTML += "<br />Y: " + y;
-			document.getElementById("dataMetrics").innerHTML += "<br /><br />temp: " + temp;
-			document.getElementById("dataMetrics").innerHTML += "<br />j: " + j;
 		}
 		
 		// Fill in the data points

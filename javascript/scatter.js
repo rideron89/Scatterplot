@@ -27,6 +27,7 @@ function Scatterplot(id1, id2)
 	this.highestY = 95000;
 	this.xDividers = 10;
 	this.yDividers = 10;
+	this.yDividersNegative = 0;
 	
 	// Color values
 	this.color1 = "black";
@@ -81,6 +82,8 @@ function Scatterplot(id1, id2)
 		{
 			lowY = Math.pow(10, j-1);
 		}
+		
+		this.yDividersNegative = j;
 		
 		// Find the lowest Y value (but don't go above 0)
 		if(this.lowestY <= 0)
@@ -198,20 +201,28 @@ function Scatterplot(id1, id2)
 			x = x * (this.data[i][0] - this.lowestX) + this.padding; // locate the x-coordinate's location
 			
 			// TEMPORARY - REMOVE!!!
-			this.data[i][1] = 10;
+			this.data[i][1] = 2;
 			
 			for(var j = 0; y < this.data[i][1]; j++)
 				y = Math.pow(10, j);
 			
-			y = this.height - (this.padding * 2);
-			y = y / this.yDividers * ((this.yDividers + 1) - (j));
-			y = y + this.padding;
-			
-			temp = this.height - (this.padding * 2);
-			temp = temp / (this.yDividers + 1);
-			temp = temp / (Math.pow(10, j-1) / Math.pow(10, j) * 100);
-			
-			y = y - (temp * this.data[i][1] / Math.pow(10, j-2));
+			if(this.data[i][1] > 0)
+			{
+				y = this.height - (this.padding * 2); // find the height of just the graph space
+				y = y / (this.yDividers + this.yDividersNegative) * (this.yDividers - j); // find the pixel-count of each each divider
+				temp = y / 100;
+				temp = temp / (this.data[i][1] / Math.pow(10, j));
+				y = y + this.padding;
+			}
+			else if(this.data[i][1] == 0)
+			{
+				y = this.height - (this.padding * 2);
+				y = y / (this.yDividers + this.yDividersNegative) * this.yDividers;
+				y = y + this.padding;
+			}
+			else
+			{
+			}
 			
 			// draw a circle at (x, y)
 			this.dataContext.moveTo(x, y);

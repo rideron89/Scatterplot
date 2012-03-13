@@ -1,5 +1,5 @@
 [DONE] x/y axes reversed
 [DONE] y needs to log-scale
-specify what time we're using (start,end,middle?)
-y-axis title: 
-[DONE] x-axis title: P11 or Phase Function [degrees]
+[SEMI] specify what time we're using (start,end,middle?)
+[DONE] y-axis title: Phase Function [unitless]
+[DONE] x-axis title: Scattering Angle [degrees]

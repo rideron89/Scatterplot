@@ -22,8 +22,8 @@
 				if(document.getElementById("graphDataList").value.indexOf("scat") != -1)
 				{
 					document.getElementById("canvasTitle").innerHTML = "Polarized Imaging Nephelometer";
-					document.getElementById("xAxisTitle").innerHTML = "P11 or Phase Function [degrees]";
-					document.getElementById("yAxisTitle").innerHTML = "Y-Axis";
+					document.getElementById("xAxisTitle").innerHTML = "Scattering Angle [degrees]";
+					document.getElementById("yAxisTitle").innerHTML = "Phase Function [unitless]";
 					document.getElementById("rangeDiv").style.display = "block";
 					graph.doScatter(time);
 				}

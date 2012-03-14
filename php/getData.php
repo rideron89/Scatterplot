@@ -4,7 +4,7 @@
 	if(stristr($fileName, "scat"))
 	{
 		$data = file_get_contents($fileName);
-		$data = str_ireplace("\n", "+", $data);
+		$data = str_replace("\n", "+", $data);
 
 		$years = explode("+", $data);
 
@@ -22,7 +22,7 @@
 	else
 	{
 		$data = file_get_contents($fileName);
-		$data = str_ireplace("\n", "+", $data);
+		$data = str_replace("\n", "+", $data);
 	}
 	
 	echo $data;

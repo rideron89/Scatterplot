@@ -142,55 +142,10 @@
 				<canvas id="p11DataPoints" class="dataPoints"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
-		
-		<div id="mainBox">
-			<div id="midPane">
-				<!-- Settings on left-hand side of screen -->
-				<div id="leftSettings">
-					<select id="graphDataList" class="ui-widget ui-widget-text" title="Please note redrawing the graph may take time." onchange="go()">
-						<option value="scat.txt">Scat  Data</option>
-						<option value="data.txt">Other Data</option>
-					</select>
-					<br /><br />
-					<div id="rangeDiv" title="These times are less precise than below.">
-						Graph Time (Seconds)<br />
-						<input id="timeMinus" type="button" value="-" onclick="decrement()" />
-						<input id="timeRange" type="range" min ="64665" max="73901" step="30" value="0" onchange="updateRange()" />
-						<input id="timePlus" type="button" value="+" onclick="increment()" /><br />
-						<span id="rangeCurrent"></span>
-					</div>
-					
-					<br />
-					
-					<div id="timeSelectDiv" title="These times are more precise than above.">
-						Start time (UTC):
-						<select id="timeSelect" onchange="updateSelect()">
-						</select>
-					</div>
-					
-					<br /><br />
-					<div id="loadingIcon"></div>
-					<div id="infoDiv" class="ui-content">
-						<div id="dataTime"></div>
-						<div id="dataLoaded"></div>
-						<div id="dataGraphed"></div>
-						<div id="dataMetrics"></div>
-					</div>
-				</div>
-				
-				<div id="p11CanvasDiv">
-					<div id="p11CanvasTitle" class="canvasTitle"></div>
-					<div id="p11YAxisTitle" class="yAxisTitle"></div>
-					<div id="p11XAxisTitle" class="xAxisTitle"></div>
-					<canvas id="p11Graph" class="graph"></canvas>
-					<canvas id="p11DataPoints" class="dataPoints"></canvas>
-				</div>
-			</div>
 			
-			<div id="bottomPane">
-				<div id="scatData" style="display: none; visibility: hidden;"></div>
-				<div id="coefficientData" style="display: none; visibility: hidden;"></div>
-			</div>
+		<div id="bottomPane">
+			<div id="scatData" style="display: none; visibility: hidden;"></div>
+			<div id="coefficientData" style="display: none; visibility: hidden;"></div>
 		</div>
 	</body>
 </html>

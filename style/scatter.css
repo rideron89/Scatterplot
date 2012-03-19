@@ -8,6 +8,8 @@ html
 {
 	position: fixed;
 	
+	z-index: 4;
+	
 	left: 40px;
 	top: 40px;
 	

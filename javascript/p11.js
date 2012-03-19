@@ -132,44 +132,31 @@ function plotPoints()
 	dataPoints.fillStyle = primaryColor;
 	dataPoints.lineWidth = 1;
 	
-	//for(var i = 0; i < data.length; i++)
-	for(var i = 6; i < 7; i++)
+	for(var i = 6; i < data.length; i++)
 	{
-		x = width - (padding * 2);
-		x = x / 180 * (i - 4);
-		x = x + padding;
-		
-		data[i] = 9;
-		
-		for(var j = 0; Math.pow(10, j) < data[i]; j++)
+		if(data[i] > 0)
 		{
+			x = width - (padding * 2);
+			x = x / 180 * (i - 4);
+			x = x + padding;
+
+			for(var j = 0; Math.pow(10, j) < data[i]; j++)
+			{
+			}
+
+			y = height - (padding * 2);
+			y = y - (y / (yDividers - 1) * j);
+			y = y + padding;
+
+			temp = height - (padding * 2);
+			temp = temp / (yDividers - 1) / Math.pow(10, j);
+			temp = temp * data[i];
+
+			y = y - temp;
+
+			dataPoints.moveTo(x, y);
+			dataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
 		}
-		
-		document.getElementById("p11PerformanceInfo").innerHTML += "data[i] = " + data[i] + "<br />";
-		document.getElementById("p11PerformanceInfo").innerHTML += "yDividers - j = " + yDividers + " - " + j + " = " + (yDividers - j) + "<br />";
-		
-		y = height - (padding * 2);
-		y = y / yDividers * (yDividers - j);
-		temp = y / yDividers;
-		temp = temp * data[i] / Math.pow(10, j-1);
-		y = y - temp;
-		y = y + padding;
-		//y = height - (padding * 2);
-		//y = y / 4 * 1;
-		//y = y + padding;
-		
-		document.getElementById("p11PerformanceInfo").innerHTML += "y = " + y + "<br />";
-		
-		/*
-		y = this.height - (this.padding * 2); // find the height of just the graph space
-		y = y / (this.yDividers + this.yDividersNegative) * (this.yDividers - j); // find the pixel-count of each each divider
-		temp = this.height - (this.padding * 2);
-		temp = temp / (this.yDividers + this.yDividersNegative) / 100;
-		temp = temp * (this.data[i][1] / Math.pow(10, j-1) * 100);
-		y = y - temp;*/
-		
-		dataPoints.moveTo(x, y);
-		dataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
 	}
 	
 	dataPoints.fill();

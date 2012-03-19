@@ -36,9 +36,6 @@ function readScatData()
 		xmlhttp = new XMLHttpRequest();
 	else
 		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
-	
-	document.getElementById("dataLoaded").innerHTML = "";
-	document.getElementById("dataGraphed").innerHTML = "";
 
 	xmlhttp.onreadystatechange = function()
 	{
@@ -61,9 +58,6 @@ function readCoefficientData()
 		xmlhttp = new XMLHttpRequest();
 	else
 		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
-	
-	document.getElementById("dataLoaded").innerHTML = "";
-	document.getElementById("dataGraphed").innerHTML = "";
 
 	xmlhttp.onreadystatechange = function()
 	{

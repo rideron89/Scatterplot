@@ -5,6 +5,8 @@
 			Scatterplot
 		</title>
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
+		<script src="javascript/utils.js"></script>
+		<script src="javascript/main.js"></script>
 		<script src="javascript/scatter.js"></script>
 		<script>
 			var graph = new Scatterplot("scatterplot", "scatterPlots");
@@ -17,7 +19,8 @@
 			
 			function go(time)
 			{
-				graph.init(document.getElementById("graphDataList").value);
+				TEST();
+				/*graph.init(document.getElementById("graphDataList").value);
 				
 				if(document.getElementById("graphDataList").value.indexOf("scat") != -1)
 				{
@@ -34,7 +37,7 @@
 					graph.doNormal();
 				}
 				
-				graph.draw();
+				graph.draw();*/
 			}
 			
 			function updateRange()
@@ -77,11 +80,49 @@
 			}
 		</script>
 	</head>
-	<body onload="init();">
-		<div id="mainBox">
-			<div id="topPane">
+	<body onload="/*init();*/TEST();">
+	
+		<div id="outerBox">
+			<div id="timeSelectionBox">
+				<div id="timeSliderLabel">
+					Graph Time (Seconds)
+				</div>
+				
+				<div id="timeSlider">
+					<input id="timeMinus" type="button" value="-" onclick="decrement()" />
+					<input id="timeRange" type="range" min="64665" max="73901" step="30" value="0" onchange="updateRange()" />
+					<input id="timePlus" type="button" value="+" onclick="increment()" />
+				</div>
+				
+				<div id="timeSliderPosition">
+					64665
+				</div>
+				
+				<br />
+				
+				<div id="timeSelectDiv">
+					Mid time (UTC): <select id="timeSelect" onchange="updateSelect()"></select> sec
+				</div>
+				
+			</div> <!-- timeSelectionBox -->
+			
+			<div id="dataInformationBox">
+				Start UTC: <span id="startUTC"></span> sec<br />
+				End UTC: <span id="endUTC"></span> sec<br />
+				HH:MM:SS: <span id="calendar"></span><br />
+				SCAT: <span id="scat"></span> 1/Mm<br />
+				PRES: <span id="pres"></span> Pa<br />
+				TEMP: <span id="temp"></span> K<br />
+				RH1: <span id="rh1"></span>%<br />
+				RH2: <span id="rh2"></span>%<br />
+				RH3: <span id="rh3"></span>%
 			</div>
 			
+			<div id="performanceInfo">
+			</div>
+		</div> <!-- outerBox -->
+		
+		<div id="mainBox">
 			<div id="midPane">
 				<!-- Settings on left-hand side of screen -->
 				<div id="leftSettings">
@@ -126,8 +167,8 @@
 			</div>
 			
 			<div id="bottomPane">
-				<div id="data" style="display: none; visibility: hidden;"></div>
-				<div id="times"></div>
+				<div id="scatData" style="display: none; visibility: hidden;"></div>
+				<div id="coefficientData" style="display: none; visibility: hidden;"></div>
 			</div>
 		</div>
 	</body>

@@ -11,7 +11,7 @@ var alphaLow = 0.2;
 
 var data;
 var largestY = -1;
-var yDividers = -1;
+var yDividers = 0;
 
 function readData()
 {
@@ -125,7 +125,7 @@ function drawAxes()
 
 function plotPoints()
 {
-	var x, y;
+	var x, y, temp;
 	var dataPoints = document.getElementById("p11DataPoints").getContext("2d");
 	
 	dataPoints.strokeStyle = primaryColor;
@@ -139,7 +139,7 @@ function plotPoints()
 		x = x / 180 * (i - 4);
 		x = x + padding;
 		
-		data[i] = 100;
+		data[i] = 9;
 		
 		for(var j = 0; Math.pow(10, j) < data[i]; j++)
 		{
@@ -149,8 +149,16 @@ function plotPoints()
 		document.getElementById("p11PerformanceInfo").innerHTML += "yDividers - j = " + yDividers + " - " + j + " = " + (yDividers - j) + "<br />";
 		
 		y = height - (padding * 2);
-		y = y / yDividers;
+		y = y / yDividers * (yDividers - j);
+		temp = y / yDividers;
+		temp = temp * data[i] / Math.pow(10, j-1);
+		y = y - temp;
 		y = y + padding;
+		//y = height - (padding * 2);
+		//y = y / 4 * 1;
+		//y = y + padding;
+		
+		document.getElementById("p11PerformanceInfo").innerHTML += "y = " + y + "<br />";
 		
 		/*
 		y = this.height - (this.padding * 2); // find the height of just the graph space

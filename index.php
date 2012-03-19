@@ -7,9 +7,17 @@
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
 		<script src="javascript/utils.js"></script>
 		<script src="javascript/main.js"></script>
+		<script src="javascript/p11.js"></script>
 		<script src="javascript/scatter.js"></script>
 		<script>
-			var graph = new Scatterplot("scatterplot", "scatterPlots");
+			var graph = new Scatterplot("p11Graph", "p11DataPoints");
+			
+			function run()
+			{
+				TEST();
+				
+				drawP11();
+			}
 			
 			function init()
 			{
@@ -80,7 +88,7 @@
 			}
 		</script>
 	</head>
-	<body onload="/*init();*/TEST();">
+	<body onload="/*init();*/run();">
 	
 		<div id="outerBox">
 			<div id="timeSelectionBox">
@@ -120,7 +128,20 @@
 			
 			<div id="performanceInfo">
 			</div>
+			
+			<div id="p11PerformanceInfo">
+			</div>
 		</div> <!-- outerBox -->
+		
+		<div id="canvasBox">
+			<div id="p11CanvasDiv">
+				<div id="p11CanvasTitle" class="canvasTitle"></div>
+				<div id="p11YAxisTitle" class="yAxisTitle"></div>
+				<div id="p11XAxisTitle" class="xAxisTitle"></div>
+				<canvas id="p11Graph" class="graph"></canvas>
+				<canvas id="p11DataPoints" class="dataPoints"></canvas>
+			</div>
+		</div> <!-- canvasBox -->
 		
 		<div id="mainBox">
 			<div id="midPane">
@@ -157,12 +178,12 @@
 					</div>
 				</div>
 				
-				<div id="canvasDiv">
-					<div id="canvasTitle"></div>
-					<div id="yAxisTitle"></div>
-					<div id="xAxisTitle"></div>
-					<canvas id="scatterplot"></canvas>
-					<canvas id="scatterPlots"></canvas>
+				<div id="p11CanvasDiv">
+					<div id="p11CanvasTitle" class="canvasTitle"></div>
+					<div id="p11YAxisTitle" class="yAxisTitle"></div>
+					<div id="p11XAxisTitle" class="xAxisTitle"></div>
+					<canvas id="p11Graph" class="graph"></canvas>
+					<canvas id="p11DataPoints" class="dataPoints"></canvas>
 				</div>
 			</div>
 			

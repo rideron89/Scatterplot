@@ -61,6 +61,44 @@ html
 	line-height: 1.5;
 }
 
+#canvasBox
+{
+	position: relative;
+	
+	left: 325px;
+	
+	display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-box-pack: start;
+		-webkit-box-align: start;
+}
+
+.graph
+{
+	position: absolute;
+	
+	z-index: 1;
+}
+
+.dataPoints
+{
+	position: absolute;
+	
+	z-index: 2;
+}
+
+.canvasTitle
+{
+	position: absolute;
+	z-index: 3;
+	
+	top: 15px;
+	left: 200px;
+	
+	font-size: 12pt;
+	font-weight: bold;
+}
+
 #mainBox
 {
 	visibility: hidden;

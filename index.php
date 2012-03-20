@@ -10,53 +10,31 @@
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/scatter.js"></script>
 		<script>
-			var graph = new Scatterplot("p11Graph", "p11DataPoints");
+			function init()
+			{
+				readTimes();
+				
+				TEST();
+			}
 			
 			function run()
 			{
 				TEST();
-				
-				drawP11();
-			}
-			
-			function init()
-			{
-				updateRange();
-				graph.getTimes();
-			}
-			
-			function go(time)
-			{
-				TEST();
-				/*graph.init(document.getElementById("graphDataList").value);
-				
-				if(document.getElementById("graphDataList").value.indexOf("scat") != -1)
-				{
-					document.getElementById("canvasTitle").innerHTML = "Polarized Imaging Nephelometer";
-					document.getElementById("xAxisTitle").innerHTML = "Scattering Angle [degrees]";
-					document.getElementById("yAxisTitle").innerHTML = "Phase Function [unitless]";
-					document.getElementById("rangeDiv").style.display = "block";
-					graph.doScatter(time);
-				}
-				else
-				{
-					document.getElementById("canvasTitle").innerHTML = "Other Data Graph";
-					document.getElementById("rangeDiv").style.display = "none";
-					graph.doNormal();
-				}
-				
-				graph.draw();*/
 			}
 			
 			function updateRange()
 			{
-				go(document.getElementById("timeRange").value);
 				document.getElementById("rangeCurrent").innerHTML = document.getElementById("timeRange").value;
+				
+				run();
+				document.getElementById("timeSelect").value = document.getElementById("scatData").innerHTML.split(",")[3];
 			}
 			
 			function updateSelect()
 			{
-				go(document.getElementById("timeSelect").value);
+				document.getElementById("timeRange").value = document.getElementById("timeSelect").value;
+				
+				updateRange();
 			}
 			
 			/*
@@ -88,7 +66,7 @@
 			}
 		</script>
 	</head>
-	<body onload="/*init();*/run();">
+	<body onload="init()">
 	
 		<div id="outerBox">
 			<div id="timeSelectionBox">
@@ -103,7 +81,7 @@
 				</div>
 				
 				<div id="timeSliderPosition">
-					64665
+					<span id="rangeCurrent">64665</span> sec
 				</div>
 				
 				<br />

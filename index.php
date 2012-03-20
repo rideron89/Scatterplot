@@ -10,11 +10,15 @@
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/scatter.js"></script>
 		<script>
+			var time = 0;
+			
 			function init()
 			{
 				readTimes();
 				
-				TEST();
+				time = document.getElementById("timeSelect").value;
+				
+				run();
 			}
 			
 			function run()
@@ -32,9 +36,9 @@
 			
 			function updateSelect()
 			{
-				document.getElementById("timeRange").value = document.getElementById("timeSelect").value;
+				time = document.getElementById("timeSelect").value;
 				
-				updateRange();
+				run();
 			}
 			
 			/*
@@ -75,9 +79,9 @@
 				</div>
 				
 				<div id="timeSlider">
-					<input id="timeMinus" type="button" value="-" onclick="decrement()" />
-					<input id="timeRange" type="range" min="64665" max="73901" step="30" value="0" onchange="updateRange()" />
-					<input id="timePlus" type="button" value="+" onclick="increment()" />
+					<input id="timeMinus" type="button" value="-" disabled="disabled" onclick="decrement()" />
+					<input id="timeRange" type="range" min="64665" max="73901" step="30" value="0" disabled="disabled" onchange="updateRange()" />
+					<input id="timePlus" type="button" value="+" disabled="disabled" onclick="increment()" />
 				</div>
 				
 				<div id="timeSliderPosition">

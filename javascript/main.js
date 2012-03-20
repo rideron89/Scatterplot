@@ -101,33 +101,15 @@ function updateInformation()
 
 function TEST()
 {
-	var start, end;
-	
-	// Get/Read all times
-	start = new Date();
-	readTimes();
-	end = new Date();
-	document.getElementById("performanceInfo").innerHTML = "Read Times: " + (end.getTime()-start.getTime())/100 + " seconds<br />";
-	
-	// Find requested time
-	
 	// Read data from the scattering data file
-	start = new Date();
 	readScatData();
-	end = new Date();
-	document.getElementById("performanceInfo").innerHTML += "Read Scat: " + (end.getTime()-start.getTime())/100 + " seconds<br />";
 	
 	// Read data from the scattering coefficient data file
-	start = new Date();
 	readCoefficientData();
-	end = new Date();
-	document.getElementById("performanceInfo").innerHTML += "Read Coefficient: " + (end.getTime()-start.getTime())/100 + " seconds<br />";
-	
+
 	// Update information posted on page
-	start = new Date();
 	updateInformation();
-	end = new Date();
-	document.getElementById("performanceInfo").innerHTML += "Update Information: " + (end.getTime()-start.getTime())/100 + " seconds<br />";
 	
 	// Construct P11 Phase Function graph
+	drawP11();
 }

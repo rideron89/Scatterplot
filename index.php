@@ -16,7 +16,16 @@
 			{
 				readTimes();
 				
+				// set the time variable to the default value of the select box
 				time = document.getElementById("timeSelect").value;
+				
+				// set the range's current text to the select box's current time
+				document.getElementById("rangeCurrent").innerHTML =
+					document.getElementById("timeSelect").options[time].text;
+				
+				// set the range's number of selections to the number of times
+				document.getElementById("timeRange").max =
+					document.getElementById("timeSelect").length;
 				
 				run();
 			}
@@ -28,15 +37,24 @@
 			
 			function updateRange()
 			{
-				document.getElementById("rangeCurrent").innerHTML = document.getElementById("timeRange").value;
+				time = document.getElementById("timeRange").value;
+				
+				document.getElementById("rangeCurrent").innerHTML =
+					document.getElementById("timeSelect").options[time].text;
+				
+				document.getElementById("timeSelect").value = time;
 				
 				run();
-				document.getElementById("timeSelect").value = document.getElementById("scatData").innerHTML.split(",")[3];
 			}
 			
 			function updateSelect()
 			{
 				time = document.getElementById("timeSelect").value;
+				
+				document.getElementById("rangeCurrent").innerHTML =
+					document.getElementById("timeSelect").options[time].text;
+				
+				document.getElementById("timeRange").value = time;
 				
 				run();
 			}
@@ -80,7 +98,7 @@
 				
 				<div id="timeSlider">
 					<input id="timeMinus" type="button" value="-" disabled="disabled" onclick="decrement()" />
-					<input id="timeRange" type="range" min="64665" max="73901" step="30" value="0" disabled="disabled" onchange="updateRange()" />
+					<input id="timeRange" type="range" min="0" max="0" step="1" value="0" onchange="updateRange()" />
 					<input id="timePlus" type="button" value="+" disabled="disabled" onclick="increment()" />
 				</div>
 				

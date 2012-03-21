@@ -56,7 +56,8 @@ function P11SmallGraph()
 	this.clearGraph = function()
 	{
 		var graph = document.getElementById("p11SmallGraph").getContext("2d");
-		var dataPoints = document.getElementById("p11SmallDataPoints").getContext("2d");
+		var dataPoints =
+			document.getElementById("p11SmallDataPoints").getContext("2d");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
@@ -155,6 +156,46 @@ function P11SmallGraph()
 		graph.fill();
 		graph.stroke();
 	};
+	
+	this.plotPoints = function()
+	{
+		var x, y, temp;
+		var dataPoints =
+			document.getElementById("p11SmallDataPoints").getContext("2d");
+	
+		dataPoints.strokeStyle = this.primaryColor;
+		dataPoints.fillStyle = this.primaryColor;
+		dataPoints.lineWidth = 1;
+		
+		for(var i = 6; i < this.data.length; i++)
+		{
+			if(this.data[i] <= 5 && this.data[i] >= -5)
+			{
+				x = this.width - (this.padding * 2);
+				x = x / 180 * (i - 4);
+				x = x + this.padding;
+				
+				y = this.height / 2;
+				
+				temp = (y - this.padding) / 5 * Math.abs(this.data[i]);
+				
+				if(this.data[i] > 0)
+				{
+					y = y - temp;
+				}
+				else if(this.data[i] < 0)
+				{
+					y = y + temp;
+				}
+				
+				dataPoints.moveTo(x, y);
+				dataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+			}
+		}
+		
+		dataPoints.fill();
+		dataPoints.stroke();
+	};
 };
 
 function drawP11Small()
@@ -172,4 +213,6 @@ function drawP11Small()
 	p11SmallGraph.updateTitle();
 	
 	p11SmallGraph.drawAxes();
+	
+	p11SmallGraph.plotPoints();
 }

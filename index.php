@@ -9,6 +9,7 @@
 		<script src="javascript/main.js"></script>
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/p11Small.js"></script>
+		<script src="javascript/scat.js"></script>
 		<script src="javascript/scatter.js"></script>
 		<script>
 			var time = 0;
@@ -158,10 +159,18 @@
 				<canvas id="p11SmallGraph" class="graph"></canvas>
 				<canvas id="p11SmallDataPoints" class="dataPoints"></canvas>
 			</div>
+			
+			<div id="scatCanvasDiv">
+				<div id="scatCanvasTitle" class="canvasTitle"></div>
+				<div id="scatYAxisTitle" class="yAxisTitle"></div>
+				<div id="scatXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="scatGraph" class="graph"></canvas>
+				<canvas id="scatDataPoints" class="dataPoints"></canvas>
+			</div>
 		</div> <!-- canvasBox -->
 			
 		<div id="bottomPane">
-			<div id="scatData" style="display: none; visibility: hidden;">
+			<div id="p11Data" style="display: none; visibility: hidden;">
 			</div>
 			<div id="coefficientData"
 				style="display: none; visibility: hidden;"></div>

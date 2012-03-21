@@ -39,7 +39,7 @@ function readScatData()
 	{
 		if(xmlhttp.readyState == 4)
 		{
-			document.getElementById("scatData").innerHTML = xmlhttp.responseText;
+			document.getElementById("p11Data").innerHTML = xmlhttp.responseText;
 		}
 	};
 
@@ -71,7 +71,7 @@ function readCoefficientData()
 function updateInformation()
 {
 	var startUTC, endUTC, calendar, scat, pres, temp, rh1, rh2, rh3;
-	var scatData = document.getElementById("scatData").innerHTML.split(",");
+	var scatData = document.getElementById("p11Data").innerHTML.split(",");
 	var coefficientData = document.getElementById("coefficientData").innerHTML.split(",");
 	
 	startUTC = scatData[0];
@@ -109,5 +109,8 @@ function TEST()
 	// Construct P11 Phase Function graph
 	drawP11();
 	
+	// Construct the smaller P11 Phase Function graphs
 	drawP11Small();
+	
+	drawScat();
 }

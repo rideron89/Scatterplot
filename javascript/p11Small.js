@@ -22,7 +22,7 @@ function P11SmallGraph()
 	 */
 	this.readData = function()
 	{
-		this.data = document.getElementById("scatData").innerHTML.split(",");
+		this.data = document.getElementById("p11Data").innerHTML.split(",");
 		
 		for(var i = 6; i < this.data.length; i++)
 		{
@@ -196,7 +196,7 @@ function P11SmallGraph()
 		dataPoints.fill();
 		dataPoints.stroke();
 	};
-};
+}
 
 function drawP11Small()
 {

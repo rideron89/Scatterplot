@@ -110,3 +110,10 @@ html, input
 	
 	top: 400px;
 }
+
+#scatCanvasDiv
+{
+	position: inherit;
+	
+	top: 800px;
+}

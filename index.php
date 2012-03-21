@@ -25,7 +25,7 @@
 				
 				// set the range's number of selections to the number of times
 				document.getElementById("timeRange").max =
-					document.getElementById("timeSelect").length;
+					document.getElementById("timeSelect").length - 1;
 				
 				run();
 			}
@@ -68,7 +68,8 @@
 			{
 				var range = document.getElementById("timeRange");
 				
-				range.value = parseInt(range.value) - parseInt(range.step);
+				if(range.value > range.min)
+					range.value = parseInt(range.value) - parseInt(range.step);
 				
 				updateRange();
 			}
@@ -82,7 +83,8 @@
 			{
 				var range = document.getElementById("timeRange");
 				
-				range.value = parseInt(range.value) + parseInt(range.step);
+				if(range.value < range.max)
+					range.value = parseInt(range.value) + parseInt(range.step);
 				
 				updateRange();
 			}
@@ -97,9 +99,9 @@
 				</div>
 				
 				<div id="timeSlider">
-					<input id="timeMinus" type="button" value="-" disabled="disabled" onclick="decrement()" />
+					<input id="timeMinus" type="button" value="-" onclick="decrement()" />
 					<input id="timeRange" type="range" min="0" max="0" step="1" value="0" onchange="updateRange()" />
-					<input id="timePlus" type="button" value="+" disabled="disabled" onclick="increment()" />
+					<input id="timePlus" type="button" value="+" onclick="increment()" />
 				</div>
 				
 				<div id="timeSliderPosition">

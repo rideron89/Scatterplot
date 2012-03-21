@@ -1,29 +1,22 @@
 <?php
 	$fileName = "../" . $_POST["dataFile"];
-	
-	if(stristr($fileName, "scat"))
+
+	$data = file_get_contents($fileName);
+	$data = str_replace("\n", "+", $data);
+
+	$years = explode("+", $data);
+
+	$data = "";
+
+	for($i = 1; $i < count($years); $i++)
 	{
-		$data = file_get_contents($fileName);
-		$data = str_replace("\n", "+", $data);
+		$columns = explode(",", $years[$i]);
 
-		$years = explode("+", $data);
-		
-		$data = "";
+		$start = $columns[0];
+		$mid = $columns[2];
+		$end = $columns[1];
 
-		for($i = 1; $i < count($years); $i++)
-		{
-			$columns = explode(",", $years[$i]);
-
-			$start = $columns[0];
-			$end = $columns[1];
-
-			$data .= $start . ",";
-		}
-	}
-	else
-	{
-		$data = file_get_contents($fileName);
-		$data = str_replace("\n", "+", $data);
+		$data .= $mid . ",";
 	}
 	
 	echo $data;

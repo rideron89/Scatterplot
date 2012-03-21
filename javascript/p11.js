@@ -41,8 +41,8 @@ function clearGraph()
 	var graph = document.getElementById("p11Graph").getContext("2d");
 	var dataPoints = document.getElementById("p11DataPoints").getContext("2d");
 	
-	graph.clearRect(0, 0, width, height);
-	dataPoints.clearRect(0, 0, width, height);
+	graph.clearRect(0, 0, graph.width, graph.height);
+	dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
 }
 
 function drawBorder()
@@ -165,13 +165,8 @@ function plotPoints()
 
 function drawP11()
 {
-	var start, end;
-	
 	// Read data
-	start = new Date();
 	readData();
-	end = new Date();
-	document.getElementById("p11PerformanceInfo").innerHTML += "P11 data read: " + (end.getTime()-start.getTime())/100 + " seconds<br />";
 	
 	// Setup graph space
 	setupGraph();
@@ -189,8 +184,5 @@ function drawP11()
 	drawAxes();
 	
 	// Draw the data points
-	start = new Date();
 	plotPoints();
-	end = new Date();
-	document.getElementById("p11PerformanceInfo").innerHTML += "P11 plotted: " + (end.getTime()-start.getTime())/100 + " seconds<br />";
 }

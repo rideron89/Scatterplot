@@ -19,7 +19,7 @@ function readTimes()
 			var select = document.getElementById("timeSelect");
 			
 			for(var i = 0; i < times.length-1; i++)
-				select.options[select.options.length] = new Option(times[i], times[i]);
+				select.options[select.options.length] = new Option(times[i], i);
 		}
 	};
 
@@ -30,8 +30,6 @@ function readTimes()
 
 function readScatData()
 {
-	var time = document.getElementById("timeSelect").value;
-	
 	if(window.XMLHttpRequest)
 		xmlhttp = new XMLHttpRequest();
 	else
@@ -47,13 +45,11 @@ function readScatData()
 
 	xmlhttp.open("POST", "php/getData.php", false);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send("dataFile=scat.txt"+"&time="+time);
+	xmlhttp.send("dataFile=scat.txt"+"&time="+time); // the variable "time" is initialized in index.php
 }
 
 function readCoefficientData()
 {
-	var time = document.getElementById("timeSelect").value;
-	
 	if(window.XMLHttpRequest)
 		xmlhttp = new XMLHttpRequest();
 	else
@@ -69,7 +65,7 @@ function readCoefficientData()
 
 	xmlhttp.open("POST", "php/getData.php", false);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send("dataFile=coefficient.txt"+"&time="+time);
+	xmlhttp.send("dataFile=coefficient.txt"+"&time="+time); // the variable "time" is initialized in index.php
 }
 
 function updateInformation()
@@ -80,7 +76,7 @@ function updateInformation()
 	
 	startUTC = scatData[0];
 	endUTC = scatData[1];
-	calendar = secondsToCalendar(scatData[2]);
+	calendar = scatData[3] + ":" + scatData[4] + ":" + scatData[5];
 	scat = coefficientData[6];
 	pres = coefficientData[7];
 	temp = coefficientData[11];

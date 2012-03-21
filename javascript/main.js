@@ -108,4 +108,6 @@ function TEST()
 	
 	// Construct P11 Phase Function graph
 	drawP11();
+	
+	drawP11Small();
 }

@@ -8,6 +8,7 @@
 		<script src="javascript/utils.js"></script>
 		<script src="javascript/main.js"></script>
 		<script src="javascript/p11.js"></script>
+		<script src="javascript/p11Small.js"></script>
 		<script src="javascript/scatter.js"></script>
 		<script>
 			var time = 0;
@@ -148,6 +149,14 @@
 				<div id="p11XAxisTitle" class="xAxisTitle"></div>
 				<canvas id="p11Graph" class="graph"></canvas>
 				<canvas id="p11DataPoints" class="dataPoints"></canvas>
+			</div>
+			
+			<div id="p11SmallCanvasDiv">
+				<div id="p11SmallCanvasTitle" class="canvasTitle"></div>
+				<div id="p11SmallYAxisTitle" class="yAxisTitle"></div>
+				<div id="p11SmallXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="p11SmallGraph" class="graph"></canvas>
+				<canvas id="p11SmallDataPoints" class="dataPoints"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
 			

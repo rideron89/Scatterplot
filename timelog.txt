@@ -13,3 +13,4 @@ Work Time Log
 	7:00pm - 7:30pm		30 minutes
 3/21/12
 	2:30am - 3:45am		1 hour, 15 minutes
+	12:00pm - 1:00pm	1 hour

@@ -99,9 +99,12 @@
 				</div>
 				
 				<div id="timeSlider">
-					<input id="timeMinus" type="button" value="-" onclick="decrement()" />
-					<input id="timeRange" type="range" min="0" max="0" step="1" value="0" onchange="updateRange()" />
-					<input id="timePlus" type="button" value="+" onclick="increment()" />
+					<input id="timeMinus" type="button" value="-"
+						onclick="decrement()" />
+					<input id="timeRange" type="range" min="0" max="0" step="1"
+						value="0" onchange="updateRange()" />
+					<input id="timePlus" type="button" value="+"
+						onclick="increment()" />
 				</div>
 				
 				<div id="timeSliderPosition">
@@ -111,7 +114,10 @@
 				<br />
 				
 				<div id="timeSelectDiv">
-					Mid time (UTC): <select id="timeSelect" onchange="updateSelect()"></select> sec
+					Mid time (UTC): 
+					<select id="timeSelect" onchange="updateSelect()">
+					</select> 
+					sec
 				</div>
 				
 			</div> <!-- timeSelectionBox -->
@@ -146,8 +152,10 @@
 		</div> <!-- canvasBox -->
 			
 		<div id="bottomPane">
-			<div id="scatData" style="display: none; visibility: hidden;"></div>
-			<div id="coefficientData" style="display: none; visibility: hidden;"></div>
+			<div id="scatData" style="display: none; visibility: hidden;">
+			</div>
+			<div id="coefficientData"
+				style="display: none; visibility: hidden;"></div>
 		</div>
 	</body>
 </html>

@@ -16,3 +16,7 @@ Work Time Log
 	12:00pm - 1:00pm	1 hour
 	4:00pm - 5:00pm		1 hour
 	7:30pm - 7:50pm		20 minutes
+3/22/12
+	9:45pm - 10:30pm	45 minutes
+3/23/12
+	1:15am - 2:20am		1 hour, 5 minutes

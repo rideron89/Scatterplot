@@ -28,7 +28,7 @@ function readTimes()
 	xmlhttp.send("dataFile=scat.txt");
 }
 
-function readScatData()
+function readP11Data()
 {
 	if(window.XMLHttpRequest)
 		xmlhttp = new XMLHttpRequest();
@@ -68,6 +68,26 @@ function readCoefficientData()
 	xmlhttp.send("dataFile=coefficient.txt"+"&time="+time); // the variable "time" is initialized in index.php
 }
 
+function readScatData()
+{
+	if(window.XMLHttpRequest)
+		xmlhttp = new XMLHttpRequest();
+	else
+		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+
+	xmlhttp.onreadystatechange = function()
+	{
+		if(xmlhttp.readyState == 4)
+		{
+			document.getElementById("scatData").innerHTML = xmlhttp.responseText;
+		}
+	};
+
+	xmlhttp.open("POST", "php/getScat.php", false);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send();
+}
+
 function updateInformation()
 {
 	var startUTC, endUTC, calendar, scat, pres, temp, rh1, rh2, rh3;
@@ -98,10 +118,13 @@ function updateInformation()
 function TEST()
 {
 	// Read data from the scattering data file
-	readScatData();
+	readP11Data();
 	
 	// Read data from the scattering coefficient data file
 	readCoefficientData();
+	
+	// Read data containing just the SCAT data
+	readScatData();
 
 	// Update information posted on page
 	updateInformation();

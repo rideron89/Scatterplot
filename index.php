@@ -174,6 +174,8 @@
 			</div>
 			<div id="coefficientData"
 				style="display: none; visibility: hidden;"></div>
+			<div id="scatData" style="display: none; visibility: hidden;">
+			</div>
 		</div>
 	</body>
 </html>

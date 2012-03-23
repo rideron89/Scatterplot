@@ -113,6 +113,17 @@ function P11SmallGraph()
 		graph.font = "bold 7pt sans-serif";
 		graph.lineWidth = 1;
 		
+		for(var i = 0; i <= 9; i++)
+		{
+			x = this.width - (this.padding * 2);
+			x = x / 9 * i;
+			x = x + this.padding;
+		
+			graph.globalAlpha = this.alphaLow;
+			graph.moveTo(x, (this.height - this.padding));
+			graph.lineTo(x, this.padding);
+		}
+		
 		y = this.height / 2;
 		
 		graph.globalAlpha = this.alphaHigh;

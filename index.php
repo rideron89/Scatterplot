@@ -10,7 +10,8 @@
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/p11Small.js"></script>
 		<script src="javascript/scat.js"></script>
-		<script src="javascript/scatter.js"></script>
+		<script src="javascript/pres.js"></script>
+		<!--<script src="javascript/scatter.js"></script>-->
 		<script>
 			var time = 0;
 			
@@ -167,6 +168,14 @@
 				<canvas id="scatGraph" class="graph"></canvas>
 				<canvas id="scatDataPoints" class="dataPoints"></canvas>
 			</div>
+			
+			<div id="presCanvasDiv">
+				<div id="presCanvasTitle" class="canvasTitle"></div>
+				<div id="presYAxisTitle" class="yAxisTitle"></div>
+				<div id="presXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="presGraph" class="graph"></canvas>
+				<canvas id="presDataPoints" class="dataPoints"></canvas>
+			</div>
 		</div> <!-- canvasBox -->
 			
 		<div id="bottomPane">
@@ -175,6 +184,8 @@
 			<div id="coefficientData"
 				style="display: none; visibility: hidden;"></div>
 			<div id="scatData" style="display: none; visibility: hidden;">
+			</div>
+			<div id="presData" style="display: none; visibility: hidden;">
 			</div>
 		</div>
 	</body>

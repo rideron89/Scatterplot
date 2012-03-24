@@ -108,12 +108,18 @@ html, input
 {
 	position: inherit;
 	
-	top: 400px;
+	top: 360px;
 }
 
 #scatCanvasDiv
 {
 	position: inherit;
 	
-	top: 800px;
+	top: 720px;
 }
+
+#presCanvasDiv
+{
+	position: inherit;
+	
+	top: 1080px;

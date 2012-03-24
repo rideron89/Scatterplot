@@ -88,6 +88,26 @@ function readScatData()
 	xmlhttp.send();
 }
 
+function readPresData()
+{
+	if(window.XMLHttpRequest)
+		xmlhttp = new XMLHttpRequest();
+	else
+		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+
+	xmlhttp.onreadystatechange = function()
+	{
+		if(xmlhttp.readyState == 4)
+		{
+			document.getElementById("presData").innerHTML = xmlhttp.responseText;
+		}
+	};
+
+	xmlhttp.open("POST", "php/getPres.php", false);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send();
+}
+
 function updateInformation()
 {
 	var startUTC, endUTC, calendar, scat, pres, temp, rh1, rh2, rh3;
@@ -125,6 +145,9 @@ function TEST()
 	
 	// Read data containing just the SCAT data
 	readScatData();
+	
+	// Read data containing just the PRES data
+	readPresData();
 
 	// Update information posted on page
 	updateInformation();
@@ -136,4 +159,6 @@ function TEST()
 	drawP11Small();
 	
 	drawScat();
+	
+	drawPres();
 }

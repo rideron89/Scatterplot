@@ -125,7 +125,7 @@ function PresGraph()
 			x = x / 10 * i;
 			x = x + this.padding;
 			
-			text = times.options[i*69].text;
+			text = parseInt(64 + (1 * i)) + "k";
 			
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
@@ -145,7 +145,6 @@ function PresGraph()
 			y = y + this.padding;
 			
 			text = this.largestY - (15 * i) + "k";
-			//text = parseInt(this.largestY - (this.smallestY * i));
 			
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text,
@@ -190,7 +189,7 @@ function PresGraph()
 		for(var i = 0; i < this.data.length-1; i++)
 		{
 			x = this.width - (this.padding * 2);
-			x = x / times.options.length * i;
+			x = x / 10000 * (times.options[i].text - 64000);
 			x = x + this.padding;
 		
 			y = this.height - (this.padding * 2);

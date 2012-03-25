@@ -1,4 +1,4 @@
-function ScatGraph()
+function TempGraph()
 {
 	this.width = 640;
 	this.height = 360;
@@ -18,7 +18,7 @@ function ScatGraph()
 	
 	this.readData = function()
 	{
-		this.data = document.getElementById("scatData").innerHTML.split(",");
+		this.data = document.getElementById("tempData").innerHTML.split(",");
 		
 		for(var i = 0; i < this.data.length; i++)
 		{
@@ -36,8 +36,8 @@ function ScatGraph()
 	 */
 	this.setupGraph = function()
 	{
-		var graph = document.getElementById("scatGraph");
-		var dataPoints = document.getElementById("scatDataPoints");
+		var graph = document.getElementById("tempGraph");
+		var dataPoints = document.getElementById("tempDataPoints");
 		
 		graph.width = this.width;
 		graph.height = this.height;
@@ -53,8 +53,8 @@ function ScatGraph()
 	 */
 	this.clearGraph = function()
 	{
-		var graph = document.getElementById("scatGraph").getContext("2d");
-		var dataPoints = document.getElementById("scatDataPoints").getContext("2d");
+		var graph = document.getElementById("tempGraph").getContext("2d");
+		var dataPoints = document.getElementById("tempDataPoints").getContext("2d");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
@@ -67,7 +67,7 @@ function ScatGraph()
 	 */
 	this.drawBorder = function()
 	{
-		var graph = document.getElementById("scatGraph").getContext("2d");
+		var graph = document.getElementById("tempGraph").getContext("2d");
 	
 		graph.strokeStyle = this.secondaryColor;
 		graph.fillStyle = this.secondaryColor;
@@ -90,9 +90,9 @@ function ScatGraph()
 	 */
 	this.updateTitle = function()
 	{
-		var title = document.getElementById("scatCanvasTitle");
+		var title = document.getElementById("tempCanvasTitle");
 
-		title.innerHTML = "Scattering Angle";
+		title.innerHTML = "Temperature";
 	};
 	
 	/*
@@ -104,7 +104,7 @@ function ScatGraph()
 	{
 		var x, y, text;
 		var times = document.getElementById("timeSelect");
-		var graph = document.getElementById("scatGraph").getContext("2d");
+		var graph = document.getElementById("tempGraph").getContext("2d");
 		
 		graph.fillStyle = this.secondaryColor;
 		graph.strokeStyle = this.secondaryColor;
@@ -128,17 +128,13 @@ function ScatGraph()
 			graph.lineTo(x, this.padding);
 		}
 		
-		this.largestY += this.largestY * 0.10;
-		this.largestY -= this.largestY % 10;
-		this.largestY += 10;
-		
-		for(i = 0; i <= (this.largestY / 10); i++)
+		for(i = 0; i < 6; i++)
 		{
 			y = this.height - (this.padding * 2);
-			y = y / (this.largestY / 10 + 1) * i;
+			y = y / 5 * i;
 			y = y + this.padding;
 			
-			text = parseInt(this.largestY - (i * 10));
+			text = 50 - (10 * i);
 			
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text,
@@ -148,17 +144,6 @@ function ScatGraph()
 			graph.moveTo((this.padding - 5), y);
 			graph.lineTo((this.width - this.padding), y);
 		}
-		
-		y = this.height - this.padding;
-		
-		text = "-10";
-		graph.globalAlpha = this.alphaHigh;
-		graph.fillText(text,
-			(this.padding - graph.measureText(text).width - 10), y);
-		
-		graph.globalAlpha = this.alphaLow;
-		graph.moveTo((this.padding - 5), y);
-		graph.lineTo((this.width - this.padding), y);
 		
 		graph.fill();
 		graph.stroke();
@@ -171,10 +156,10 @@ function ScatGraph()
 	 */
 	this.plotPoints = function()
 	{
-		var x, y;
+		var x, y, temp;
 		var times = document.getElementById("timeSelect");
 		var dataPoints =
-			document.getElementById("scatDataPoints").getContext("2d");
+			document.getElementById("tempDataPoints").getContext("2d");
 		
 		dataPoints.strokeStyle = this.tertiaryColor;
 		dataPoints.fillStyle = this.tertiaryColor;
@@ -187,7 +172,11 @@ function ScatGraph()
 			x = x + this.padding;
 		
 			y = this.height - (this.padding * 2);
-			y = y / (this.largestY + 10) * (this.largestY - this.data[i]);
+			
+			temp = this.height - (this.padding * 2);
+			temp = temp / 50 * (this.data[i]);
+			
+			y = y - temp;
 			y = y + this.padding;
 		
 			dataPoints.moveTo(x, y);
@@ -199,21 +188,21 @@ function ScatGraph()
 	};
 }
 
-function drawScat()
+function drawTemp()
 {
-	var scatGraph = new ScatGraph();
+	var tempGraph = new TempGraph();
 	
-	scatGraph.readData();
+	tempGraph.readData();
 	
-	scatGraph.setupGraph();
+	tempGraph.setupGraph();
 	
-	scatGraph.clearGraph();
+	tempGraph.clearGraph();
 	
-	scatGraph.drawBorder();
+	tempGraph.drawBorder();
 	
-	scatGraph.updateTitle();
+	tempGraph.updateTitle();
 	
-	scatGraph.drawAxes();
+	tempGraph.drawAxes();
 	
-	scatGraph.plotPoints();
+	tempGraph.plotPoints();
 }

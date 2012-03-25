@@ -11,6 +11,7 @@
 		<script src="javascript/p11Small.js"></script>
 		<script src="javascript/scat.js"></script>
 		<script src="javascript/pres.js"></script>
+		<script src="javascript/temp.js"></script>
 		<!--<script src="javascript/scatter.js"></script>-->
 		<script>
 			var time = 0;
@@ -30,7 +31,21 @@
 				document.getElementById("timeRange").max =
 					document.getElementById("timeSelect").length - 1;
 				
-				run();
+				// Read data containing just the SCAT data
+				readScatData();
+
+				// Read data containing just the PRES data
+				readPresData();
+				
+				readTempData();
+				
+				TEST();
+				
+				drawScat();
+
+				drawPres();
+				
+				drawTemp();
 			}
 			
 			function run()
@@ -176,6 +191,14 @@
 				<canvas id="presGraph" class="graph"></canvas>
 				<canvas id="presDataPoints" class="dataPoints"></canvas>
 			</div>
+			
+			<div id="tempCanvasDiv">
+				<div id="tempCanvasTitle" class="canvasTitle"></div>
+				<div id="tempYAxisTitle" class="yAxisTitle"></div>
+				<div id="tempXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="tempGraph" class="graph"></canvas>
+				<canvas id="tempDataPoints" class="dataPoints"></canvas>
+			</div>
 		</div> <!-- canvasBox -->
 			
 		<div id="bottomPane">
@@ -186,6 +209,8 @@
 			<div id="scatData" style="display: none; visibility: hidden;">
 			</div>
 			<div id="presData" style="display: none; visibility: hidden;">
+			</div>
+			<div id="tempData" style="display: none; visibility: hidden;">
 			</div>
 		</div>
 	</body>

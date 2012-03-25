@@ -123,3 +123,11 @@ html, input
 	position: inherit;
 	
 	top: 1080px;
+}
+
+#tempCanvasDiv
+{
+	position: inherit;
+	
+	top: 1440px;
+}

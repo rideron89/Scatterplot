@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>
-			Scatterplot
+			UMBC Pi-Neph Data
 		</title>
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
 		<script src="javascript/utils.js"></script>
@@ -12,7 +12,7 @@
 		<script src="javascript/scat.js"></script>
 		<script src="javascript/pres.js"></script>
 		<script src="javascript/temp.js"></script>
-		<!--<script src="javascript/scatter.js"></script>-->
+		<script src="javascript/rh.js"></script>
 		<script>
 			var time = 0;
 			
@@ -39,6 +39,8 @@
 				
 				readTempData();
 				
+				readRHData();
+				
 				TEST();
 				
 				drawScat();
@@ -46,6 +48,8 @@
 				drawPres();
 				
 				drawTemp();
+				
+				drawRH();
 			}
 			
 			function run()
@@ -199,6 +203,16 @@
 				<canvas id="tempGraph" class="graph"></canvas>
 				<canvas id="tempDataPoints" class="dataPoints"></canvas>
 			</div>
+			
+			<div id="rhCanvasDiv">
+				<div id="rhCanvasTitle" class="canvasTitle"></div>
+				<div id="rhYAxisTitle" class="yAxisTitle"></div>
+				<div id="rhXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="rhGraph" class="graph"></canvas>
+				<canvas id="rh1DataPoints" class="dataPoints"></canvas>
+				<canvas id="rh2DataPoints" class="dataPoints"></canvas>
+				<canvas id="rh3DataPoints" class="dataPoints"></canvas>
+			</div>
 		</div> <!-- canvasBox -->
 			
 		<div id="bottomPane">
@@ -211,6 +225,12 @@
 			<div id="presData" style="display: none; visibility: hidden;">
 			</div>
 			<div id="tempData" style="display: none; visibility: hidden;">
+			</div>
+			<div id="rh1Data" style="display: none; visibility: hidden;">
+			</div>
+			<div id="rh2Data" style="display: none; visibility: hidden;">
+			</div>
+			<div id="rh3Data" style="display: none; visibility: hidden;">
 			</div>
 		</div>
 	</body>

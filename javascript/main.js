@@ -128,6 +128,32 @@ function readTempData()
 	xmlhttp.send();
 }
 
+function readRHData()
+{
+	var i = 1;
+	
+	if(window.XMLHttpRequest)
+		xmlhttp = new XMLHttpRequest();
+	else
+		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+
+	xmlhttp.onreadystatechange = function()
+	{
+		if(xmlhttp.readyState == 4)
+		{
+			document.getElementById("rh" + i + "Data").innerHTML =
+				xmlhttp.responseText;
+		}
+	};
+
+	for(i = 1; i <= 3; i++)
+	{
+		xmlhttp.open("POST", "php/getRH.php", false);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send("index=" + i);
+	}
+}
+
 function updateInformation()
 {
 	var startUTC, endUTC, calendar, scat, pres, temp, rh1, rh2, rh3;

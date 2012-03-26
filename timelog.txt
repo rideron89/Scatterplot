@@ -23,3 +23,4 @@ Work Time Log
 	7:45pm - 8:15pm		30 minutes
 3/25/12
 	5:00pm - 5:30pm		30 minutes
+	9:00pm - 9:45pm		45 minutes

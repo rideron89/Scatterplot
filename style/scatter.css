@@ -131,3 +131,10 @@ html, input
 	
 	top: 1440px;
 }
+
+#rhCanvasDiv
+{
+	position: inherit;
+	
+	top: 1800px;
+}

@@ -15,6 +15,7 @@
 		<script src="javascript/rh.js"></script>
 		<script>
 			var time = 0;
+			var instanceTime = 0;
 			
 			function init()
 			{
@@ -23,12 +24,20 @@
 				// set the time variable to the default value of the select box
 				time = document.getElementById("timeSelect").value;
 				
+				instanceTime = document.getElementById("timeSelect").value;
+				
 				// set the range's current text to the select box's current time
 				document.getElementById("rangeCurrent").innerHTML =
 					document.getElementById("timeSelect").options[time].text;
 				
+				document.getElementById("instanceRangeCurrent").innerHTML =
+					document.getElementById("timeSelect").options[time].text;
+				
 				// set the range's number of selections to the number of times
 				document.getElementById("timeRange").max =
+					document.getElementById("timeSelect").length - 1;
+				
+				document.getElementById("timeInstanceRange").max =
 					document.getElementById("timeSelect").length - 1;
 				
 				// Read data containing just the SCAT data
@@ -67,6 +76,21 @@
 				document.getElementById("timeSelect").value = time;
 				
 				run();
+			}
+			
+			function updateTimeInstanceRange()
+			{
+				instanceTime =
+					document.getElementById("timeInstanceRange").value;
+				
+				document.getElementById("instanceRangeCurrent").innerHTML =
+					document.getElementById("timeSelect")
+						.options[instanceTime].text;
+				
+				ScatGraph.moveTimeLine();
+				PresGraph.moveTimeLine();
+				TempGraph.moveTimeLine();
+				RHGraph.moveTimeLine();
 			}
 			
 			function updateSelect()
@@ -161,6 +185,26 @@
 			
 			<div id="p11PerformanceInfo">
 			</div>
+			
+			<div id="timeInstanceBox">
+				<div id="timeSliderLabel">
+					Time Instance (Seconds)
+				</div>
+				
+				<div id="timeInstanceSlider">
+					<input id="timeInstanceMinus" type="button" value="-"
+						onclick="" />
+					<input id="timeInstanceRange" type="range" min="0" max="0" step="1"
+						value="0" onchange="updateTimeInstanceRange()" />
+					<input id="timeInstancePlus" type="button" value="+"
+						onclick="" />
+				</div>
+				
+				<div id="timeInstancePosition">
+					<span id="instanceRangeCurrent">64665</span> sec
+				</div>
+				
+			</div> <!-- timeInstanceBox -->
 		</div> <!-- outerBox -->
 		
 		<div id="canvasBox">
@@ -186,6 +230,7 @@
 				<div id="scatXAxisTitle" class="xAxisTitle"></div>
 				<canvas id="scatGraph" class="graph"></canvas>
 				<canvas id="scatDataPoints" class="dataPoints"></canvas>
+				<canvas id="scatTimeLine" class="timeLine"></canvas>
 			</div>
 			
 			<div id="presCanvasDiv">
@@ -194,6 +239,7 @@
 				<div id="presXAxisTitle" class="xAxisTitle"></div>
 				<canvas id="presGraph" class="graph"></canvas>
 				<canvas id="presDataPoints" class="dataPoints"></canvas>
+				<canvas id="presTimeLine" class="timeLine"></canvas>
 			</div>
 			
 			<div id="tempCanvasDiv">
@@ -202,6 +248,7 @@
 				<div id="tempXAxisTitle" class="xAxisTitle"></div>
 				<canvas id="tempGraph" class="graph"></canvas>
 				<canvas id="tempDataPoints" class="dataPoints"></canvas>
+				<canvas id="tempTimeLine" class="timeLine"></canvas>
 			</div>
 			
 			<div id="rhCanvasDiv">
@@ -212,6 +259,7 @@
 				<canvas id="rh1DataPoints" class="dataPoints"></canvas>
 				<canvas id="rh2DataPoints" class="dataPoints"></canvas>
 				<canvas id="rh3DataPoints" class="dataPoints"></canvas>
+				<canvas id="rhTimeLine" class="timeLine"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
 			

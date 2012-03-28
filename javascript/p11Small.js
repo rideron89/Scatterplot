@@ -200,7 +200,7 @@ function P11SmallGraph()
 				}
 				
 				dataPoints.moveTo(x, y);
-				dataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+				dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			}
 		}
 		

@@ -1,9 +1,9 @@
 function PresGraph()
 {
-	this.width = 640;
+	PresGraph.width = this.width = 640;
 	this.height = 360;
 	
-	this.padding = 54;
+	PresGraph.padding = this.padding = 54;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
@@ -46,12 +46,22 @@ function PresGraph()
 	{
 		var graph = document.getElementById("presGraph");
 		var dataPoints = document.getElementById("presDataPoints");
+		var timeLine = document.getElementById("presTimeLine");
 		
 		graph.width = this.width;
 		graph.height = this.height;
 		
 		dataPoints.width = this.width;
 		dataPoints.height = this.height;
+		
+		timeLine.width = 2;
+		timeLine.height = this.height - (this.padding * 2);
+		timeLine.style.top = this.padding + "px";
+		
+		timeLine.getContext("2d").globalAlpha = 0.5;
+		
+		timeLine.getContext("2d").fillRect(0, 0, timeLine.width,
+			timeLine.height);
 	};
 	
 	/*
@@ -62,10 +72,14 @@ function PresGraph()
 	this.clearGraph = function()
 	{
 		var graph = document.getElementById("presGraph").getContext("2d");
-		var dataPoints = document.getElementById("presDataPoints").getContext("2d");
+		var dataPoints =
+			document.getElementById("presDataPoints").getContext("2d");
+		var timeLine = document.getElementById("presTimeLine");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
+		
+		timeLine.style.left = this.padding + "px";
 	};
 	
 	/*
@@ -181,6 +195,7 @@ function PresGraph()
 		var times = document.getElementById("timeSelect");
 		var dataPoints =
 			document.getElementById("presDataPoints").getContext("2d");
+		var timeLine = document.getElementById("presTimeLine");
 		
 		dataPoints.strokeStyle = this.tertiaryColor;
 		dataPoints.fillStyle = this.tertiaryColor;
@@ -201,11 +216,27 @@ function PresGraph()
 			y = y + this.padding;
 		
 			dataPoints.moveTo(x, y);
-			dataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
+			
+			if(i == 0)
+				timeLine.style.left = x + "px";
 		}
 		
 		dataPoints.fill();
 		dataPoints.stroke();
+	};
+	
+	PresGraph.moveTimeLine = function()
+	{
+		var x;
+		var timeLine = document.getElementById("presTimeLine");
+		var times = document.getElementById("timeSelect");
+		
+		x = this.width - (this.padding * 2);
+		x = x / 10000 * (times.options[instanceTime].text - 64000);
+		x = x + this.padding;
+		
+		timeLine.style.left = x + "px";
 	};
 }
 

@@ -1,9 +1,9 @@
 function RHGraph()
 {
-	this.width = 640;
+	RHGraph.width = this.width = 640;
 	this.height = 360;
 	
-	this.padding = 54;
+	RHGraph.padding = this.padding = 54;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
@@ -38,6 +38,7 @@ function RHGraph()
 		var rh1DataPoints = document.getElementById("rh1DataPoints");
 		var rh2DataPoints = document.getElementById("rh2DataPoints");
 		var rh3DataPoints = document.getElementById("rh3DataPoints");
+		var timeLine = document.getElementById("rhTimeLine");
 		
 		graph.width = this.width;
 		graph.height = this.height;
@@ -50,6 +51,15 @@ function RHGraph()
 		
 		rh3DataPoints.width = this.width;
 		rh3DataPoints.height = this.height;
+		
+		timeLine.width = 2;
+		timeLine.height = this.height - (this.padding * 2);
+		timeLine.style.top = this.padding + "px";
+		
+		timeLine.getContext("2d").globalAlpha = 0.5;
+		
+		timeLine.getContext("2d").fillRect(0, 0, timeLine.width,
+			timeLine.height);
 	};
 	
 	/*
@@ -66,6 +76,7 @@ function RHGraph()
 			document.getElementById("rh2DataPoints").getContext("2d");
 		var rh3DataPoints =
 			document.getElementById("rh3DataPoints").getContext("2d");
+		var timeLine = document.getElementById("rhTimeLine");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		
@@ -75,6 +86,8 @@ function RHGraph()
 			rh2DataPoints.height);
 		rh3DataPoints.clearRect(0, 0, rh3DataPoints.width,
 			rh3DataPoints.height);
+		
+		timeLine.style.left = this.padding + "px";
 	};
 	
 	/*
@@ -181,6 +194,7 @@ function RHGraph()
 			document.getElementById("rh2DataPoints").getContext("2d");
 		var rh3DataPoints =
 			document.getElementById("rh3DataPoints").getContext("2d");
+		var timeLine = document.getElementById("rhTimeLine");
 		
 		rh1DataPoints.strokeStyle = this.tertiaryColor;
 		rh1DataPoints.fillStyle = this.tertiaryColor;
@@ -201,7 +215,10 @@ function RHGraph()
 			y = y + this.padding;
 		
 			rh1DataPoints.moveTo(x, y);
-			rh1DataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+			rh1DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
+			
+			if(i == 0)
+				timeLine.style.left = x + "px";
 		}
 		
 		rh2DataPoints.strokeStyle = this.quaternaryColor;
@@ -223,7 +240,7 @@ function RHGraph()
 			y = y + this.padding;
 		
 			rh2DataPoints.moveTo(x, y);
-			rh2DataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+			rh2DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 		}
 		
 		rh3DataPoints.strokeStyle = this.quinaryColor;
@@ -245,7 +262,7 @@ function RHGraph()
 			y = y + this.padding;
 		
 			rh3DataPoints.moveTo(x, y);
-			rh3DataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+			rh3DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 		}
 		
 		rh1DataPoints.fill();
@@ -256,6 +273,19 @@ function RHGraph()
 		
 		rh3DataPoints.fill();
 		rh3DataPoints.stroke();
+	};
+	
+	RHGraph.moveTimeLine = function()
+	{
+		var x;
+		var timeLine = document.getElementById("rhTimeLine");
+		var times = document.getElementById("timeSelect");
+		
+		x = this.width - (this.padding * 2);
+		x = x / 10000 * (times.options[instanceTime].text - 64000);
+		x = x + this.padding;
+		
+		timeLine.style.left = x + "px";
 	};
 }
 

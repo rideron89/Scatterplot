@@ -1,9 +1,9 @@
 function TempGraph()
 {
-	this.width = 640;
+	TempGraph.width = this.width = 640;
 	this.height = 360;
 	
-	this.padding = 54;
+	TempGraph.padding = this.padding = 54;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
@@ -38,12 +38,22 @@ function TempGraph()
 	{
 		var graph = document.getElementById("tempGraph");
 		var dataPoints = document.getElementById("tempDataPoints");
+		var timeLine = document.getElementById("tempTimeLine");
 		
 		graph.width = this.width;
 		graph.height = this.height;
 		
 		dataPoints.width = this.width;
 		dataPoints.height = this.height;
+		
+		timeLine.width = 2;
+		timeLine.height = this.height - (this.padding * 2);
+		timeLine.style.top = this.padding + "px";
+		
+		timeLine.getContext("2d").globalAlpha = 0.5;
+		
+		timeLine.getContext("2d").fillRect(0, 0, timeLine.width,
+			timeLine.height);
 	};
 	
 	/*
@@ -54,10 +64,14 @@ function TempGraph()
 	this.clearGraph = function()
 	{
 		var graph = document.getElementById("tempGraph").getContext("2d");
-		var dataPoints = document.getElementById("tempDataPoints").getContext("2d");
+		var dataPoints =
+			document.getElementById("tempDataPoints").getContext("2d");
+		var timeLine = document.getElementById("tempTimeLine");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
+		
+		timeLine.style.left = this.padding + "px";
 	};
 	
 	/*
@@ -160,6 +174,7 @@ function TempGraph()
 		var times = document.getElementById("timeSelect");
 		var dataPoints =
 			document.getElementById("tempDataPoints").getContext("2d");
+		var timeLine = document.getElementById("tempTimeLine");
 		
 		dataPoints.strokeStyle = this.tertiaryColor;
 		dataPoints.fillStyle = this.tertiaryColor;
@@ -180,11 +195,27 @@ function TempGraph()
 			y = y + this.padding;
 		
 			dataPoints.moveTo(x, y);
-			dataPoints.arc(x, y, 2, 0, (2*Math.PI), false);
+			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
+			
+			if(i == 0)
+				timeLine.style.left = x + "px";
 		}
 		
 		dataPoints.fill();
 		dataPoints.stroke();
+	};
+	
+	TempGraph.moveTimeLine = function()
+	{
+		var x;
+		var timeLine = document.getElementById("tempTimeLine");
+		var times = document.getElementById("timeSelect");
+		
+		x = this.width - (this.padding * 2);
+		x = x / 10000 * (times.options[instanceTime].text - 64000);
+		x = x + this.padding;
+		
+		timeLine.style.left = x + "px";
 	};
 }
 

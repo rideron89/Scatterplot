@@ -94,8 +94,12 @@ function P11SmallGraph()
 	this.updateTitle = function()
 	{
 		var title = document.getElementById("p11SmallCanvasTitle");
+		var xAxis = document.getElementById("p11SmallXAxisTitle");
+		var yAxis = document.getElementById("p11SmallYAxisTitle");
 
 		title.innerHTML = "P11 read at 175 Angles";
+		xAxis.innerHTML = "P11 Phase Function [unitless]";
+		yAxis.innerHTML = "Scattering Angle [degrees]";
 	};
 	
 	/*

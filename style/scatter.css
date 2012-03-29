@@ -106,6 +106,30 @@ html, input
 	font-weight: bold;
 }
 
+.xAxisTitle
+{
+	position: absolute;
+	
+	top: 175px;
+	left: -90px;
+	
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	
+	font-style: italic;
+}
+
+.yAxisTitle
+{
+	position: absolute;
+	
+	top: 340px;
+	left: 230px;
+	
+	font-style: italic;
+}
+
 /***
  * Specific graph styles.
 ***/

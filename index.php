@@ -139,6 +139,12 @@
 	<body onload="init()">
 	
 		<div id="outerBox">
+			<div style="width: 100%; text-align: center; color: #333333; font-size: 8pt; font-style: italic;">
+				Optimized for Google Chrome
+			</div>
+			
+			<br />
+			
 			<div id="timeSelectionBox">
 				<div id="timeSliderLabel">
 					Graph Time (Seconds)

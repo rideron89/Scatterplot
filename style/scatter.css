@@ -97,6 +97,7 @@ html, input
 .canvasTitle
 {
 	position: absolute;
+	
 	z-index: 4;
 	
 	top: 15px;
@@ -109,6 +110,8 @@ html, input
 .xAxisTitle
 {
 	position: absolute;
+	
+	z-index: 4;
 	
 	top: 175px;
 	left: -90px;
@@ -123,6 +126,7 @@ html, input
 .yAxisTitle
 {
 	position: absolute;
+	z-index: 4;
 	
 	top: 340px;
 	left: 230px;

@@ -105,8 +105,12 @@ function ScatGraph()
 	this.updateTitle = function()
 	{
 		var title = document.getElementById("scatCanvasTitle");
+		var xAxis = document.getElementById("scatXAxisTitle");
+		var yAxis = document.getElementById("scatYAxisTitle");
 
-		title.innerHTML = "Scattering Angle";
+		title.innerHTML = "Linear Scattering Coefficient at 532nm ";
+		xAxis.innerHTML = "Time From Previous Midnight UTC [sec]";
+		yAxis.innerHTML = "Scattering Coefficient of Aerosol [1/Mm]";
 	};
 	
 	/*
@@ -209,7 +213,10 @@ function ScatGraph()
 			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			
 			if(i == 0)
-				timeLine.style.left = x + "px";
+			{
+				// add 15 because of the offset in the style sheet
+				timeLine.style.left = x + 15 + "px";
+			}
 		}
 		
 		dataPoints.fill();
@@ -226,7 +233,8 @@ function ScatGraph()
 		x = x / 10000 * (times.options[instanceTime].text - 64000);
 		x = x + this.padding;
 		
-		timeLine.style.left = x + "px";
+		// add 15 because of the offset in the style sheet
+		timeLine.style.left = x + 15 + "px";
 	};
 }
 

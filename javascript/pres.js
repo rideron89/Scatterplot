@@ -113,8 +113,12 @@ function PresGraph()
 	this.updateTitle = function()
 	{
 		var title = document.getElementById("presCanvasTitle");
+		var xAxis = document.getElementById("presXAxisTitle");
+		var yAxis = document.getElementById("presYAxisTitle");
 
-		title.innerHTML = "Pressure";
+		title.innerHTML = "Pressure Inside the PI-Neph Measurement Chamber ";
+		xAxis.innerHTML = "Time From Previous Midnight UTC [sec]";
+		yAxis.innerHTML = "Pressure Measured [kPa]";
 	};
 	
 	/*
@@ -219,7 +223,10 @@ function PresGraph()
 			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			
 			if(i == 0)
-				timeLine.style.left = x + "px";
+			{
+				// add 15 because of the offset in the style sheet
+				timeLine.style.left = x + 15 + "px";
+			}
 		}
 		
 		dataPoints.fill();
@@ -236,7 +243,8 @@ function PresGraph()
 		x = x / 10000 * (times.options[instanceTime].text - 64000);
 		x = x + this.padding;
 		
-		timeLine.style.left = x + "px";
+		// add 15 because of the offset in the style sheet
+		timeLine.style.left = x + 15 + "px";
 	};
 }
 

@@ -106,7 +106,7 @@ function TempGraph()
 	{
 		var title = document.getElementById("tempCanvasTitle");
 
-		title.innerHTML = "Temperature";
+		title.innerHTML = "Temperature Inside the PI-Neph Measurement Chamber ";
 	};
 	
 	/*
@@ -198,7 +198,10 @@ function TempGraph()
 			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			
 			if(i == 0)
-				timeLine.style.left = x + "px";
+			{
+				// add 15 because of the offset in the style sheet
+				timeLine.style.left = x + 15 + "px";
+			}
 		}
 		
 		dataPoints.fill();
@@ -215,7 +218,8 @@ function TempGraph()
 		x = x / 10000 * (times.options[instanceTime].text - 64000);
 		x = x + this.padding;
 		
-		timeLine.style.left = x + "px";
+		// add 15 because of the offset in the style sheet
+		timeLine.style.left = x + 15 + "px";
 	};
 }
 

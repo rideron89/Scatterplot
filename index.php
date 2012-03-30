@@ -214,7 +214,7 @@
 		</div> <!-- outerBox -->
 		
 		<div id="canvasBox">
-			<div id="p11CanvasDiv">
+			<div id="p11CanvasDiv" class="canvasDiv">
 				<div id="p11CanvasTitle" class="canvasTitle"></div>
 				<div id="p11YAxisTitle" class="yAxisTitle"></div>
 				<div id="p11XAxisTitle" class="xAxisTitle"></div>
@@ -222,7 +222,7 @@
 				<canvas id="p11DataPoints" class="dataPoints"></canvas>
 			</div>
 			
-			<div id="p11SmallCanvasDiv">
+			<div id="p11SmallCanvasDiv" class="canvasDiv">
 				<div id="p11SmallCanvasTitle" class="canvasTitle"></div>
 				<div id="p11SmallYAxisTitle" class="yAxisTitle"></div>
 				<div id="p11SmallXAxisTitle" class="xAxisTitle"></div>
@@ -230,7 +230,7 @@
 				<canvas id="p11SmallDataPoints" class="dataPoints"></canvas>
 			</div>
 			
-			<div id="scatCanvasDiv">
+			<div id="scatCanvasDiv" class="canvasDiv">
 				<div id="scatCanvasTitle" class="canvasTitle"></div>
 				<div id="scatYAxisTitle" class="yAxisTitle"></div>
 				<div id="scatXAxisTitle" class="xAxisTitle"></div>
@@ -239,7 +239,7 @@
 				<canvas id="scatTimeLine" class="timeLine"></canvas>
 			</div>
 			
-			<div id="presCanvasDiv">
+			<div id="presCanvasDiv" class="canvasDiv">
 				<div id="presCanvasTitle" class="canvasTitle"></div>
 				<div id="presYAxisTitle" class="yAxisTitle"></div>
 				<div id="presXAxisTitle" class="xAxisTitle"></div>
@@ -248,7 +248,7 @@
 				<canvas id="presTimeLine" class="timeLine"></canvas>
 			</div>
 			
-			<div id="tempCanvasDiv">
+			<div id="tempCanvasDiv" class="canvasDiv">
 				<div id="tempCanvasTitle" class="canvasTitle"></div>
 				<div id="tempYAxisTitle" class="yAxisTitle"></div>
 				<div id="tempXAxisTitle" class="xAxisTitle"></div>
@@ -257,7 +257,7 @@
 				<canvas id="tempTimeLine" class="timeLine"></canvas>
 			</div>
 			
-			<div id="rhCanvasDiv">
+			<div id="rhCanvasDiv" class="canvasDiv">
 				<div id="rhCanvasTitle" class="canvasTitle"></div>
 				<div id="rhYAxisTitle" class="yAxisTitle"></div>
 				<div id="rhXAxisTitle" class="xAxisTitle"></div>

@@ -25,6 +25,7 @@ Work Time Log
 	5:00pm - 5:30pm		30 minutes
 	9:00pm - 9:45pm		45 minutes
 -----------------------------------------
-3/28/12
-	11:15am - 12:15pm	1 hour
-	9:30pm - 10:00pm	30 minutes
+3/30/12
+	4:00pm - 5:45pm		1 hour, 45 minutes
+		* organized the layout of the graphs
+		* updated most of the graph titles and axis titles

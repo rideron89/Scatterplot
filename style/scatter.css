@@ -68,9 +68,21 @@ html, input
 
 #canvasBox
 {
-	position: relative;
+	position: absolute;
 	
 	left: 325px;
+}
+
+.canvasDiv
+{
+	position: inherit;
+	
+	margin-top: 20px;
+	
+	width: 660px;
+	height: 380px;
+	
+	border: 1px solid #888888;
 }
 
 .graph
@@ -78,6 +90,8 @@ html, input
 	position: absolute;
 	
 	z-index: 1;
+	
+	left: 15px;
 }
 
 .dataPoints
@@ -85,6 +99,8 @@ html, input
 	position: absolute;
 	
 	z-index: 2;
+	
+	left: 15px;
 }
 
 .timeLine
@@ -92,6 +108,8 @@ html, input
 	position: absolute;
 	
 	z-index: 3;
+	
+	left: 15px;
 }
 
 .canvasTitle
@@ -101,37 +119,56 @@ html, input
 	z-index: 4;
 	
 	top: 15px;
-	left: 200px;
+	
+	width: 100%;
 	
 	font-size: 12pt;
 	font-weight: bold;
+	
+	text-align: center;
+	
+	text-shadow: 1px 1px 3px #999999;
+	filter: dropshadow(color=#999999, offx=1, offy=1);
 }
 
 .xAxisTitle
 {
 	position: absolute;
+	z-index: 4;
+	
+	top: 345px;
+	
+	width: 100%;
+	
+	font-style: italic;
+	
+	text-align: center;
+	
+	text-shadow: 1px 1px 3px #999999;
+	filter: dropshadow(color=#999999, offx=1, offy=1);
+}
+
+.yAxisTitle
+{
+	position: absolute;
 	
 	z-index: 4;
 	
-	top: 175px;
-	left: -90px;
+	left: -125px;
+	
+	width: 100%;
+	height: 100%;
 	
 	-webkit-transform: rotate(-90deg); 
 	-moz-transform: rotate(-90deg);
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	
 	font-style: italic;
-}
-
-.yAxisTitle
-{
-	position: absolute;
-	z-index: 4;
 	
-	top: 340px;
-	left: 230px;
+	text-align: center;
 	
-	font-style: italic;
+	text-shadow: 1px 1px 3px #999999;
+	filter: dropshadow(color=#999999, offx=1, offy=1);
 }
 
 /***
@@ -141,33 +178,25 @@ html, input
 {
 	position: inherit;
 	
-	top: 360px;
+	top: 400px;
 }
 
 #scatCanvasDiv
 {
-	position: inherit;
-	
-	top: 720px;
+	top: 800px;
 }
 
 #presCanvasDiv
 {
-	position: inherit;
-	
-	top: 1080px;
+	top: 1200px;
 }
 
 #tempCanvasDiv
 {
-	position: inherit;
-	
-	top: 1440px;
+	top: 1600px;
 }
 
 #rhCanvasDiv
 {
-	position: inherit;
-	
-	top: 1800px;
+	top: 2000px;
 }

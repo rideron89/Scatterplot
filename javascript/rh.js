@@ -121,8 +121,12 @@ function RHGraph()
 	this.updateTitle = function()
 	{
 		var title = document.getElementById("rhCanvasTitle");
+		var xAxis = document.getElementById("rhXAxisTitle");
+		var yAxis = document.getElementById("rhYAxisTitle");
 
 		title.innerHTML = "Relative Humidity";
+		xAxis.innerHTML = "Time From Previous Midnight UTC [sec]";
+		yAxis.innerHTML = "Relative Humidity [%]";
 	};
 	
 	/*
@@ -218,7 +222,10 @@ function RHGraph()
 			rh1DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			
 			if(i == 0)
-				timeLine.style.left = x + "px";
+			{
+				// add 15 because of the offset in the style sheet
+				timeLine.style.left = x + 15 + "px";
+			}
 		}
 		
 		rh2DataPoints.strokeStyle = this.quaternaryColor;
@@ -285,7 +292,8 @@ function RHGraph()
 		x = x / 10000 * (times.options[instanceTime].text - 64000);
 		x = x + this.padding;
 		
-		timeLine.style.left = x + "px";
+		// add 15 because of the offset in the style sheet
+		timeLine.style.left = x + 15 + "px";
 	};
 }
 

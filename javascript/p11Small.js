@@ -98,8 +98,8 @@ function P11SmallGraph()
 		var yAxis = document.getElementById("p11SmallYAxisTitle");
 
 		title.innerHTML = "P11 read at 175 Angles";
-		xAxis.innerHTML = "P11 Phase Function [unitless]";
-		yAxis.innerHTML = "Scattering Angle [degrees]";
+		xAxis.innerHTML = "Scattering Angle [degrees]";
+		yAxis.innerHTML = "P11 Phase Function [unitless]";
 	};
 	
 	/*

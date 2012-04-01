@@ -29,3 +29,6 @@ Work Time Log
 	4:00pm - 5:45pm		1 hour, 45 minutes
 		* organized the layout of the graphs
 		* updated most of the graph titles and axis titles
+4/1/12
+	6:30pm - 7:10pm		40 minutes
+		* added legend to the RH graph

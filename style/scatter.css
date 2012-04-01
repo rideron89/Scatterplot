@@ -8,7 +8,7 @@ html, input
 {
 	position: fixed;
 	
-	z-index: 5;
+	z-index: 6;
 	
 	left: 40px;
 	top: 40px;
@@ -112,11 +112,23 @@ html, input
 	left: 15px;
 }
 
-.canvasTitle
+.legend
 {
 	position: absolute;
 	
 	z-index: 4;
+	
+	top: 60px;
+	left: 440px;
+	
+	border: 1px solid #888888;
+}
+
+.canvasTitle
+{
+	position: absolute;
+	
+	z-index: 5;
 	
 	top: 15px;
 	
@@ -134,7 +146,7 @@ html, input
 .xAxisTitle
 {
 	position: absolute;
-	z-index: 4;
+	z-index: 5;
 	
 	top: 345px;
 	
@@ -152,7 +164,7 @@ html, input
 {
 	position: absolute;
 	
-	z-index: 4;
+	z-index: 5;
 	
 	left: -125px;
 	

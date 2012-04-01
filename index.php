@@ -266,6 +266,7 @@
 				<canvas id="rh2DataPoints" class="dataPoints"></canvas>
 				<canvas id="rh3DataPoints" class="dataPoints"></canvas>
 				<canvas id="rhTimeLine" class="timeLine"></canvas>
+				<canvas id="rhLegend" class="legend"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
 			

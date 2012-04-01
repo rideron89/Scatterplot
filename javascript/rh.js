@@ -39,6 +39,7 @@ function RHGraph()
 		var rh2DataPoints = document.getElementById("rh2DataPoints");
 		var rh3DataPoints = document.getElementById("rh3DataPoints");
 		var timeLine = document.getElementById("rhTimeLine");
+		var legend = document.getElementById("rhLegend");
 		
 		graph.width = this.width;
 		graph.height = this.height;
@@ -60,6 +61,9 @@ function RHGraph()
 		
 		timeLine.getContext("2d").fillRect(0, 0, timeLine.width,
 			timeLine.height);
+		
+		legend.width = 150;
+		legend.height = 52;
 	};
 	
 	/*
@@ -77,6 +81,7 @@ function RHGraph()
 		var rh3DataPoints =
 			document.getElementById("rh3DataPoints").getContext("2d");
 		var timeLine = document.getElementById("rhTimeLine");
+		var legend = document.getElementById("rhLegend").getContext("2d");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		
@@ -88,6 +93,8 @@ function RHGraph()
 			rh3DataPoints.height);
 		
 		timeLine.style.left = this.padding + "px";
+		
+		legend.clearRect(0, 0, legend.width, legend.height);
 	};
 	
 	/*
@@ -112,6 +119,60 @@ function RHGraph()
 		graph.fill();
 		graph.stroke();
 	};
+	
+	/*
+	 * drawLegend()
+	 * 
+	 * Draw the graph's legend.
+	 */
+	this.drawLegend = function()
+	{
+		var legend = document.getElementById("rhLegend");
+		var context = legend.getContext("2d");
+		
+		context.globalAlpha = 0.7;
+		context.fillStyle = "white";
+		
+		context.fillRect(0, 0, legend.width, legend.height);
+		
+		context.globalAlpha = this.alphaHigh;
+		
+		context.beginPath();
+		context.strokeStyle = this.tertiaryColor;
+		context.fillStyle = this.tertiaryColor;
+		context.moveTo(10, 12);
+		context.arc(10, 12, 2, 0, (2*Math.PI), false);
+		
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.strokeStyle = this.quaternaryColor;
+		context.fillStyle = this.quaternaryColor;
+		context.moveTo(10, 27);
+		context.arc(10, 27, 2, 0, (2*Math.PI), false);
+		
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.strokeStyle = this.quinaryColor;
+		context.fillStyle = this.quinaryColor;
+		context.moveTo(10, 42);
+		context.arc(10, 42, 2, 0, (2*Math.PI), false);
+		
+		context.fill();
+		context.stroke();
+		
+		context.fillStyle = "black";
+		
+		context.fillText("RH1, before PI-Neph inlet", 20, 15);
+		context.fillText("RH2, inside PI-Neph inlet", 20, 30);
+		context.fillText("RH3, after PI-Neph inlet", 20, 45);
+		
+		context.fill();
+		context.stroke();
+	}
 	
 	/*
 	 * updateTitle()
@@ -308,6 +369,8 @@ function drawRH()
 	rhGraph.clearGraph();
 	
 	rhGraph.drawBorder();
+	
+	rhGraph.drawLegend();
 	
 	rhGraph.updateTitle();
 	

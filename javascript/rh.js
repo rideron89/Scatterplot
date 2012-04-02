@@ -58,7 +58,7 @@ function RHGraph()
 		timeLine.style.top = this.padding + "px";
 		
 		timeLine.getContext("2d").globalAlpha = 0.5;
-		
+		timeLine.getContext("2d").fillStyle = "red";
 		timeLine.getContext("2d").fillRect(0, 0, timeLine.width,
 			timeLine.height);
 		

@@ -96,7 +96,9 @@ function P11Graph()
 		var xAxis = document.getElementById("p11XAxisTitle");
 		var yAxis = document.getElementById("p11YAxisTitle");
 
-		title.innerHTML = "P11 read at 175 Angles";
+		title.innerHTML = "P11, aerosol only phase function, from 2 degrees ";
+		title.innerHTML += "to 176 degrees, by 1 degree, at 532 nm";
+		
 		xAxis.innerHTML = "Scattering Angle [degrees]";
 		yAxis.innerHTML = "P11 Phase Function [unitless]";
 	};

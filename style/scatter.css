@@ -144,10 +144,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	
 	width: 100%;
 	
-	font-size: 12pt;
+	font-size: 10pt;
 	font-weight: bold;
 	
 	text-align: center;
+	text-decoration: underline;
 	
 	text-shadow: 1px 1px 3px #999999;
 	filter: dropshadow(color=#999999, offx=1, offy=1);

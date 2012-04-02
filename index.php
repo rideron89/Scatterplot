@@ -60,7 +60,8 @@
 			
 			function updateRange()
 			{
-				time = document.getElementById("timeRange").value;
+				instanceTime = time =
+					document.getElementById("timeRange").value;
 				
 				document.getElementById("rangeCurrent").innerHTML =
 					document.getElementById("timeSelect").options[time].text;
@@ -68,6 +69,11 @@
 				document.getElementById("timeSelect").value = time;
 				
 				run();
+				
+				ScatGraph.moveTimeLine();
+				PresGraph.moveTimeLine();
+				TempGraph.moveTimeLine();
+				RHGraph.moveTimeLine();
 			}
 			
 			function updateTimeInstanceRange()
@@ -171,13 +177,13 @@
 			<div id="dataInformationBox">
 				Start UTC: <span id="startUTC"></span> sec<br />
 				End UTC: <span id="endUTC"></span> sec<br />
-				HH:MM:SS: <span id="calendar"></span><br />
+				HH:MM:SS UTC: <span id="calendar"></span><br />
 				SCAT: <span id="scat"></span> 1/Mm<br />
 				PRES: <span id="pres"></span> Pa<br />
 				TEMP: <span id="temp"></span> K<br />
-				RH1: <span id="rh1"></span>%<br />
-				RH2: <span id="rh2"></span>%<br />
-				RH3: <span id="rh3"></span>%
+				RH1 (inlet): <span id="rh1"></span>%<br />
+				RH2 (chamber): <span id="rh2"></span>%<br />
+				RH3 (outlet): <span id="rh3"></span>%
 			</div>
 			
 			<div id="performanceInfo">

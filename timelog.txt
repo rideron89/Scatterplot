@@ -35,3 +35,6 @@ Work Time Log
 4/2/12
 	11:50am - 1:30pm	1 hour, 40 minutes
 		* fixed first P11 graph, data points should now be accurate
+	4:00pm - 4:45pm		45 minutes
+		* added HH:MM:SS time to last 4 graphs
+		* increased readability of temperature graph

@@ -137,10 +137,10 @@ function PresGraph()
 		graph.font = "bold 7pt sans-serif";
 		graph.lineWidth = 1;
 		
-		for(var i = 0; i < 11; i++)
+		for(var i = 0; i < 12; i++)
 		{
 			x = this.width - (this.padding * 2);
-			x = x / 10 * i;
+			x = x / 11 * i;
 			x = x + this.padding;
 			
 			text = parseInt(64 + (1 * i)) + "k";
@@ -148,6 +148,11 @@ function PresGraph()
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
 				(this.height - this.padding + 20));
+			
+			graph.globalAlpha = 0.7;
+			text = secondsToCalendar(parseInt(64 + (1 * i)) * 1000);
+			graph.fillText(text, (x - graph.measureText(text).width / 2),
+				(this.height-  this.padding + 30));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo(x, (this.height - this.padding + 5));
@@ -208,7 +213,7 @@ function PresGraph()
 		for(var i = 0; i < this.data.length-1; i++)
 		{
 			x = this.width - (this.padding * 2);
-			x = x / 10000 * (times.options[i].text - 64000);
+			x = x / 11000 * (times.options[i].text - 64000);
 			x = x + this.padding;
 		
 			y = this.height - (this.padding * 2);
@@ -240,7 +245,7 @@ function PresGraph()
 		var times = document.getElementById("timeSelect");
 		
 		x = this.width - (this.padding * 2);
-		x = x / 10000 * (times.options[instanceTime].text - 64000);
+		x = x / 11000 * (times.options[instanceTime].text - 64000);
 		x = x + this.padding;
 		
 		// add 15 because of the offset in the style sheet

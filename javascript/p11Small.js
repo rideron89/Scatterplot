@@ -123,6 +123,11 @@ function P11SmallGraph()
 			x = x / 9 * i;
 			x = x + this.padding;
 		
+			text = 20 * i;
+		
+			graph.globalAlpha = this.alphaHigh;
+			graph.fillText(text, (x - graph.measureText(text).width / 2), (this.height - this.padding + 20));
+		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo(x, (this.height - this.padding));
 			graph.lineTo(x, this.padding);

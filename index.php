@@ -40,24 +40,16 @@
 				document.getElementById("timeInstanceRange").max =
 					document.getElementById("timeSelect").length - 1;
 				
-				// Read data containing just the SCAT data
 				readScatData();
-
-				// Read data containing just the PRES data
 				readPresData();
-				
 				readTempData();
-				
 				readRHData();
 				
 				TEST();
 				
 				drawScat();
-
 				drawPres();
-				
 				drawTemp();
-				
 				drawRH();
 			}
 			
@@ -139,7 +131,9 @@
 	<body onload="init()">
 	
 		<div id="outerBox">
-			<div style="width: 100%; text-align: center; color: #333333; font-size: 8pt; font-style: italic;">
+			<div style="width: 100%; text-align: center; color: #333333;
+				font-size: 8pt; font-style: italic;"
+				title="">
 				Optimized for Google Chrome
 			</div>
 			
@@ -200,8 +194,9 @@
 				<div id="timeInstanceSlider">
 					<input id="timeInstanceMinus" type="button" value="-"
 						onclick="" />
-					<input id="timeInstanceRange" type="range" min="0" max="0" step="1"
-						value="0" onchange="updateTimeInstanceRange()" />
+					<input id="timeInstanceRange" type="range" min="0" max="0"
+						step="1" value="0"
+						onchange="updateTimeInstanceRange()" />
 					<input id="timeInstancePlus" type="button" value="+"
 						onclick="" />
 				</div>
@@ -270,23 +265,15 @@
 			</div>
 		</div> <!-- canvasBox -->
 			
-		<div id="bottomPane">
-			<div id="p11Data" style="display: none; visibility: hidden;">
-			</div>
-			<div id="coefficientData"
-				style="display: none; visibility: hidden;"></div>
-			<div id="scatData" style="display: none; visibility: hidden;">
-			</div>
-			<div id="presData" style="display: none; visibility: hidden;">
-			</div>
-			<div id="tempData" style="display: none; visibility: hidden;">
-			</div>
-			<div id="rh1Data" style="display: none; visibility: hidden;">
-			</div>
-			<div id="rh2Data" style="display: none; visibility: hidden;">
-			</div>
-			<div id="rh3Data" style="display: none; visibility: hidden;">
-			</div>
+		<div id="bottomPane" style="display: none; visibility: hidden;">
+			<div id="p11Data"></div>
+			<div id="coefficientData"></div>
+			<div id="scatData"></div>
+			<div id="presData"></div>
+			<div id="tempData"></div>
+			<div id="rh1Data"></div>
+			<div id="rh2Data"></div>
+			<div id="rh3Data"></div>
 		</div>
 	</body>
 </html>

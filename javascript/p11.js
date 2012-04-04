@@ -56,7 +56,8 @@ function P11Graph()
 	this.clearGraph = function()
 	{
 		var graph = document.getElementById("p11Graph").getContext("2d");
-		var dataPoints = document.getElementById("p11DataPoints").getContext("2d");
+		var dataPoints =
+			document.getElementById("p11DataPoints").getContext("2d");
 	
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
@@ -127,7 +128,8 @@ function P11Graph()
 			text = 20 * i;
 		
 			graph.globalAlpha = this.alphaHigh;
-			graph.fillText(text, (x - graph.measureText(text).width / 2), (this.height - this.padding + 20));
+			graph.fillText(text, (x - graph.measureText(text).width / 2),
+				(this.height - this.padding + 20));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo(x, (this.height - this.padding + 5));
@@ -150,7 +152,8 @@ function P11Graph()
 			text = Math.pow(10, (4 - j - 1));
 		
 			graph.globalAlpha = this.alphaHigh;
-			graph.fillText(text, (this.padding - graph.measureText(text).width - 10), (y + 3));
+			graph.fillText(text,
+				(this.padding - graph.measureText(text).width - 10), (y + 3));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo((this.padding - 5), y);
@@ -162,11 +165,12 @@ function P11Graph()
 	};
 	
 	/*
-	 * drawAxes()
+	 * drawAxesDynamic()
 	 *
-	 * Draw the axes for our graph.
+	 * Draw the dynamic (max and min values change according to data) axes for
+	 * our graph.
 	 */
-	this.drawAxes2 = function()
+	this.drawAxesDynamic = function()
 	{
 		var x, y, text;
 		var graph = document.getElementById("p11Graph").getContext("2d");
@@ -185,7 +189,8 @@ function P11Graph()
 			text = 20 * i;
 		
 			graph.globalAlpha = this.alphaHigh;
-			graph.fillText(text, (x - graph.measureText(text).width / 2), (this.height - this.padding + 20));
+			graph.fillText(text, (x - graph.measureText(text).width / 2),
+				(this.height - this.padding + 20));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo(x, (this.height - this.padding + 5));
@@ -208,7 +213,8 @@ function P11Graph()
 			text = Math.pow(10, (i - j));
 		
 			graph.globalAlpha = this.alphaHigh;
-			graph.fillText(text, (this.padding - graph.measureText(text).width - 10), (y + 3));
+			graph.fillText(text,
+				(this.padding - graph.measureText(text).width - 10), (y + 3));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo((this.padding - 5), y);
@@ -226,8 +232,9 @@ function P11Graph()
 	 */
 	this.plotPoints = function()
 	{
-		var x, y, temp;
-		var dataPoints = document.getElementById("p11DataPoints").getContext("2d");
+		var x, y, temp, log;
+		var dataPoints =
+			document.getElementById("p11DataPoints").getContext("2d");
 	
 		dataPoints.strokeStyle = this.primaryColor;
 		dataPoints.fillStyle = this.primaryColor;
@@ -235,144 +242,21 @@ function P11Graph()
 	
 		for(var i = 6; i < this.data.length; i++)
 		{
+			log = Math.log(this.data[i]) - Math.log(0.1);
+			log /= Math.log(1000) - Math.log(0.1);
+			
 			x = this.width - (this.padding * 2);
 			x = (x / 180) * (i - 4);
 			x = x + this.padding;
 			
 			y = this.height - (this.padding * 2);
-			y = y / 4;
-			temp = y;
-			
-			if(this.data[i] == 0.1)
-			{
-				y = this.height - (this.padding * 2);
-				
-				temp = 0;
-			}
-			else if(this.data[i] <= 1)
-			{
-				y = y * 3;
-				
-				temp = temp / 0.9;
-				temp = temp * (1 - this.data[i]);
-			}
-			else if(this.data[i] <= 10)
-			{
-				y = y * 2;
-				
-				temp = temp / 9;
-				temp = temp * (10 - this.data[i]);
-			}
-			else if(this.data[i] <= 100)
-			{
-				y = y * 1;
-				
-				temp = temp / 90;
-				temp = temp * (100 - this.data[i]);
-			}
-			else if(this.data[i] <= 1000)
-			{
-				y = y * 0;
-				
-				temp = temp / 900;
-				temp = temp * (1000 - this.data[i]);
-			}
-			
-			y = y + temp;
+			temp = y / 10;
+			temp = temp * (log * 10);
+			y = y - temp;
 			y = y + this.padding;
 			
 			if(this.data[i] > 0)
 			{
-				dataPoints.moveTo(x, y);
-				dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
-			}
-		}
-	
-		dataPoints.fill();
-		dataPoints.stroke();
-	};
-	
-	/*
-	 * plotPoints()
-	 *
-	 * Graph the data points from our readings.
-	 */
-	this.plotPoints2 = function()
-	{
-		var x, y, temp;
-		var dataPoints = document.getElementById("p11DataPoints").getContext("2d");
-	
-		dataPoints.strokeStyle = this.primaryColor;
-		dataPoints.fillStyle = this.primaryColor;
-		dataPoints.lineWidth = 1;
-	
-		for(var i = 6; i < this.data.length; i++)
-		{
-			if(this.data[i] > 0)
-			{
-				x = this.width - (this.padding * 2);
-				x = x / 180 * (i - 4);
-				x = x + this.padding;
-
-				for(var j = 0; Math.pow(10, j) < this.data[i]; j++)
-				{
-				}
-
-				y = this.height - (this.padding * 2);
-				y = y - (y / (this.yDividers - 1) * j);
-				y = y + this.padding;
-
-				temp = this.height - (this.padding * 2);
-				temp = temp / (this.yDividers - 1) / (Math.pow(10, j) - Math.pow(10, j) / 10);
-				temp = temp * this.data[i];
-
-				y = y - temp;
-
-				dataPoints.moveTo(x, y);
-				dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
-			}
-		}
-	
-		dataPoints.fill();
-		dataPoints.stroke();
-	};
-	
-	/*
-	 * plotPoints()
-	 *
-	 * Graph the data points from our readings.
-	 */
-	this.plotPoints3 = function()
-	{
-		var x, y, temp;
-		var dataPoints = document.getElementById("p11DataPoints").getContext("2d");
-	
-		dataPoints.strokeStyle = this.primaryColor;
-		dataPoints.fillStyle = this.primaryColor;
-		dataPoints.lineWidth = 1;
-	
-		for(var i = 6; i < this.data.length; i++)
-		{
-			if(this.data[i] > 0)
-			{
-				x = this.width - (this.padding * 2);
-				x = x / 180 * (i - 4);
-				x = x + this.padding;
-
-				for(var j = 0; Math.pow(10, j) < this.data[i]; j++)
-				{
-				}
-
-				y = this.height - (this.padding * 2);
-				y = y - (y / (this.yDividers - 1) * j);
-				y = y + this.padding;
-
-				temp = this.height - (this.padding * 2);
-				temp = temp / (this.yDividers - 1) / Math.pow(10, j);
-				temp = temp * this.data[i];
-
-				y = y - temp;
-
 				dataPoints.moveTo(x, y);
 				dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			}

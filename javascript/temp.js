@@ -151,13 +151,13 @@ function TempGraph()
 			graph.lineTo(x, this.padding);
 		}
 		
-		for(i = 0; i < 6; i++)
+		for(i = 0; i < 5; i++)
 		{
 			y = this.height - (this.padding * 2);
-			y = y / 4 * i;
+			y = y / 3 * i;
 			y = y + this.padding;
 			
-			text = 40 - (5 * i);
+			text = 40 - (10 * i);
 			
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text,
@@ -198,7 +198,7 @@ function TempGraph()
 			y = this.height - (this.padding * 2);
 			
 			temp = this.height - (this.padding * 2);
-			temp = temp / 20 * (this.data[i] - 20);
+			temp = temp / 30 * (this.data[i] - 10);
 			
 			y = y - temp;
 			y = y + this.padding;

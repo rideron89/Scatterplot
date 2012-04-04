@@ -3,7 +3,7 @@ function ScatGraph()
 	ScatGraph.width = this.width = 640;
 	this.height = 360;
 	
-	ScatGraph.padding = this.padding = 54;
+	ScatGraph.padding = this.padding = 64;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
@@ -126,7 +126,7 @@ function ScatGraph()
 		
 		graph.fillStyle = this.secondaryColor;
 		graph.strokeStyle = this.secondaryColor;
-		graph.font = "bold 7pt sans-serif";
+		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 		
 		for(var i = 0; i < 12; i++)
@@ -141,10 +141,10 @@ function ScatGraph()
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
 				(this.height - this.padding + 20));
 			
-			graph.globalAlpha = 0.7;
-			text = secondsToCalendar(parseInt(64 + (1 * i)) * 1000);
+			graph.globalAlpha = 0.6;
+			text = secondsToCalendarHHMM(parseInt(64 + (1 * i)) * 1000);
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height-  this.padding + 30));
+				(this.height-  this.padding + 35));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo(x, (this.height - this.padding + 5));
@@ -235,7 +235,7 @@ function ScatGraph()
 		var times = document.getElementById("timeSelect");
 		
 		x = this.width - (this.padding * 2);
-		x = x / 11000 * (times.options[instanceTime].text - 64000);
+		x = x / 11000 * (times.options[time].text - 64000);
 		x = x + this.padding;
 		
 		// add 15 because of the offset in the style sheet

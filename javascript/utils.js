@@ -20,3 +20,12 @@ function secondsToCalendar(seconds)
 	
 	return string;
 }
+
+function secondsToCalendarHHMM(seconds)
+{
+	var string = secondsToCalendar(seconds);
+	
+	string = string.substr(0, 5);
+	
+	return string;
+}

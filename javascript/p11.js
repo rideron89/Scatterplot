@@ -3,7 +3,7 @@ function P11Graph()
 	this.width = 640;
 	this.height = 360;
 	
-	this.padding = 54;
+	this.padding = 64;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
@@ -116,7 +116,7 @@ function P11Graph()
 	
 		graph.fillStyle = this.secondaryColor;
 		graph.strokeStyle = this.secondaryColor;
-		graph.font = "bold 7pt sans-serif";
+		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 	
 		for(var i = 0; i <= 9; i++)
@@ -143,13 +143,13 @@ function P11Graph()
 	
 		this.yDividers = i + 2;
 	
-		for(var j = 0; j <= 4; j++)
+		for(var j = 0; j < 4; j++)
 		{
 			y = this.height - (this.padding * 2);
-			y = y / 4 * j;
+			y = y / 3 * j;
 			y = y + this.padding;
 		
-			text = Math.pow(10, (4 - j - 1));
+			text = Math.pow(10, (4 - j - 2));
 		
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text,
@@ -243,7 +243,7 @@ function P11Graph()
 		for(var i = 6; i < this.data.length; i++)
 		{
 			log = Math.log(this.data[i]) - Math.log(0.1);
-			log /= Math.log(1000) - Math.log(0.1);
+			log /= Math.log(100) - Math.log(0.1);
 			
 			x = this.width - (this.padding * 2);
 			x = (x / 180) * (i - 4);
@@ -255,7 +255,7 @@ function P11Graph()
 			y = y - temp;
 			y = y + this.padding;
 			
-			if(this.data[i] > 0)
+			if(this.data[i] >= 0.1 && this.data[i] <= 100)
 			{
 				dataPoints.moveTo(x, y);
 				dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);

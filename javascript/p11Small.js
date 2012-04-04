@@ -3,7 +3,7 @@ function P11SmallGraph()
 	this.width = 640;
 	this.height = 360;
 	
-	this.padding = 54;
+	this.padding = 64;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
@@ -117,7 +117,7 @@ function P11SmallGraph()
 		
 		graph.fillStyle = this.secondaryColor;
 		graph.strokeStyle = this.secondaryColor;
-		graph.font = "bold 7pt sans-serif";
+		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 		
 		for(var i = 0; i <= 9; i++)
@@ -140,9 +140,6 @@ function P11SmallGraph()
 		
 		graph.globalAlpha = this.alphaHigh;
 		graph.fillText("0", (this.padding - graph.measureText("0").width - 10),
-			(y + 2));
-		graph.fillText("180",
-			(this.width - this.padding + graph.measureText("180").width - 10),
 			(y + 2));
 		
 		for(var i = 0; i < 5; i++)

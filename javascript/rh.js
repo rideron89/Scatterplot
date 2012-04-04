@@ -3,12 +3,12 @@ function RHGraph()
 	RHGraph.width = this.width = 640;
 	this.height = 360;
 	
-	RHGraph.padding = this.padding = 54;
+	RHGraph.padding = this.padding = 64;
 	
 	this.primaryColor = "red";
 	this.secondaryColor = "black";
 	this.tertiaryColor = "green";
-	this.quaternaryColor = "yellow";
+	this.quaternaryColor = "orange";
 	this.quinaryColor = "purple";
 	
 	this.alphaHigh = 1.0;
@@ -57,12 +57,12 @@ function RHGraph()
 		timeLine.height = this.height - (this.padding * 2);
 		timeLine.style.top = this.padding + "px";
 		
-		timeLine.getContext("2d").globalAlpha = 0.5;
+		timeLine.getContext("2d").globalAlpha = 0.6;
 		timeLine.getContext("2d").fillStyle = "red";
 		timeLine.getContext("2d").fillRect(0, 0, timeLine.width,
 			timeLine.height);
 		
-		legend.width = 150;
+		legend.width = 210;
 		legend.height = 52;
 	};
 	
@@ -132,6 +132,7 @@ function RHGraph()
 		
 		context.globalAlpha = 0.7;
 		context.fillStyle = "white";
+		context.font = "bold 11pt sans-serif";
 		
 		context.fillRect(0, 0, legend.width, legend.height);
 		
@@ -203,7 +204,7 @@ function RHGraph()
 		
 		graph.fillStyle = this.secondaryColor;
 		graph.strokeStyle = this.secondaryColor;
-		graph.font = "bold 7pt sans-serif";
+		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 		
 		for(var i = 0; i < 12; i++)
@@ -218,10 +219,10 @@ function RHGraph()
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
 				(this.height - this.padding + 20));
 			
-			graph.globalAlpha = 0.7;
-			text = secondsToCalendar(parseInt(64 + (1 * i)) * 1000);
+			graph.globalAlpha = 0.6;
+			text = secondsToCalendarHHMM(parseInt(64 + (1 * i)) * 1000);
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height-  this.padding + 30));
+				(this.height-  this.padding + 35));
 		
 			graph.globalAlpha = this.alphaLow;
 			graph.moveTo(x, (this.height - this.padding + 5));
@@ -355,7 +356,7 @@ function RHGraph()
 		var times = document.getElementById("timeSelect");
 		
 		x = this.width - (this.padding * 2);
-		x = x / 11000 * (times.options[instanceTime].text - 64000);
+		x = x / 11000 * (times.options[time].text - 64000);
 		x = x + this.padding;
 		
 		// add 15 because of the offset in the style sheet

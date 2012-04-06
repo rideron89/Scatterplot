@@ -44,3 +44,6 @@ Work Time Log
 		* fixed the log-scale graph (points now graph properly?!)
 	4:30pm - 5:00pm		30 minutes
 		* removed shadows from graph text, made everything bold
+4/5/12
+	7:45pm - 8:30pm		45 minutes
+		* started reading location information

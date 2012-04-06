@@ -68,6 +68,28 @@ function readCoefficientData()
 	xmlhttp.send("dataFile=coefficient.txt"+"&time="+time); // the variable "time" is initialized in index.php
 }
 
+function readLocationData()
+{
+	var times = document.getElementById("timeSelect").options;
+	
+	if(window.XMLHttpRequest)
+		xmlhttp = new XMLHttpRequest();
+	else
+		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+
+	xmlhttp.onreadystatechange = function()
+	{
+		if(xmlhttp.readyState == 4)
+		{
+			document.getElementById("locationData").innerHTML = xmlhttp.responseText;
+		}
+	};
+
+	xmlhttp.open("POST", "php/getLoc.php", false);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("time="+times[time].text); // the variable "time" is initialized in index.php
+}
+
 function readScatData()
 {
 	if(window.XMLHttpRequest)
@@ -154,21 +176,54 @@ function readRHData()
 	}
 }
 
+function readAltData()
+{
+	var i = 1;
+	
+	if(window.XMLHttpRequest)
+		xmlhttp = new XMLHttpRequest();
+	else
+		xmlhttp = new ActiveXObject("Microsoft.XMLHttp");
+
+	xmlhttp.onreadystatechange = function()
+	{
+		if(xmlhttp.readyState == 4)
+		{
+			document.getElementById("altData").innerHTML =
+				xmlhttp.responseText;
+		}
+	};
+
+	for(i = 1; i <= 3; i++)
+	{
+		xmlhttp.open("POST", "php/getAlt.php", false);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send();
+	}
+}
+
 function updateInformation()
 {
-	var startUTC, endUTC, calendar, scat, pres, temp, rh1, rh2, rh3;
+	var startUTC, endUTC, calendar;
+	var scat, pres, temp, rh1, rh2, rh3;
+	var lat, lon, alt;
 	var scatData = document.getElementById("p11Data").innerHTML.split(",");
 	var coefficientData = document.getElementById("coefficientData").innerHTML.split(",");
+	var locData = document.getElementById("locationData").innerHTML.split(",");
 	
 	startUTC = scatData[0];
 	endUTC = scatData[1];
-	calendar = scatData[3] + ":" + scatData[4] + ":" + scatData[5];
+	//calendar = scatData[3] + ":" + scatData[4] + ":" + scatData[5];
+	calendar = secondsToCalendar(scatData[2]);
 	scat = coefficientData[6];
 	pres = coefficientData[7];
 	temp = coefficientData[11];
 	rh1 = coefficientData[8];
 	rh2 = coefficientData[9];
 	rh3 = coefficientData[10];
+	lat = locData[1] + "&#176;" + locData[2] + "&#39;" + locData[3] + "&#34;";
+	lon = locData[4] + "&#176;" + locData[5] + "&#39;" + locData[6] + "&#34;";
+	alt = locData[7];
 	
 	document.getElementById("startUTC").innerHTML = startUTC;
 	document.getElementById("endUTC").innerHTML = endUTC;
@@ -179,6 +234,9 @@ function updateInformation()
 	document.getElementById("rh1").innerHTML = rh1;
 	document.getElementById("rh2").innerHTML = rh2;
 	document.getElementById("rh3").innerHTML = rh3;
+	document.getElementById("lat").innerHTML = lat;
+	document.getElementById("lon").innerHTML = lon;
+	document.getElementById("alt").innerHTML = alt;
 }
 
 function TEST()
@@ -188,6 +246,9 @@ function TEST()
 	
 	// Read data from the scattering coefficient data file
 	readCoefficientData();
+	
+	// Read data from the location data file
+	readLocationData();
 
 	// Update information posted on page
 	updateInformation();

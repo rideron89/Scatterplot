@@ -35,6 +35,7 @@
 				readPresData();
 				readTempData();
 				readRHData();
+				readAltData();
 				
 				TEST();
 				
@@ -158,7 +159,10 @@
 				TEMP: <span id="temp"></span> K<br />
 				RH1 (inlet): <span id="rh1"></span>%<br />
 				RH2 (chamber): <span id="rh2"></span>%<br />
-				RH3 (outlet): <span id="rh3"></span>%
+				RH3 (outlet): <span id="rh3"></span>%<br />
+				Plane Latitude: <span id="lat"></span><br />
+				Plane Longitude: <span id="lon"></span><br />
+				GPS Altitude: <span id="alt"></span> feet
 			</div>
 			
 			<div id="performanceInfo">
@@ -228,12 +232,16 @@
 		<div id="bottomPane" style="display: none; visibility: hidden;">
 			<div id="p11Data"></div>
 			<div id="coefficientData"></div>
+			<div id="locationData"></div>
 			<div id="scatData"></div>
 			<div id="presData"></div>
 			<div id="tempData"></div>
 			<div id="rh1Data"></div>
 			<div id="rh2Data"></div>
 			<div id="rh3Data"></div>
+			<div id="latData"></div>
+			<div id="lonData"></div>
+			<div id="altData"></div>
 		</div>
 	</body>
 </html>

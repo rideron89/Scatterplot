@@ -10,6 +10,7 @@
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/p11Small.js"></script>
 		<script src="javascript/scat.js"></script>
+		<script src="javascript/alt.js"></script>
 		<script src="javascript/pres.js"></script>
 		<script src="javascript/temp.js"></script>
 		<script src="javascript/rh.js"></script>
@@ -40,6 +41,7 @@
 				TEST();
 				
 				drawScat();
+				drawAlt();
 				drawPres();
 				drawTemp();
 				drawRH();
@@ -65,6 +67,7 @@
 				PresGraph.moveTimeLine();
 				TempGraph.moveTimeLine();
 				RHGraph.moveTimeLine();
+				AltGraph.moveTimeLine();
 			}
 			
 			function updateSelect()
@@ -196,6 +199,15 @@
 				<canvas id="scatGraph" class="graph"></canvas>
 				<canvas id="scatDataPoints" class="dataPoints"></canvas>
 				<canvas id="scatTimeLine" class="timeLine"></canvas>
+			</div>
+			
+			<div id="altCanvasDiv" class="canvasDiv">
+				<div id="altCanvasTitle" class="canvasTitle"></div>
+				<div id="altYAxisTitle" class="yAxisTitle"></div>
+				<div id="altXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="altGraph" class="graph"></canvas>
+				<canvas id="altDataPoints" class="dataPoints"></canvas>
+				<canvas id="altTimeLine" class="timeLine"></canvas>
 			</div>
 			
 			<div id="presCanvasDiv" class="canvasDiv">

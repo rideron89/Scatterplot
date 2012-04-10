@@ -189,6 +189,7 @@ function readAltData()
 	{
 		if(xmlhttp.readyState == 4)
 		{
+			
 			document.getElementById("altData").innerHTML =
 				xmlhttp.responseText;
 		}
@@ -213,7 +214,6 @@ function updateInformation()
 	
 	startUTC = scatData[0];
 	endUTC = scatData[1];
-	//calendar = scatData[3] + ":" + scatData[4] + ":" + scatData[5];
 	calendar = secondsToCalendar(scatData[2]);
 	scat = coefficientData[6];
 	pres = coefficientData[7];

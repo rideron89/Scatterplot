@@ -47,3 +47,6 @@ Work Time Log
 4/5/12
 	7:45pm - 8:30pm		45 minutes
 		* started reading location information
+-----------------------------------------
+4/9/12
+	10:00pm - 

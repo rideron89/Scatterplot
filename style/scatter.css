@@ -203,17 +203,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	top: 800px;
 }
 
-#presCanvasDiv
+#altCanvasDiv
 {
 	top: 1200px;
 }
 
-#tempCanvasDiv
+#presCanvasDiv
 {
 	top: 1600px;
 }
 
-#rhCanvasDiv
+#tempCanvasDiv
 {
 	top: 2000px;
+}
+
+#rhCanvasDiv
+{
+	top: 2400px;
 }

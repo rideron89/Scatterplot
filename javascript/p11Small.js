@@ -97,7 +97,7 @@ function P11SmallGraph()
 		var xAxis = document.getElementById("p11SmallXAxisTitle");
 		var yAxis = document.getElementById("p11SmallYAxisTitle");
 
-		title.innerHTML = "P11, aerosol only phase function, from 2 degrees ";
+		title.innerHTML = "P11, aerosol only phase function, from 2 ";
 		title.innerHTML += "to 176 degrees, by 1 degree, at 532 nm";
 		
 		

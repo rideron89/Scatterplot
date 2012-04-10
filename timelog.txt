@@ -49,4 +49,6 @@ Work Time Log
 		* started reading location information
 -----------------------------------------
 4/9/12
-	10:00pm - 
+	10:00pm - 11:45pm	1 hour, 45 minutes
+		* added altitude graph to webpage
+		* started building the MySQL database

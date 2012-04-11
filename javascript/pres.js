@@ -118,7 +118,7 @@ function PresGraph()
 
 		title.innerHTML = "Pressure Inside the PI-Neph Measurement Chamber ";
 		xAxis.innerHTML = "Time From Previous Midnight UTC [sec]";
-		yAxis.innerHTML = "Pressure Measured [kPa]";
+		yAxis.innerHTML = "Pressure Measured [Pa]";
 	};
 	
 	/*
@@ -159,15 +159,15 @@ function PresGraph()
 			graph.lineTo(x, this.padding);
 		}
 		
-		this.largestY = 150;
+		this.largestY = 120;
 		
-		for(i = 0; i < 10; i++)
+		for(i = 0; i < 6; i++)
 		{
 			y = this.height - (this.padding * 2);
-			y = y / 10 * i;
+			y = y / 6 * i;
 			y = y + this.padding;
 			
-			text = this.largestY - (15 * i) + "k";
+			text = this.largestY - (20 * i) + "k";
 			
 			graph.globalAlpha = this.alphaHigh;
 			graph.fillText(text,
@@ -219,7 +219,7 @@ function PresGraph()
 			y = this.height - (this.padding * 2);
 			
 			temp = this.height - (this.padding * 2);
-			temp = temp / 150 * (this.data[i] / 1000);
+			temp = temp / 120 * (this.data[i] / 1000);
 			
 			y = y - temp;
 			y = y + this.padding;

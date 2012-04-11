@@ -193,32 +193,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 ***/
 #p11SmallCanvasDiv
 {
-	position: inherit;
-	
 	top: 400px;
 }
 
-#scatCanvasDiv
+#p12CanvasDiv
 {
 	top: 800px;
 }
 
-#altCanvasDiv
+#scatCanvasDiv
 {
 	top: 1200px;
 }
 
-#presCanvasDiv
+#altCanvasDiv
 {
 	top: 1600px;
 }
 
-#tempCanvasDiv
+#presCanvasDiv
 {
 	top: 2000px;
 }
 
-#rhCanvasDiv
+#tempCanvasDiv
 {
 	top: 2400px;
+}
+
+#rhCanvasDiv
+{
+	top: 2800px;
 }

@@ -52,3 +52,5 @@ Work Time Log
 	10:00pm - 11:45pm	1 hour, 45 minutes
 		* added altitude graph to webpage
 		* started building the MySQL database
+4/10/12
+	4:30pm - 

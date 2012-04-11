@@ -9,6 +9,7 @@
 		<script src="javascript/main.js"></script>
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/p11Small.js"></script>
+		<script src="javascript/p12.js"></script>
 		<script src="javascript/scat.js"></script>
 		<script src="javascript/alt.js"></script>
 		<script src="javascript/pres.js"></script>
@@ -192,6 +193,14 @@
 				<canvas id="p11SmallDataPoints" class="dataPoints"></canvas>
 			</div>
 			
+			<div id="p12CanvasDiv" class="canvasDiv">
+				<div id="p12CanvasTitle" class="canvasTitle"></div>
+				<div id="p12YAxisTitle" class="yAxisTitle"></div>
+				<div id="p12XAxisTitle" class="xAxisTitle"></div>
+				<canvas id="p12Graph" class="graph"></canvas>
+				<canvas id="p12DataPoints" class="dataPoints"></canvas>
+			</div>
+			
 			<div id="scatCanvasDiv" class="canvasDiv">
 				<div id="scatCanvasTitle" class="canvasTitle"></div>
 				<div id="scatYAxisTitle" class="yAxisTitle"></div>
@@ -243,6 +252,7 @@
 			
 		<div id="bottomPane" style="display: none; visibility: hidden;">
 			<div id="p11Data"></div>
+			<div id="p12Data"></div>
 			<div id="coefficientData"></div>
 			<div id="locationData"></div>
 			<div id="scatData"></div>

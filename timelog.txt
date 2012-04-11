@@ -57,5 +57,7 @@ Work Time Log
 		* continued designing the MySQL database
 
 4/11/12
-	11:15am - 1:00pm - 1 hour, 45 minutes
+	11:15am - 1:00pm -	1 hour, 45 minutes
 		* loaded most of the data into the database (still need location data)
+	5:00pm - 5:45pm -	45 minutes
+		* finished creating the database

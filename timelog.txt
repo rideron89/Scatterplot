@@ -53,4 +53,9 @@ Work Time Log
 		* added altitude graph to webpage
 		* started building the MySQL database
 4/10/12
-	4:30pm - 
+	4:30pm - 5:30pm		1 hour
+		* continued designing the MySQL database
+
+4/11/12
+	11:15am - 1:00pm - 1 hour, 45 minutes
+		* loaded most of the data into the database (still need location data)

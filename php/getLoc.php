@@ -1,5 +1,5 @@
 <?php
-	$fileName = "../loc.txt";
+	$fileName = "../data/loc.txt";
 	$time = $_POST["time"];
 	
 	$data = file_get_contents($fileName);

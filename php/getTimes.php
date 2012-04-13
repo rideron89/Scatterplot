@@ -1,5 +1,5 @@
 <?php
-	$fileName = "../" . $_POST["dataFile"];
+	$fileName = "../data/" . $_POST["dataFile"];
 
 	$data = file_get_contents($fileName);
 	$data = str_replace("\n", "+", $data);

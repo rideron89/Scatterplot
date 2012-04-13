@@ -1,6 +1,6 @@
 <?php
-	$fileName = "../loc.txt";
-	$scatFile = "../scat.txt";
+	$fileName = "../data/loc.txt";
+	$scatFile = "../data/scat.txt";
 	
 	$data = file_get_contents($fileName);
 	$data = str_replace("\n", "+", $data);

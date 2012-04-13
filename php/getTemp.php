@@ -1,5 +1,5 @@
 <?php
-	$fileName = "../coefficient.txt";
+	$fileName = "../data/coefficient.txt";
 	
 	$data = file_get_contents($fileName);
 	$data = str_replace("\n", "+", $data);

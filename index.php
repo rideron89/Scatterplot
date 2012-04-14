@@ -5,6 +5,7 @@
 			UMBC Pi-Neph Data
 		</title>
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
+		<script src="javascript/jquery172.js"></script>
 		<script src="javascript/utils.js"></script>
 		<script src="javascript/main.js"></script>
 		<script src="javascript/p11.js"></script>
@@ -22,35 +23,19 @@
 			{
 				readTimes();
 				
-				// set the time variable to the default value of the select box
-				time = document.getElementById("timeSelect").value;
+				//readScatData();
+				//readPresData();
+				//readTempData();
+				//readRHData();
+				//readAltData();
 				
-				// set the range's current text to the select box's current time
-				document.getElementById("rangeCurrent").innerHTML =
-					document.getElementById("timeSelect").options[time].text;
+				//TEST();
 				
-				// set the range's number of selections to the number of times
-				document.getElementById("timeRange").max =
-					document.getElementById("timeSelect").length - 1;
-				
-				readScatData();
-				readPresData();
-				readTempData();
-				readRHData();
-				readAltData();
-				
-				TEST();
-				
-				drawScat();
-				drawAlt();
-				drawPres();
-				drawTemp();
-				drawRH();
-			}
-			
-			function run()
-			{
-				TEST();
+				//drawScat();
+				//drawAlt();
+				//drawPres();
+				//drawTemp();
+				//drawRH();
 			}
 			
 			function updateRange()
@@ -62,13 +47,15 @@
 				
 				document.getElementById("timeSelect").value = time;
 				
-				run();
+				updateGraphs();
 				
-				ScatGraph.moveTimeLine();
-				PresGraph.moveTimeLine();
-				TempGraph.moveTimeLine();
-				RHGraph.moveTimeLine();
-				AltGraph.moveTimeLine();
+				//run();
+				
+				//ScatGraph.moveTimeLine();
+				//PresGraph.moveTimeLine();
+				//TempGraph.moveTimeLine();
+				//RHGraph.moveTimeLine();
+				//AltGraph.moveTimeLine();
 			}
 			
 			function updateSelect()
@@ -80,7 +67,9 @@
 				
 				document.getElementById("timeRange").value = time;
 				
-				run();
+				updateGraphs();
+				
+				//run();
 			}
 			
 			/*
@@ -121,6 +110,11 @@
 				font-size: 8pt; font-style: italic;"
 				title="">
 				Optimized for Google Chrome
+			</div>
+			
+			<div id="loadingIconDiv">
+				<img src="style/loadingIcon.gif" /><br />
+				Data is loading...
 			</div>
 			
 			<br />
@@ -173,6 +167,12 @@
 			</div>
 			
 			<div id="p11PerformanceInfo">
+			</div>
+			
+			<div id="errorInfoDiv">
+			</div>
+			
+			<div id="warningInfoDiv">
 			</div>
 		</div> <!-- outerBox -->
 		

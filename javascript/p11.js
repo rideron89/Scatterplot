@@ -1,97 +1,76 @@
-function P11Graph()
+var width = 640;
+var height = 360;
+
+var padding = 64;
+
+var primaryColor = "red";
+var secondaryColor = "black";
+
+var alphaHigh = 1.0;
+var alphaLow = 0.2;
+
+var currentTime = 0;
+var data = new Array();
+var largestY = -1;
+
+function graphP11()
 {
-	this.width = 640;
-	this.height = 360;
+	currentTime = document.getElementById("timeSelect").options[time].text;
 	
-	this.padding = 64;
-	
-	this.primaryColor = "red";
-	this.secondaryColor = "black";
-	
-	this.alphaHigh = 1.0;
-	this.alphaLow = 0.2;
-	
-	this.data = new Array();
-	this.largestY = -1;
-	this.yDividers = 0;
-	
-	/*
-	 * readData()
-	 *
-	 * Read the data we've retrieved.
-	 */
-	this.readData = function()
-	{
-		this.data = document.getElementById("p11Data").innerHTML.split(",");
-		
-		for(var i = 6; i < this.data.length; i++)
-		{
-			if(parseFloat(this.data[i]) > this.largestY)
-				this.largestY = parseFloat(this.data[i]);
-		}
-	};
-	
-	/*
-	 * setupGraph()
-	 *
-	 * Initialize the graph space.
-	 */
-	this.setupGraph = function()
+	$.ajax({
+		type: "POST",
+		url: "php/scripts/getP11Data.php",
+		data: {time: currentTime},
+		success: P11Graph,
+		dataType: "text"
+	});
+}
+
+function P11Graph(output)
+{
+	data = output.split(",");
+
+	var setupGraph = function()
 	{
 		var graph = document.getElementById("p11Graph");
 		var dataPoints = document.getElementById("p11DataPoints");
-		
-		graph.width = this.width;
-		graph.height = this.height;
-		
-		dataPoints.width = this.width;
-		dataPoints.height = this.height;
+
+		graph.width = width;
+		graph.height =  height;
+
+		dataPoints.width = width;
+		dataPoints.height = height;
 	};
-	
-	/*
-	 * clearGraph()
-	 *
-	 * Clear the graph space.
-	 */
-	this.clearGraph = function()
+
+	var clearGraph = function()
 	{
 		var graph = document.getElementById("p11Graph").getContext("2d");
 		var dataPoints =
 			document.getElementById("p11DataPoints").getContext("2d");
-	
+
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
 	};
-	
-	/*
-	 * drawBorder()
-	 *
-	 * Draw the graph's border.
-	 */
-	this.drawBorder = function()
+
+	var drawBorder = function()
 	{
 		var graph = document.getElementById("p11Graph").getContext("2d");
-	
+
 		graph.strokeStyle = this.secondaryColor;
 		graph.fillStyle = this.secondaryColor;
 		graph.lineWidth = 2;
-	
-		graph.moveTo(this.padding, this.padding);
-		graph.lineTo(this.padding, (this.height-this.padding));
-	
-		graph.moveTo(this.padding, (this.height-this.padding));
-		graph.lineTo((this.width-this.padding), (this.height-this.padding));
-	
+
+		graph.moveTo(padding, padding);
+		graph.lineTo(padding, (height - padding));
+
+		graph.moveTo(padding, (height - padding));
+		graph.lineTo((width - padding), (height - padding));
+
 		graph.fill();
 		graph.stroke();
 	};
-	
-	/*
-	 * updateTitle()
-	 *
-	 * Change the title to fit our graph.
-	 */
-	this.updateTitle = function()
+
+	var updateTitle = function()
 	{
 		var title = document.getElementById("p11CanvasTitle");
 		var xAxis = document.getElementById("p11XAxisTitle");
@@ -99,196 +78,106 @@ function P11Graph()
 
 		title.innerHTML = "P11, aerosol only phase function, from 2 ";
 		title.innerHTML += "to 176 degrees, by 1 degree, at 532 nm";
-		
+
 		xAxis.innerHTML = "Scattering Angle [degrees]";
 		yAxis.innerHTML = "P11 Phase Function [unitless]";
 	};
-	
-	/*
-	 * drawAxes()
-	 *
-	 * Draw the axes for our graph.
-	 */
-	this.drawAxes = function()
+
+	var drawAxes = function()
 	{
 		var x, y, text;
 		var graph = document.getElementById("p11Graph").getContext("2d");
-	
-		graph.fillStyle = this.secondaryColor;
-		graph.strokeStyle = this.secondaryColor;
+
+		graph.fillStyle = secondaryColor;
+		graph.strokeStyle = secondaryColor;
 		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
-	
+
 		for(var i = 0; i <= 9; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 9 * i;
-			x = x + this.padding;
-		
+			x = x + padding;
+
 			text = 20 * i;
-		
-			graph.globalAlpha = this.alphaHigh;
+
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height - this.padding + 20));
-		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo(x, (this.height - this.padding + 5));
-			graph.lineTo(x, this.padding);
+				(height - padding + 20));
+
+			graph.globalAlpha = alphaLow;
+			graph.moveTo(x, (height - padding + 5));
+			graph.lineTo(x, padding);
 		}
-	
-		for(i = 0; Math.pow(10, (i)) < this.largestY; i++)
+
+		for(i = 0; Math.pow(10, (i)) < largestY; i++)
 		{
 			y = Math.pow(10, (i+1));
 		}
-	
-		this.yDividers = i + 2;
-	
+
+		yDividers = i + 2;
+
 		for(var j = 0; j < 4; j++)
 		{
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			y = y / 3 * j;
-			y = y + this.padding;
-		
+			y = y + padding;
+
 			text = Math.pow(10, (4 - j - 2));
-		
-			graph.globalAlpha = this.alphaHigh;
+
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text,
-				(this.padding - graph.measureText(text).width - 10), (y + 3));
-		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo((this.padding - 5), y);
-			graph.lineTo((this.width - this.padding), y);
+				(padding - graph.measureText(text).width - 10), (y + 3));
+
+			graph.globalAlpha = alphaLow;
+			graph.moveTo((padding - 5), y);
+			graph.lineTo((width - padding), y);
 		}
-	
+
 		graph.fill();
 		graph.stroke();
 	};
-	
-	/*
-	 * drawAxesDynamic()
-	 *
-	 * Draw the dynamic (max and min values change according to data) axes for
-	 * our graph.
-	 */
-	this.drawAxesDynamic = function()
-	{
-		var x, y, text;
-		var graph = document.getElementById("p11Graph").getContext("2d");
-	
-		graph.fillStyle = this.secondaryColor;
-		graph.strokeStyle = this.secondaryColor;
-		graph.font = "bold 7pt sans-serif";
-		graph.lineWidth = 1;
-	
-		for(var i = 0; i <= 9; i++)
-		{
-			x = this.width - (this.padding * 2);
-			x = x / 9 * i;
-			x = x + this.padding;
-		
-			text = 20 * i;
-		
-			graph.globalAlpha = this.alphaHigh;
-			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height - this.padding + 20));
-		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo(x, (this.height - this.padding + 5));
-			graph.lineTo(x, this.padding);
-		}
-	
-		for(i = 0; Math.pow(10, (i)) < this.largestY; i++)
-		{
-			y = Math.pow(10, (i+1));
-		}
-	
-		this.yDividers = i + 2;
-	
-		for(var j = 0; j <= (i+1); j++)
-		{
-			y = this.height - (this.padding * 2);
-			y = y / (i+1) * j;
-			y = y + this.padding;
-		
-			text = Math.pow(10, (i - j));
-		
-			graph.globalAlpha = this.alphaHigh;
-			graph.fillText(text,
-				(this.padding - graph.measureText(text).width - 10), (y + 3));
-		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo((this.padding - 5), y);
-			graph.lineTo((this.width - this.padding), y);
-		}
-	
-		graph.fill();
-		graph.stroke();
-	};
-	
-	/*
-	 * plotPoints()
-	 *
-	 * Graph the data points from our readings.
-	 */
-	this.plotPoints = function()
+
+	var plotPoints = function()
 	{
 		var x, y, temp, log;
 		var dataPoints =
 			document.getElementById("p11DataPoints").getContext("2d");
-	
-		dataPoints.strokeStyle = this.primaryColor;
-		dataPoints.fillStyle = this.primaryColor;
+
+		dataPoints.strokeStyle = primaryColor;
+		dataPoints.fillStyle = primaryColor;
 		dataPoints.lineWidth = 1;
-	
-		for(var i = 6; i < this.data.length; i++)
+
+		for(var i = 6; i < data.length; i++)
 		{
-			log = Math.log(this.data[i]) - Math.log(0.1);
+			log = Math.log(data[i]) - Math.log(0.1);
 			log /= Math.log(100) - Math.log(0.1);
-			
-			x = this.width - (this.padding * 2);
+
+			x = width - (padding * 2);
 			x = (x / 180) * (i - 4);
-			x = x + this.padding;
-			
-			y = this.height - (this.padding * 2);
+			x = x + padding;
+
+			y = height - (padding * 2);
 			temp = y / 10;
 			temp = temp * (log * 10);
 			y = y - temp;
-			y = y + this.padding;
-			
-			if(this.data[i] >= 0.1 && this.data[i] <= 100)
+			y = y + padding;
+
+			if(data[i] >= 0.1 && data[i] <= 100)
 			{
 				dataPoints.moveTo(x, y);
 				dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 			}
 		}
-	
+
 		dataPoints.fill();
 		dataPoints.stroke();
 	};
-}
-
-function drawP11()
-{
-	var p11Graph = new P11Graph();
 	
-	// Read data
-	p11Graph.readData();
-	
-	// Setup graph space
-	p11Graph.setupGraph();
-	
-	// Clear the current graph
-	p11Graph.clearGraph();
-	
-	// Draw the border
-	p11Graph.drawBorder();
-	
-	// Update the title
-	p11Graph.updateTitle();
-	
-	// Draw the axes
-	p11Graph.drawAxes();
-	
-	// Draw the data points
-	p11Graph.plotPoints();
+	setupGraph();
+	clearGraph();
+	drawBorder();
+	updateTitle();
+	drawAxes();
+	plotPoints();
 }

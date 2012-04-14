@@ -188,6 +188,30 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	text-align: center;
 }
 
+#loadingIconDiv
+{
+	margin-top: 10px;
+	margin-bottom: 5px;
+	
+	width: 100%;
+	
+	display: none;
+	
+	text-align: center;
+	
+	font-style: italic;
+}
+
+#errorInfoDiv
+{
+	color: #ef0000;
+}
+
+#warningInfoDiv
+{
+	color: #efef00;
+}
+
 /***
  * Specific graph styles.
 ***/

@@ -1,54 +1,72 @@
-function ScatGraph()
+var width = 640;
+var height = 360;
+
+var padding = 64;
+
+var primaryColor = "red";
+var secondaryColor = "black";
+
+var alphaHigh = 1.0;
+var alphaLow = 0.2;
+
+var currentTime = 0;
+var data = new Array();
+var largestY = -1;
+var yDividers = 11;
+
+function graphScat()
 {
-	ScatGraph.width = this.width = 640;
-	this.height = 360;
+	currentTime = document.getElementById("timeSelect").options[time].text;
 	
-	ScatGraph.padding = this.padding = 64;
+	$.ajax({
+		type: "POST",
+		url: "php/scripts/getScatData.php",
+		success: ScatGraph,
+		dataType: "text"
+	});
+}
+
+function moveScatTimeLine()
+{
+	var x;
+	var timeLine = document.getElementById("scatTimeLine");
+	var times = document.getElementById("timeSelect");
+
+	x = this.width - (this.padding * 2);
+	x = x / 11000 * (times.options[time].text - 64000);
+	x = x + this.padding;
+
+	// add 15 because of the offset in the style sheet
+	timeLine.style.left = x + 15 + "px";
+};
+
+function ScatGraph(output)
+{
+	data = output.split(",");
 	
-	this.primaryColor = "red";
-	this.secondaryColor = "black";
-	this.tertiaryColor = "blue";
-	
-	this.alphaHigh = 1.0;
-	this.alphaLow = 0.2;
-	
-	this.data = new Array();
-	this.largestY = -1;
-	this.yDividers = 11;
-	
-	this.readData = function()
+	for(var i = 0; i < data.length; i++)
 	{
-		this.data = document.getElementById("scatData").innerHTML.split(",");
-		
-		for(var i = 0; i < this.data.length; i++)
+		if(parseFloat(data[i]) > largestY)
 		{
-			if(parseFloat(this.data[i]) > this.largestY)
-			{
-				this.largestY = parseFloat(this.data[i]);
-			}
+			largestY = parseFloat(data[i]);
 		}
-	};
+	}
 	
-	/*
-	 * setupGraph()
-	 *
-	 * Initialize the graph space.
-	 */
-	this.setupGraph = function()
+	var setupGraph = function()
 	{
 		var graph = document.getElementById("scatGraph");
 		var dataPoints = document.getElementById("scatDataPoints");
 		var timeLine = document.getElementById("scatTimeLine");
 		
-		graph.width = this.width;
-		graph.height = this.height;
+		graph.width = width;
+		graph.height = height;
 		
-		dataPoints.width = this.width;
-		dataPoints.height = this.height;
+		dataPoints.width = width;
+		dataPoints.height = height;
 		
 		timeLine.width = 2;
-		timeLine.height = this.height - (this.padding * 2);
-		timeLine.style.top = this.padding + "px";
+		timeLine.height = height - (padding * 2);
+		timeLine.style.top = padding + "px";
 		
 		timeLine.getContext("2d").globalAlpha = 0.5;
 		timeLine.getContext("2d").fillStyle = "red";
@@ -56,12 +74,7 @@ function ScatGraph()
 			timeLine.height);
 	};
 	
-	/*
-	 * clearGraph()
-	 *
-	 * Clear the graph space.
-	 */
-	this.clearGraph = function()
+	var clearGraph = function()
 	{
 		var graph = document.getElementById("scatGraph").getContext("2d");
 		var dataPoints =
@@ -71,38 +84,28 @@ function ScatGraph()
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
 		
-		timeLine.style.left = this.padding + "px";
+		timeLine.style.left = padding + "px";
 	};
 	
-	/*
-	 * drawBorder()
-	 *
-	 * Draw the graph's border.
-	 */
-	this.drawBorder = function()
+	var drawBorder = function()
 	{
 		var graph = document.getElementById("scatGraph").getContext("2d");
 	
-		graph.strokeStyle = this.secondaryColor;
-		graph.fillStyle = this.secondaryColor;
+		graph.strokeStyle = secondaryColor;
+		graph.fillStyle = secondaryColor;
 		graph.lineWidth = 2;
 	
-		graph.moveTo(this.padding, this.padding);
-		graph.lineTo(this.padding, (this.height-this.padding));
+		graph.moveTo(padding, padding);
+		graph.lineTo(padding, (height-padding));
 	
-		graph.moveTo(this.padding, (this.height-this.padding));
-		graph.lineTo((this.width-this.padding), (this.height-this.padding));
+		graph.moveTo(padding, (height-padding));
+		graph.lineTo((width-padding), (height-padding));
 	
 		graph.fill();
 		graph.stroke();
 	};
 	
-	/*
-	 * updateTitle()
-	 *
-	 * Change the title to fit our graph.
-	 */
-	this.updateTitle = function()
+	var updateTitle = function()
 	{
 		var title = document.getElementById("scatCanvasTitle");
 		var xAxis = document.getElementById("scatXAxisTitle");
@@ -113,86 +116,76 @@ function ScatGraph()
 		yAxis.innerHTML = "Scattering Coefficient of Aerosol [1/Mm]";
 	};
 	
-	/*
-	 * drawAxes()
-	 *
-	 * Draw the axes for our graph.
-	 */
-	this.drawAxes = function()
+	var drawAxes = function()
 	{
 		var x, y, text;
 		var times = document.getElementById("timeSelect");
 		var graph = document.getElementById("scatGraph").getContext("2d");
 		
-		graph.fillStyle = this.secondaryColor;
-		graph.strokeStyle = this.secondaryColor;
+		graph.fillStyle = secondaryColor;
+		graph.strokeStyle = secondaryColor;
 		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 		
 		for(var i = 0; i < 12; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11 * i;
-			x = x + this.padding;
+			x = x + padding;
 			
 			text = parseInt(64 + (1 * i)) + "k";
 			
-			graph.globalAlpha = this.alphaHigh;
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height - this.padding + 20));
+				(height - padding + 20));
 			
 			graph.globalAlpha = 0.6;
 			text = secondsToCalendarHHMM(parseInt(64 + (1 * i)) * 1000);
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height-  this.padding + 35));
+				(height-  padding + 35));
 		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo(x, (this.height - this.padding + 5));
-			graph.lineTo(x, this.padding);
+			graph.globalAlpha = alphaLow;
+			graph.moveTo(x, (height - padding + 5));
+			graph.lineTo(x, padding);
 		}
 		
-		this.largestY += this.largestY * 0.10;
-		this.largestY -= this.largestY % 10;
-		this.largestY += 10;
+		largestY += largestY * 0.10;
+		largestY -= largestY % 10;
+		largestY += 10;
 		
-		for(i = 0; i <= (this.largestY / 10); i++)
+		for(i = 0; i <= (largestY / 10); i++)
 		{
-			y = this.height - (this.padding * 2);
-			y = y / (this.largestY / 10 + 1) * i;
-			y = y + this.padding;
+			y = height - (padding * 2);
+			y = y / (largestY / 10 + 1) * i;
+			y = y + padding;
 			
-			text = parseInt(this.largestY - (i * 10));
+			text = parseInt(largestY - (i * 10));
 			
-			graph.globalAlpha = this.alphaHigh;
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text,
-				(this.padding - graph.measureText(text).width - 10), (y + 4));
+				(padding - graph.measureText(text).width - 10), (y + 4));
 			
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo((this.padding - 5), y);
-			graph.lineTo((this.width - this.padding), y);
+			graph.globalAlpha = alphaLow;
+			graph.moveTo((padding - 5), y);
+			graph.lineTo((width - padding), y);
 		}
 		
-		y = this.height - this.padding;
+		y = height - padding;
 		
 		text = "-10";
-		graph.globalAlpha = this.alphaHigh;
+		graph.globalAlpha = alphaHigh;
 		graph.fillText(text,
-			(this.padding - graph.measureText(text).width - 10), y);
+			(padding - graph.measureText(text).width - 10), y);
 		
-		graph.globalAlpha = this.alphaLow;
-		graph.moveTo((this.padding - 5), y);
-		graph.lineTo((this.width - this.padding), y);
+		graph.globalAlpha = alphaLow;
+		graph.moveTo((padding - 5), y);
+		graph.lineTo((width - padding), y);
 		
 		graph.fill();
 		graph.stroke();
-	}
+	};
 	
-	/*
-	 * plotPoints()
-	 *
-	 * Graph the data points from our readings.
-	 */
-	this.plotPoints = function()
+	var plotPoints = function()
 	{
 		var x, y;
 		var times = document.getElementById("timeSelect");
@@ -200,19 +193,19 @@ function ScatGraph()
 			document.getElementById("scatDataPoints").getContext("2d");
 		var timeLine = document.getElementById("scatTimeLine");
 		
-		dataPoints.strokeStyle = this.tertiaryColor;
-		dataPoints.fillStyle = this.tertiaryColor;
+		dataPoints.strokeStyle = tertiaryColor;
+		dataPoints.fillStyle = tertiaryColor;
 		dataPoints.lineWidth = 1;
 		
-		for(var i = 0; i < this.data.length-1; i++)
+		for(var i = 0; i < data.length-1; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11000 * (times.options[i].text - 64000);
-			x = x + this.padding;
+			x = x + padding;
 		
-			y = this.height - (this.padding * 2);
-			y = y / (this.largestY + 10) * (this.largestY - this.data[i]);
-			y = y + this.padding;
+			y = height - (padding * 2);
+			y = y / (largestY + 10) * (largestY - data[i]);
+			y = y + padding;
 		
 			dataPoints.moveTo(x, y);
 			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
@@ -228,36 +221,10 @@ function ScatGraph()
 		dataPoints.stroke();
 	};
 	
-	ScatGraph.moveTimeLine = function()
-	{
-		var x;
-		var timeLine = document.getElementById("scatTimeLine");
-		var times = document.getElementById("timeSelect");
-		
-		x = this.width - (this.padding * 2);
-		x = x / 11000 * (times.options[time].text - 64000);
-		x = x + this.padding;
-		
-		// add 15 because of the offset in the style sheet
-		timeLine.style.left = x + 15 + "px";
-	};
-}
-
-function drawScat()
-{
-	var scatGraph = new ScatGraph();
-	
-	scatGraph.readData();
-	
-	scatGraph.setupGraph();
-	
-	scatGraph.clearGraph();
-	
-	scatGraph.drawBorder();
-	
-	scatGraph.updateTitle();
-	
-	scatGraph.drawAxes();
-	
-	scatGraph.plotPoints();
+	setupGraph();
+	clearGraph();
+	drawBorder();
+	updateTitle();
+	drawAxes();
+	plotPoints();
 }

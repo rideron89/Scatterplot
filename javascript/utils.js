@@ -29,3 +29,13 @@ function secondsToCalendarHHMM(seconds)
 	
 	return string;
 }
+
+function errorMessage(message)
+{
+	document.getElementById("errorInfoDiv").innerHTML += message + "<br />";
+}
+
+function warningMessage(message)
+{
+	document.getElementById("warningInfoDiv").innerHTML += message + "<br />";
+}

@@ -63,3 +63,9 @@ Work Time Log
 4/12/12
 	11:15pm - 11:45pm	30 minutes
 		* finished creating the database
+4/13/12
+	3:15pm - 5:30pm		2 hours, 15 minutes
+		* started forcing everything to read from the database
+4/13/12
+	11:45pm - 1:30am	1 hour, 45 minutes
+		* continued forcing the site to read from the database (much nicer now!)

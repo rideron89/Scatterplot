@@ -69,3 +69,7 @@ Work Time Log
 4/13/12
 	11:45pm - 1:30am	1 hour, 45 minutes
 		* continued forcing the site to read from the database (much nicer now!)
+4/14/12
+	2:45pm - 3:45pm		1 hour
+		* all data is now read from the database
+		* using jquery, the page will load asynchonously

@@ -1,6 +1,31 @@
 function updateGraphs()
 {
+	var select = document.getElementById("timeSelect");
+	
+	$.ajax({
+		type: "POST",
+		url: "php/scripts/getCoefficientData.php",
+		success: showCoefficientData,
+		data: {time: select.options[time].text},
+		dataType: "text"
+	});
+	
+	$.ajax({
+		type: "POST",
+		url: "php/scripts/getLocationData.php",
+		success: showLocationData,
+		data: {time: select.options[time].text},
+		dataType: "text"
+	});
+	
+	graphP11();
+	graphP11Small();
+	
 	moveScatTimeLine();
+	moveAltTimeLine();
+	movePresTimeLine();
+	moveTempTimeLine();
+	moveRHTimeLine();
 }
 
 /*
@@ -10,8 +35,6 @@ function updateGraphs()
  */
 function readTimes()
 {
-	document.getElementById("loadingIconDiv").style.display = "block";
-	
 	$.ajax({
 		type: "POST",
 		url: "php/scripts/getTimes.php",
@@ -50,6 +73,10 @@ function saveTimes(times)
 	graphP11Small();
 	graphP12();
 	graphScat();
+	graphAlt();
+	graphPres();
+	graphTemp();
+	graphRH();
 	
 	$.ajax({
 		type: "POST",
@@ -95,8 +122,6 @@ function showLocationData(output)
 	document.getElementById("lat").innerHTML = lat;
 	document.getElementById("lon").innerHTML = lon;
 	document.getElementById("alt").innerHTML = data[6];
-	
-	document.getElementById("loadingIconDiv").style.display = "none";
 }
 
 function readP11Data()

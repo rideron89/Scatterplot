@@ -1,38 +1,59 @@
-function RHGraph()
+var width = 640;
+height = 360;
+
+var padding = 64;
+
+var primaryColor = "red";
+var secondaryColor = "black";
+var tertiaryColor = "green";
+var quaternaryColor = "orange";
+var quinaryColor = "purple";
+
+alphaHigh = 1.0;
+alphaLow = 0.2;
+
+var currentTime = 0;
+rh1Data = new Array();
+rh2Data = new Array();
+rh3Data = new Array();
+largestY = -1;
+yDividers = 11;
+
+function graphRH()
 {
-	RHGraph.width = this.width = 640;
-	this.height = 360;
+	currentTime = document.getElementById("timeSelect").options[time].text;
 	
-	RHGraph.padding = this.padding = 64;
+	$.ajax({
+		type: "POST",
+		url: "php/scripts/getRHData.php",
+		success: RHGraph,
+		dataType: "text"
+	});
+}
+
+function moveRHTimeLine()
+{
+	var x;
+	var timeLine = document.getElementById("rhTimeLine");
+	var times = document.getElementById("timeSelect");
+
+	x = width - (padding * 2);
+	x = x / 11000 * (times.options[time].text - 64000);
+	x = x + padding;
+
+	// add 15 because of the offset in the style sheet
+	timeLine.style.left = x + 15 + "px";
+};
+
+function RHGraph(output)
+{
+	var data = output.split("+");
 	
-	this.primaryColor = "red";
-	this.secondaryColor = "black";
-	this.tertiaryColor = "green";
-	this.quaternaryColor = "orange";
-	this.quinaryColor = "purple";
+	rh1Data = data[0].split(",");
+	rh2Data = data[1].split(",");
+	rh3Data = data[2].split(",");
 	
-	this.alphaHigh = 1.0;
-	this.alphaLow = 0.2;
-	
-	this.rh1Data = new Array();
-	this.rh2Data = new Array();
-	this.rh3Data = new Array();
-	this.largestY = -1;
-	this.yDividers = 11;
-	
-	this.readData = function()
-	{
-		this.rh1Data = document.getElementById("rh1Data").innerHTML.split(",");
-		this.rh2Data = document.getElementById("rh2Data").innerHTML.split(",");
-		this.rh3Data = document.getElementById("rh3Data").innerHTML.split(",");
-	};
-	
-	/*
-	 * setupGraph()
-	 *
-	 * Initialize the graph space.
-	 */
-	this.setupGraph = function()
+	function setupGraph()
 	{
 		var graph = document.getElementById("rhGraph");
 		var rh1DataPoints = document.getElementById("rh1DataPoints");
@@ -41,21 +62,21 @@ function RHGraph()
 		var timeLine = document.getElementById("rhTimeLine");
 		var legend = document.getElementById("rhLegend");
 		
-		graph.width = this.width;
-		graph.height = this.height;
+		graph.width = width;
+		graph.height = height;
 		
-		rh1DataPoints.width = this.width;
-		rh1DataPoints.height = this.height;
+		rh1DataPoints.width = width;
+		rh1DataPoints.height = height;
 		
-		rh2DataPoints.width = this.width;
-		rh2DataPoints.height = this.height;
+		rh2DataPoints.width = width;
+		rh2DataPoints.height = height;
 		
-		rh3DataPoints.width = this.width;
-		rh3DataPoints.height = this.height;
+		rh3DataPoints.width = width;
+		rh3DataPoints.height = height;
 		
 		timeLine.width = 2;
-		timeLine.height = this.height - (this.padding * 2);
-		timeLine.style.top = this.padding + "px";
+		timeLine.height = height - (padding * 2);
+		timeLine.style.top = padding + "px";
 		
 		timeLine.getContext("2d").globalAlpha = 0.6;
 		timeLine.getContext("2d").fillStyle = "red";
@@ -66,12 +87,7 @@ function RHGraph()
 		legend.height = 52;
 	};
 	
-	/*
-	 * clearGraph()
-	 *
-	 * Clear the graph space.
-	 */
-	this.clearGraph = function()
+	function clearGraph()
 	{
 		var graph = document.getElementById("rhGraph").getContext("2d");
 		var rh1DataPoints =
@@ -92,7 +108,7 @@ function RHGraph()
 		rh3DataPoints.clearRect(0, 0, rh3DataPoints.width,
 			rh3DataPoints.height);
 		
-		timeLine.style.left = this.padding + "px";
+		timeLine.style.left = padding + "px";
 		
 		legend.clearRect(0, 0, legend.width, legend.height);
 	};
@@ -102,19 +118,19 @@ function RHGraph()
 	 *
 	 * Draw the graph's border.
 	 */
-	this.drawBorder = function()
+	function drawBorder()
 	{
 		var graph = document.getElementById("rhGraph").getContext("2d");
 	
-		graph.strokeStyle = this.secondaryColor;
-		graph.fillStyle = this.secondaryColor;
+		graph.strokeStyle = secondaryColor;
+		graph.fillStyle = secondaryColor;
 		graph.lineWidth = 2;
 	
-		graph.moveTo(this.padding, this.padding);
-		graph.lineTo(this.padding, (this.height-this.padding));
+		graph.moveTo(padding, padding);
+		graph.lineTo(padding, (height-padding));
 	
-		graph.moveTo(this.padding, (this.height-this.padding));
-		graph.lineTo((this.width-this.padding), (this.height-this.padding));
+		graph.moveTo(padding, (height-padding));
+		graph.lineTo((width-padding), (height-padding));
 	
 		graph.fill();
 		graph.stroke();
@@ -125,7 +141,7 @@ function RHGraph()
 	 * 
 	 * Draw the graph's legend.
 	 */
-	this.drawLegend = function()
+	function drawLegend()
 	{
 		var legend = document.getElementById("rhLegend");
 		var context = legend.getContext("2d");
@@ -136,11 +152,11 @@ function RHGraph()
 		
 		context.fillRect(0, 0, legend.width, legend.height);
 		
-		context.globalAlpha = this.alphaHigh;
+		context.globalAlpha = alphaHigh;
 		
 		context.beginPath();
-		context.strokeStyle = this.tertiaryColor;
-		context.fillStyle = this.tertiaryColor;
+		context.strokeStyle = tertiaryColor;
+		context.fillStyle = tertiaryColor;
 		context.moveTo(10, 12);
 		context.arc(10, 12, 2, 0, (2*Math.PI), false);
 		
@@ -148,8 +164,8 @@ function RHGraph()
 		context.stroke();
 		
 		context.beginPath();
-		context.strokeStyle = this.quaternaryColor;
-		context.fillStyle = this.quaternaryColor;
+		context.strokeStyle = quaternaryColor;
+		context.fillStyle = quaternaryColor;
 		context.moveTo(10, 27);
 		context.arc(10, 27, 2, 0, (2*Math.PI), false);
 		
@@ -157,8 +173,8 @@ function RHGraph()
 		context.stroke();
 		
 		context.beginPath();
-		context.strokeStyle = this.quinaryColor;
-		context.fillStyle = this.quinaryColor;
+		context.strokeStyle = quinaryColor;
+		context.fillStyle = quinaryColor;
 		context.moveTo(10, 42);
 		context.arc(10, 42, 2, 0, (2*Math.PI), false);
 		
@@ -175,12 +191,7 @@ function RHGraph()
 		context.stroke();
 	}
 	
-	/*
-	 * updateTitle()
-	 *
-	 * Change the title to fit our graph.
-	 */
-	this.updateTitle = function()
+	function updateTitle()
 	{
 		var title = document.getElementById("rhCanvasTitle");
 		var xAxis = document.getElementById("rhXAxisTitle");
@@ -191,71 +202,61 @@ function RHGraph()
 		yAxis.innerHTML = "Relative Humidity [%]";
 	};
 	
-	/*
-	 * drawAxes()
-	 *
-	 * Draw the axes for our graph.
-	 */
-	this.drawAxes = function()
+	function drawAxes()
 	{
 		var x, y, text;
 		var times = document.getElementById("timeSelect");
 		var graph = document.getElementById("rhGraph").getContext("2d");
 		
-		graph.fillStyle = this.secondaryColor;
-		graph.strokeStyle = this.secondaryColor;
+		graph.fillStyle = secondaryColor;
+		graph.strokeStyle = secondaryColor;
 		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 		
 		for(var i = 0; i < 12; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11 * i;
-			x = x + this.padding;
+			x = x + padding;
 			
 			text = parseInt(64 + (1 * i)) + "k";
 			
-			graph.globalAlpha = this.alphaHigh;
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height - this.padding + 20));
+				(height - padding + 20));
 			
 			graph.globalAlpha = 0.6;
 			text = secondsToCalendarHHMM(parseInt(64 + (1 * i)) * 1000);
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height-  this.padding + 35));
+				(height-  padding + 35));
 		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo(x, (this.height - this.padding + 5));
-			graph.lineTo(x, this.padding);
+			graph.globalAlpha = alphaLow;
+			graph.moveTo(x, (height - padding + 5));
+			graph.lineTo(x, padding);
 		}
 		
 		for(i = 0; i < 6; i++)
 		{
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			y = y / 5 * i;
-			y = y + this.padding;
+			y = y + padding;
 			
 			text = 50 - (10 * i);
 			
-			graph.globalAlpha = this.alphaHigh;
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text,
-				(this.padding - graph.measureText(text).width - 10), (y + 4));
+				(padding - graph.measureText(text).width - 10), (y + 4));
 			
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo((this.padding - 5), y);
-			graph.lineTo((this.width - this.padding), y);
+			graph.globalAlpha = alphaLow;
+			graph.moveTo((padding - 5), y);
+			graph.lineTo((width - padding), y);
 		}
 		
 		graph.fill();
 		graph.stroke();
-	}
+	};
 	
-	/*
-	 * plotPoints()
-	 *
-	 * Graph the data points from our readings.
-	 */
-	this.plotPoints = function()
+	function plotPoints()
 	{
 		var x, y, temp;
 		var times = document.getElementById("timeSelect");
@@ -267,23 +268,23 @@ function RHGraph()
 			document.getElementById("rh3DataPoints").getContext("2d");
 		var timeLine = document.getElementById("rhTimeLine");
 		
-		rh1DataPoints.strokeStyle = this.tertiaryColor;
-		rh1DataPoints.fillStyle = this.tertiaryColor;
+		rh1DataPoints.strokeStyle = tertiaryColor;
+		rh1DataPoints.fillStyle = tertiaryColor;
 		rh1DataPoints.lineWidth = 1;
 		
-		for(var i = 0; i < this.rh1Data.length-1; i++)
+		for(var i = 0; i < rh1Data.length-1; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11000 * (times.options[i].text - 64000);
-			x = x + this.padding;
+			x = x + padding;
 		
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			
-			temp = this.height - (this.padding * 2);
-			temp = temp / 50 * (this.rh1Data[i]);
+			temp = height - (padding * 2);
+			temp = temp / 50 * (rh1Data[i]);
 			
 			y = y - temp;
-			y = y + this.padding;
+			y = y + padding;
 		
 			rh1DataPoints.moveTo(x, y);
 			rh1DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
@@ -295,45 +296,45 @@ function RHGraph()
 			}
 		}
 		
-		rh2DataPoints.strokeStyle = this.quaternaryColor;
-		rh2DataPoints.fillStyle = this.quaternaryColor;
+		rh2DataPoints.strokeStyle = quaternaryColor;
+		rh2DataPoints.fillStyle = quaternaryColor;
 		rh2DataPoints.lineWidth = 1;
 		
-		for(var i = 0; i < this.rh2Data.length-1; i++)
+		for(var i = 0; i < rh2Data.length-1; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11000 * (times.options[i].text - 64000);
-			x = x + this.padding;
+			x = x + padding;
 		
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			
-			temp = this.height - (this.padding * 2);
-			temp = temp / 50 * (this.rh2Data[i]);
+			temp = height - (padding * 2);
+			temp = temp / 50 * (rh2Data[i]);
 			
 			y = y - temp;
-			y = y + this.padding;
+			y = y + padding;
 		
 			rh2DataPoints.moveTo(x, y);
 			rh2DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
 		}
 		
-		rh3DataPoints.strokeStyle = this.quinaryColor;
-		rh3DataPoints.fillStyle = this.quinaryColor;
+		rh3DataPoints.strokeStyle = quinaryColor;
+		rh3DataPoints.fillStyle = quinaryColor;
 		rh3DataPoints.lineWidth = 1;
 		
-		for(var i = 0; i < this.rh3Data.length-1; i++)
+		for(var i = 0; i < rh3Data.length-1; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11000 * (times.options[i].text - 64000);
-			x = x + this.padding;
+			x = x + padding;
 		
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			
-			temp = this.height - (this.padding * 2);
-			temp = temp / 50 * (this.rh3Data[i]);
+			temp = height - (padding * 2);
+			temp = temp / 50 * (rh3Data[i]);
 			
 			y = y - temp;
-			y = y + this.padding;
+			y = y + padding;
 		
 			rh3DataPoints.moveTo(x, y);
 			rh3DataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
@@ -349,38 +350,11 @@ function RHGraph()
 		rh3DataPoints.stroke();
 	};
 	
-	RHGraph.moveTimeLine = function()
-	{
-		var x;
-		var timeLine = document.getElementById("rhTimeLine");
-		var times = document.getElementById("timeSelect");
-		
-		x = this.width - (this.padding * 2);
-		x = x / 11000 * (times.options[time].text - 64000);
-		x = x + this.padding;
-		
-		// add 15 because of the offset in the style sheet
-		timeLine.style.left = x + 15 + "px";
-	};
-}
-
-function drawRH()
-{
-	var rhGraph = new RHGraph();
-	
-	rhGraph.readData();
-	
-	rhGraph.setupGraph();
-	
-	rhGraph.clearGraph();
-	
-	rhGraph.drawBorder();
-	
-	rhGraph.drawLegend();
-	
-	rhGraph.updateTitle();
-	
-	rhGraph.drawAxes();
-	
-	rhGraph.plotPoints();
+	setupGraph();
+	clearGraph();
+	drawBorder();
+	drawLegend();
+	updateTitle();
+	drawAxes();
+	plotPoints();
 }

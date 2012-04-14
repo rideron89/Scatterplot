@@ -1,48 +1,67 @@
-function AltGraph()
+var width = 640;
+var height = 360;
+
+var padding = 64;
+
+var primaryColor = "red";
+var secondaryColor = "black";
+var tertiaryColor = "blue";
+
+var alphaHigh = 1.0;
+var alphaLow = 0.2;
+
+var currentTime = 0;
+var data = new Array();
+var largestY = -1;
+var smallestY = 1;
+var yDividers = 11;
+
+function graphAlt()
 {
-	AltGraph.width = this.width = 640;
-	this.height = 360;
+	currentTime = document.getElementById("timeSelect").options[time].text;
 	
-	AltGraph.padding = this.padding = 64;
+	$.ajax({
+		type: "POST",
+		url: "php/scripts/getAltData.php",
+		success: AltGraph,
+		dataType: "text"
+	});
+}
+
+function moveAltTimeLine()
+{
+	var x;
+	var timeLine = document.getElementById("altTimeLine");
+	var times = document.getElementById("timeSelect");
+
+	x = this.width - (this.padding * 2);
+	x = x / 11000 * (times.options[time].text - 64000);
+	x = x + this.padding;
+
+	// add 15 because of the offset in the style sheet
+	timeLine.style.left = x + 15 + "px";
+};
+
+function AltGraph(output)
+{
+	data = output.split(",");
 	
-	this.primaryColor = "red";
-	this.secondaryColor = "black";
-	this.tertiaryColor = "blue";
-	
-	this.alphaHigh = 1.0;
-	this.alphaLow = 0.2;
-	
-	this.data = new Array();
-	this.largestY = -1;
-	this.smallestY = 1;
-	this.yDividers = 11;
-	
-	this.readData = function()
+	smallestY = data[0];
+
+	for(var i = 0; i < data.length; i++)
 	{
-		this.data = document.getElementById("altData").innerHTML.split(",");
-		
-		this.smallestY = this.data[0];
-		
-		for(var i = 0; i < this.data.length; i++)
+		if(parseFloat(data[i]) > largestY)
 		{
-			if(parseFloat(this.data[i]) > this.largestY)
-			{
-				this.largestY = parseFloat(this.data[i]);
-			}
-			
-			if(parseFloat(this.data[i]) < this.smallestY)
-			{
-				this.smallestY = parseFloat(this.data[i]);
-			}
+			largestY = parseFloat(data[i]);
 		}
-	};
+
+		if(parseFloat(data[i]) < smallestY)
+		{
+			smallestY = parseFloat(data[i]);
+		}
+	}
 	
-	/*
-	 * setupGraph()
-	 *
-	 * Initialize the graph space.
-	 */
-	this.setupGraph = function()
+	function setupGraph()
 	{
 		var graph = document.getElementById("altGraph");
 		var dataPoints = document.getElementById("altDataPoints");
@@ -64,12 +83,7 @@ function AltGraph()
 			timeLine.height);
 	};
 	
-	/*
-	 * clearGraph()
-	 *
-	 * Clear the graph space.
-	 */
-	this.clearGraph = function()
+	function clearGraph()
 	{
 		var graph = document.getElementById("altGraph").getContext("2d");
 		var dataPoints =
@@ -79,38 +93,28 @@ function AltGraph()
 		graph.clearRect(0, 0, graph.width, graph.height);
 		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
 		
-		timeLine.style.left = this.padding + "px";
+		timeLine.style.left = padding + "px";
 	};
 	
-	/*
-	 * drawBorder()
-	 *
-	 * Draw the graph's border.
-	 */
-	this.drawBorder = function()
+	function drawBorder()
 	{
 		var graph = document.getElementById("altGraph").getContext("2d");
 	
-		graph.strokeStyle = this.secondaryColor;
-		graph.fillStyle = this.secondaryColor;
+		graph.strokeStyle = secondaryColor;
+		graph.fillStyle = secondaryColor;
 		graph.lineWidth = 2;
 	
-		graph.moveTo(this.padding, this.padding);
-		graph.lineTo(this.padding, (this.height-this.padding));
+		graph.moveTo(padding, padding);
+		graph.lineTo(padding, (height-padding));
 	
-		graph.moveTo(this.padding, (this.height-this.padding));
-		graph.lineTo((this.width-this.padding), (this.height-this.padding));
+		graph.moveTo(padding, (height-padding));
+		graph.lineTo((width-padding), (height-padding));
 	
 		graph.fill();
 		graph.stroke();
 	};
 	
-	/*
-	 * updateTitle()
-	 *
-	 * Change the title to fit our graph.
-	 */
-	this.updateTitle = function()
+	function updateTitle()
 	{
 		var title = document.getElementById("altCanvasTitle");
 		var xAxis = document.getElementById("altXAxisTitle");
@@ -121,84 +125,74 @@ function AltGraph()
 		yAxis.innerHTML = "Altitude [feet]";
 	};
 	
-	/*
-	 * drawAxes()
-	 *
-	 * Draw the axes for our graph.
-	 */
-	this.drawAxes = function()
+	function drawAxes()
 	{
 		var x, y, text;
 		var times = document.getElementById("timeSelect");
 		var graph = document.getElementById("altGraph").getContext("2d");
 		
-		graph.fillStyle = this.secondaryColor;
-		graph.strokeStyle = this.secondaryColor;
+		graph.fillStyle = secondaryColor;
+		graph.strokeStyle = secondaryColor;
 		graph.font = "bold 11pt sans-serif";
 		graph.lineWidth = 1;
 		
 		for(var i = 0; i < 12; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11 * i;
-			x = x + this.padding;
+			x = x + padding;
 			
 			text = parseInt(64 + (1 * i)) + "k";
 			
-			graph.globalAlpha = this.alphaHigh;
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height - this.padding + 20));
+				(height - padding + 20));
 			
 			graph.globalAlpha = 0.6;
 			text = secondsToCalendarHHMM(parseInt(64 + (1 * i)) * 1000);
 			graph.fillText(text, (x - graph.measureText(text).width / 2),
-				(this.height-  this.padding + 35));
+				(height-  padding + 35));
 		
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo(x, (this.height - this.padding + 5));
-			graph.lineTo(x, this.padding);
+			graph.globalAlpha = alphaLow;
+			graph.moveTo(x, (height - padding + 5));
+			graph.lineTo(x, padding);
 		}
 		
-		this.largestY = 16;
+		largestY = 16;
 		
 		for(i = 0; i < 8; i++)
 		{
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			y = y / 8 * i;
-			y = y + this.padding;
+			y = y + padding;
 			
-			text = this.largestY - (i * 2) + "k";
+			text = largestY - (i * 2) + "k";
 			
-			graph.globalAlpha = this.alphaHigh;
+			graph.globalAlpha = alphaHigh;
 			graph.fillText(text,
-				(this.padding - graph.measureText(text).width - 10), (y + 4));
+				(padding - graph.measureText(text).width - 10), (y + 4));
 			
-			graph.globalAlpha = this.alphaLow;
-			graph.moveTo((this.padding - 5), y);
-			graph.lineTo((this.width - this.padding), y);
+			graph.globalAlpha = alphaLow;
+			graph.moveTo((padding - 5), y);
+			graph.lineTo((width - padding), y);
 		}
 		
-		y = this.height - this.padding;
+		y = height - padding;
 		text = "0";
 		
-		graph.globalAlpha = this.alphaHigh;
+		graph.globalAlpha = alphaHigh;
 		graph.fillText(text,
-			(this.padding - graph.measureText(text).width - 10), y);
+			(padding - graph.measureText(text).width - 10), y);
 		
-		graph.globalAlpha = this.alphaLow;
-		graph.moveTo((this.padding - 5), y);
-		graph.lineTo((this.width - this.padding), y);
+		graph.globalAlpha = alphaLow;
+		graph.moveTo((padding - 5), y);
+		graph.lineTo((width - padding), y);
 		
 		graph.fill();
 		graph.stroke();
-	}
+	};
 	
-	/*
-	 * plotPoints()
-	 *
-	 * Graph the data points from our readings.
-	 */
-	this.plotPoints = function()
+	function plotPoints()
 	{
 		var x, y, temp;
 		var times = document.getElementById("timeSelect");
@@ -206,23 +200,23 @@ function AltGraph()
 			document.getElementById("altDataPoints").getContext("2d");
 		var timeLine = document.getElementById("altTimeLine");
 		
-		dataPoints.strokeStyle = this.tertiaryColor;
-		dataPoints.fillStyle = this.tertiaryColor;
+		dataPoints.strokeStyle = tertiaryColor;
+		dataPoints.fillStyle = tertiaryColor;
 		dataPoints.lineWidth = 1;
 		
-		for(var i = 0; i < this.data.length-1; i++)
+		for(var i = 0; i < data.length-1; i++)
 		{
-			x = this.width - (this.padding * 2);
+			x = width - (padding * 2);
 			x = x / 11000 * (times.options[i].text - 64000);
-			x = x + this.padding;
+			x = x + padding;
 		
-			y = this.height - (this.padding * 2);
+			y = height - (padding * 2);
 			
-			temp = this.height - (this.padding * 2);
-			temp = temp / 16 * (this.data[i] / 1000);
+			temp = height - (padding * 2);
+			temp = temp / 16 * (data[i] / 1000);
 			
 			y = y - temp;
-			y = y + this.padding;
+			y = y + padding;
 		
 			dataPoints.moveTo(x, y);
 			dataPoints.arc(x, y, 1.5, 0, (2*Math.PI), false);
@@ -238,36 +232,10 @@ function AltGraph()
 		dataPoints.stroke();
 	};
 	
-	AltGraph.moveTimeLine = function()
-	{
-		var x;
-		var timeLine = document.getElementById("altTimeLine");
-		var times = document.getElementById("timeSelect");
-		
-		x = this.width - (this.padding * 2);
-		x = x / 11000 * (times.options[time].text - 64000);
-		x = x + this.padding;
-		
-		// add 15 because of the offset in the style sheet
-		timeLine.style.left = x + 15 + "px";
-	};
-}
-
-function drawAlt()
-{
-	var altGraph = new AltGraph();
-	
-	altGraph.readData();
-	
-	altGraph.setupGraph();
-	
-	altGraph.clearGraph();
-	
-	altGraph.drawBorder();
-	
-	altGraph.updateTitle();
-	
-	altGraph.drawAxes();
-	
-	altGraph.plotPoints();
+	setupGraph();
+	clearGraph();
+	drawBorder();
+	updateTitle();
+	drawAxes();
+	plotPoints();
 }

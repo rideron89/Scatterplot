@@ -101,6 +101,16 @@
 				
 				updateRange();
 			}
+			
+			$(document).ajaxStart(function()
+			{
+				$("#loadingIconDiv").css("display", "block");
+			});
+			
+			$(document).ajaxStop(function()
+			{
+				$("#loadingIconDiv").css("display", "none");
+			});
 		</script>
 	</head>
 	<body onload="init()">
@@ -110,11 +120,6 @@
 				font-size: 8pt; font-style: italic;"
 				title="">
 				Optimized for Google Chrome
-			</div>
-			
-			<div id="loadingIconDiv">
-				<img src="style/loadingIcon.gif" /><br />
-				Data is loading...
 			</div>
 			
 			<br />
@@ -147,6 +152,11 @@
 				</div>
 				
 			</div> <!-- timeSelectionBox -->
+			
+			<div id="loadingIconDiv">
+				<img src="style/loadingIcon.gif" /><br />
+				Data is loading...
+			</div>
 			
 			<div id="dataInformationBox">
 				Start UTC: <span id="startUTC"></span> sec<br />

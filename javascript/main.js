@@ -73,6 +73,7 @@ function saveTimes(times)
 	graphP11Small();
 	graphP12();
 	graphScat();
+	buildMap();
 	graphAlt();
 	graphPres();
 	graphTemp();

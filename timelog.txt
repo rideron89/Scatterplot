@@ -73,3 +73,7 @@ Work Time Log
 	2:45pm - 3:45pm		1 hour
 		* all data is now read from the database
 		* using jquery, the page will load asynchonously
+-----------------------------------------
+4/17/12
+	3:00pm - 4:30pm		1 hour, 30 minutes
+		* added map of plane's location (now to add location points)

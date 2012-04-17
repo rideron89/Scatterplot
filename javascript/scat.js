@@ -149,11 +149,9 @@ function ScatGraph(output)
 			graph.lineTo(x, padding);
 		}
 		
-		largestY += largestY * 0.10;
-		largestY -= largestY % 10;
-		largestY += 10;
+		largestY = 80;
 		
-		for(i = 0; i <= (largestY / 10); i++)
+		for(i = 0; i < (largestY / 8); i++)
 		{
 			y = height - (padding * 2);
 			y = y / (largestY / 10 + 1) * i;
@@ -169,17 +167,6 @@ function ScatGraph(output)
 			graph.moveTo((padding - 5), y);
 			graph.lineTo((width - padding), y);
 		}
-		
-		y = height - padding;
-		
-		text = "-10";
-		graph.globalAlpha = alphaHigh;
-		graph.fillText(text,
-			(padding - graph.measureText(text).width - 10), y);
-		
-		graph.globalAlpha = alphaLow;
-		graph.moveTo((padding - 5), y);
-		graph.lineTo((width - padding), y);
 		
 		graph.fill();
 		graph.stroke();

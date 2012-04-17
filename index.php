@@ -11,8 +11,9 @@
 		<script src="javascript/p11.js"></script>
 		<script src="javascript/p11Small.js"></script>
 		<script src="javascript/p12.js"></script>
-		<script src="javascript/scat.js"></script>
+		<script src="javascript/R07Flight.js"></script>
 		<script src="javascript/alt.js"></script>
+		<script src="javascript/scat.js"></script>
 		<script src="javascript/pres.js"></script>
 		<script src="javascript/temp.js"></script>
 		<script src="javascript/rh.js"></script>
@@ -218,6 +219,11 @@
 				<canvas id="scatGraph" class="graph"></canvas>
 				<canvas id="scatDataPoints" class="dataPoints"></canvas>
 				<canvas id="scatTimeLine" class="timeLine"></canvas>
+			</div>
+			
+			<div id="mapCanvasDiv" class="canvasDiv">
+				<div id="mapTitle"></div>
+				<div id="mapCanvas"></div>
 			</div>
 			
 			<div id="altCanvasDiv" class="canvasDiv">

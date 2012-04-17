@@ -1,5 +1,5 @@
 var width = 640;
-height = 360;
+var height = 360;
 
 var padding = 64;
 

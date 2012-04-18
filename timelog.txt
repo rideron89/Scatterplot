@@ -80,3 +80,5 @@ Work Time Log
 4/18/12
 	10:45am - 12:15pm	1 hour, 30 minutes
 		* completed google maps representation (complete with plane marker)
+	5:30pm - 6:00pm		30 minutes
+		* added 550nm scatter graph

@@ -26,6 +26,7 @@ function updateGraphs()
 	movePresTimeLine();
 	moveTempTimeLine();
 	moveRHTimeLine();
+	moveTot550TimeLine();
 	
 	movePlaneMarker();
 }
@@ -50,9 +51,15 @@ function readTimes()
  * 
  * Receive the time values and store them.
  */
-function saveTimes(times)
+function saveTimes(output)
 {
-	var times = times.split(",");
+	if(output[0] == "!")
+	{
+		errorMessage(mysqlError(output.substr(1)));
+		return;
+	}
+	
+	var times = output.split(",");
 
 	var select = document.getElementById("timeSelect");
 
@@ -80,6 +87,7 @@ function saveTimes(times)
 	graphPres();
 	graphTemp();
 	graphRH();
+	graphTotal550();
 	
 	$.ajax({
 		type: "POST",

@@ -17,6 +17,7 @@
 		<script src="javascript/pres.js"></script>
 		<script src="javascript/temp.js"></script>
 		<script src="javascript/rh.js"></script>
+		<script src="javascript/total550.js"></script>
 		<script>
 			var time = 0;
 			
@@ -49,14 +50,6 @@
 				document.getElementById("timeSelect").value = time;
 				
 				updateGraphs();
-				
-				//run();
-				
-				//ScatGraph.moveTimeLine();
-				//PresGraph.moveTimeLine();
-				//TempGraph.moveTimeLine();
-				//RHGraph.moveTimeLine();
-				//AltGraph.moveTimeLine();
 			}
 			
 			function updateSelect()
@@ -69,8 +62,6 @@
 				document.getElementById("timeRange").value = time;
 				
 				updateGraphs();
-				
-				//run();
 			}
 			
 			/*
@@ -103,6 +94,11 @@
 				updateRange();
 			}
 			
+			$(document).ready(function()
+			{
+				init();
+			});
+			
 			$(document).ajaxStart(function()
 			{
 				$("#loadingIconDiv").css("display", "block");
@@ -114,7 +110,7 @@
 			});
 		</script>
 	</head>
-	<body onload="init()">
+	<body>
 	
 		<div id="outerBox">
 			<div style="width: 100%; text-align: center; color: #333333;
@@ -263,6 +259,15 @@
 				<canvas id="rh3DataPoints" class="dataPoints"></canvas>
 				<canvas id="rhTimeLine" class="timeLine"></canvas>
 				<canvas id="rhLegend" class="legend"></canvas>
+			</div>
+			
+			<div id="tot550CanvasDiv" class="canvasDiv">
+				<div id="tot550CanvasTitle" class="canvasTitle"></div>
+				<div id="tot550YAxisTitle" class="yAxisTitle"></div>
+				<div id="tot550XAxisTitle" class="xAxisTitle"></div>
+				<canvas id="tot550Graph" class="graph"></canvas>
+				<canvas id="tot550DataPoints" class="dataPoints"></canvas>
+				<canvas id="tot550TimeLine" class="timeLine"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
 			

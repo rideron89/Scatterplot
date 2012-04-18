@@ -39,3 +39,13 @@ function warningMessage(message)
 {
 	document.getElementById("warningInfoDiv").innerHTML += message + "<br />";
 }
+
+function mysqlError(message)
+{
+	if(message.indexOf("[1045]") != -1)
+		message = "Access denied to database.";
+	else if(message.indexOf("[1054]") != -1)
+		message = "Attempted to read from unknown column.";
+	
+	return message;
+}

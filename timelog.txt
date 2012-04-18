@@ -77,3 +77,6 @@ Work Time Log
 4/17/12
 	3:00pm - 4:30pm		1 hour, 30 minutes
 		* added map of plane's location (now to add location points)
+4/18/12
+	10:45am - 12:15pm	1 hour, 30 minutes
+		* completed google maps representation (complete with plane marker)

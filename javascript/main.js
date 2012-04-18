@@ -26,6 +26,8 @@ function updateGraphs()
 	movePresTimeLine();
 	moveTempTimeLine();
 	moveRHTimeLine();
+	
+	movePlaneMarker();
 }
 
 /*

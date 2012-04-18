@@ -7,8 +7,8 @@
 		// Initialize database connection info
 		$host = "localhost";
 		$port = 3306;
-		$user = "root";
-		$pass = "bob";
+		$user = "reader";
+		$pass = "neph56";
 
 		// Construct the Data Source Name (DSN)
 		$dsn = "mysql:host=$host;port=$port;dbname=$dbse";

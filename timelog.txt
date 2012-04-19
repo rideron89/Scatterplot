@@ -82,3 +82,6 @@ Work Time Log
 		* completed google maps representation (complete with plane marker)
 	5:30pm - 6:00pm		30 minutes
 		* added 550nm scatter graph
+4/19/12
+	12:45pm - 2:00pm	1 hour, 15 minutes
+		* tweaked overlay/path code for the map

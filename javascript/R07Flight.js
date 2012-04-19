@@ -71,9 +71,8 @@ function R07Map()
 	function drawPath(output)
 	{
 		var unparsedCoords = output.split(",");
-		//var flightPath = null;
 		var lat = 0;
-		var lon = 0
+		var lon = 0;
 		
 		flightPath = new google.maps.Polyline({
 			strokeColor: "#FF0000",
@@ -85,8 +84,8 @@ function R07Map()
 		
 		for(var i = 0; i < unparsedCoords.length-1; i++)
 		{
-			lat = parseFloat(unparsedCoords[i].split("+")[0]);
-			lon = parseFloat(unparsedCoords[i].split("+")[1]) * -1.0;
+			lat = unparsedCoords[i].split("+")[0];
+			lon = unparsedCoords[i].split("+")[1];
 			
 			coords.push(new google.maps.LatLng(lat, lon));
 		}

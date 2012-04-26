@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>
 			UMBC Pi-Neph Data
 		</title>
@@ -20,25 +21,6 @@
 		<script src="javascript/total550.js"></script>
 		<script>
 			var time = 0;
-			
-			function init()
-			{
-				readTimes();
-				
-				//readScatData();
-				//readPresData();
-				//readTempData();
-				//readRHData();
-				//readAltData();
-				
-				//TEST();
-				
-				//drawScat();
-				//drawAlt();
-				//drawPres();
-				//drawTemp();
-				//drawRH();
-			}
 			
 			function updateRange()
 			{
@@ -96,17 +78,14 @@
 			
 			$(document).ready(function()
 			{
-				init();
-			});
-			
-			$(document).ajaxStart(function()
-			{
-				$("#loadingIconDiv").css("display", "block");
+				$("#loadingIconDiv").slideDown(400);
+				
+				readTimes();
 			});
 			
 			$(document).ajaxStop(function()
 			{
-				$("#loadingIconDiv").css("display", "none");
+				$("#loadingIconDiv").slideUp(400);
 			});
 		</script>
 	</head>
@@ -270,21 +249,5 @@
 				<canvas id="tot550TimeLine" class="timeLine"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
-			
-		<div id="bottomPane" style="display: none; visibility: hidden;">
-			<div id="p11Data"></div>
-			<div id="p12Data"></div>
-			<div id="coefficientData"></div>
-			<div id="locationData"></div>
-			<div id="scatData"></div>
-			<div id="presData"></div>
-			<div id="tempData"></div>
-			<div id="rh1Data"></div>
-			<div id="rh2Data"></div>
-			<div id="rh3Data"></div>
-			<div id="latData"></div>
-			<div id="lonData"></div>
-			<div id="altData"></div>
-		</div>
 	</body>
 </html>

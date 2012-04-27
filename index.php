@@ -7,6 +7,7 @@
 		</title>
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
 		<script src="javascript/jquery172.js"></script>
+		<script src="javascript/jqueryui/jqueryui1819.js"></script>
 		<script src="javascript/utils.js"></script>
 		<script src="javascript/main.js"></script>
 		<script src="javascript/p11.js"></script>
@@ -79,6 +80,7 @@
 			$(document).ready(function()
 			{
 				$("#loadingIconDiv").slideDown(400);
+				/*$("#tocItems").hide();*/
 				
 				readTimes();
 			});
@@ -87,6 +89,11 @@
 			{
 				$("#loadingIconDiv").slideUp(400);
 			});
+			
+			function toggleToc()
+			{
+				$("#tocItems").toggle("blind");
+			}
 		</script>
 	</head>
 	<body>
@@ -161,6 +168,25 @@
 			<div id="warningInfoDiv">
 			</div>
 		</div> <!-- outerBox -->
+		
+		<div id="tocBox">
+			<div id="tocLabel" onclick="toggleToc()">
+				Table of Contents
+			</div>
+			
+			<div id="tocItems">
+					P11, aerosol only phase function<br />
+					P11, aerosol only phase function (small)<br />
+					-P12/P11, aerosol only degree of linear polarization<br />
+					Linear Scattering Coefficient<br />
+					Graph of Flight Path<br />
+					GPS Altitude<br />
+					Pressure Inside PI-Neph Chamber<br />
+					Temperature Inside PI-Neph Chamber<br />
+					Relative Humidity<br />
+					Linear Scattering Coefficient (at 550nm)
+			</div>
+		</div> <!-- tocBox -->
 		
 		<div id="canvasBox">
 			<div id="p11CanvasDiv" class="canvasDiv">

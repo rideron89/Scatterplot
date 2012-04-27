@@ -85,3 +85,6 @@ Work Time Log
 4/19/12
 	12:45pm - 2:00pm	1 hour, 15 minutes
 		* tweaked overlay/path code for the map
+4/26/12
+	7:45pm - 9:45pm		2 hours
+		* added a Table of Contents (incomplete)

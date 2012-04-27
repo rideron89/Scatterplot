@@ -214,4 +214,7 @@ function ScatGraph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#scatCanvasDiv").is(":visible"))
+		$("#scatCanvasDiv").show("blind");
 }

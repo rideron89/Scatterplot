@@ -163,4 +163,7 @@ function P12Graph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#p12CanvasDiv").is(":visible"))
+		$("#p12CanvasDiv").show("blind");
 }

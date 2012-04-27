@@ -238,4 +238,7 @@ function AltGraph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#altCanvasDiv").is(":visible"))
+		$("#altCanvasDiv").show("blind");
 }

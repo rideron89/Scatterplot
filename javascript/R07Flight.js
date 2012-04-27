@@ -108,4 +108,7 @@ function R07Map()
 	setupMap();
 	initializeMap();
 	loadCoords();
+	
+	if(!$("#mapCanvasDiv").is(":visible"))
+		$("#mapCanvasDiv").show("blind");
 }

@@ -88,3 +88,7 @@ Work Time Log
 4/26/12
 	7:45pm - 9:45pm		2 hours
 		* added a Table of Contents (incomplete)
+4/27/12
+	4:30pm - 6:30pm		2 hours
+		* added PI-Neph vs. TSI graph
+		* worked some more on the table of contents

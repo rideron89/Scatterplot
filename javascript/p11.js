@@ -180,4 +180,7 @@ function P11Graph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#p11CanvasDiv").is(":visible"))
+		$("#p11CanvasDiv").show("blind");
 }

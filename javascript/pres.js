@@ -238,4 +238,7 @@ function PresGraph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#presCanvasDiv").is(":visible"))
+		$("#presCanvasDiv").show("blind");
 }

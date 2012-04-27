@@ -216,4 +216,7 @@ function Total550Graph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#tot550CanvasDiv").is(":visible"))
+		$("#tot550CanvasDiv").show("blind");
 }

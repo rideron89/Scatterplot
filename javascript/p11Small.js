@@ -200,4 +200,7 @@ function P11SmallGraph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#p11SmallCanvasDiv").is(":visible"))
+		$("#p11SmallCanvasDiv").show("blind");
 }

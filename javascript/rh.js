@@ -357,4 +357,7 @@ function RHGraph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#rhCanvasDiv").is(":visible"))
+		$("#rhCanvasDiv").show("blind");
 }

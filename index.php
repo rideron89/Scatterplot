@@ -20,6 +20,7 @@
 		<script src="javascript/temp.js"></script>
 		<script src="javascript/rh.js"></script>
 		<script src="javascript/total550.js"></script>
+		<script src="javascript/piVsTsi.js"></script>
 		<script>
 			var time = 0;
 			
@@ -80,7 +81,8 @@
 			$(document).ready(function()
 			{
 				$("#loadingIconDiv").slideDown(400);
-				/*$("#tocItems").hide();*/
+				$("#tocItems").hide();
+				$(".canvasDiv").hide();
 				
 				readTimes();
 			});
@@ -171,20 +173,42 @@
 		
 		<div id="tocBox">
 			<div id="tocLabel" onclick="toggleToc()">
-				Table of Contents
+				<button id="tocButton">
+					Table of Contents
+				</button>
 			</div>
 			
 			<div id="tocItems">
-					P11, aerosol only phase function<br />
-					P11, aerosol only phase function (small)<br />
-					-P12/P11, aerosol only degree of linear polarization<br />
-					Linear Scattering Coefficient<br />
-					Graph of Flight Path<br />
-					GPS Altitude<br />
-					Pressure Inside PI-Neph Chamber<br />
-					Temperature Inside PI-Neph Chamber<br />
-					Relative Humidity<br />
+				<button class="tocItem">
+					P11, aerosol only phase function
+				</button><br />
+				<button class="tocItem">
+					P11, aerosol only phase function (small)
+				</button><br />
+				<button class="tocItem">
+					-P12/P11, aerosol only degree of linear polarization
+				</button><br />
+				<button class="tocItem">
+					Linear Scattering Coefficient
+				</button><br />
+				<button class="tocItem">
+					Graph of Flight Path
+				</button><br />
+				<button class="tocItem">
+					GPS Altitude
+				</button><br />
+				<button class="tocItem">
+					Pressure Inside PI-Neph Chamber
+				</button><br />
+				<button class="tocItem">
+					Temperature Inside PI-Neph Chamber
+				</button><br />
+				<button class="tocItem">
+					Relative Humidity
+				</button><br />
+				<button class="tocItem">
 					Linear Scattering Coefficient (at 550nm)
+				</button>
 			</div>
 		</div> <!-- tocBox -->
 		
@@ -273,6 +297,15 @@
 				<canvas id="tot550Graph" class="graph"></canvas>
 				<canvas id="tot550DataPoints" class="dataPoints"></canvas>
 				<canvas id="tot550TimeLine" class="timeLine"></canvas>
+			</div>
+			
+			<div id="piVsTsiCanvasDiv" class="canvasDiv">
+				<div id="piVsTsiCanvasTitle" class="canvasTitle"></div>
+				<div id="piVsTsiYAxisTitle" class="yAxisTitle"></div>
+				<div id="piVsTsiXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="piVsTsiGraph" class="graph"></canvas>
+				<canvas id="piVsTsiDataPoints" class="dataPoints"></canvas>
+				<canvas id="piVsTsiTimeLine" class="timeLine"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
 	</body>

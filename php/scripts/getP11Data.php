@@ -16,7 +16,6 @@
 		$statement->execute($param);
 		
 		$data = "";
-		$index = 2;
 		
 		$result = $statement->fetch();
 		

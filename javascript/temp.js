@@ -217,4 +217,7 @@ function TempGraph(output)
 	updateTitle();
 	drawAxes();
 	plotPoints();
+	
+	if(!$("#tempCanvasDiv").is(":visible"))
+		$("#tempCanvasDiv").show("blind");
 }

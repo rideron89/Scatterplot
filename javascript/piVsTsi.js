@@ -1,11 +1,8 @@
 function graphPiVsTsi()
 {
-	var currentTime = document.getElementById("timeSelect").options[time].text;
-	
 	$.ajax({
 		type: "POST",
 		url: "php/scripts/getPiVsTsiData.php",
-		data: {time: currentTime, nm: 550},
 		success: PiVsTsiGraph,
 		dataType: "text"
 	});
@@ -86,7 +83,7 @@ function PiVsTsiGraph(output)
 	
 	var drawAxes = function()
 	{
-		var x, y, temp, text;
+		var x, y, text;
 		var graph = document.getElementById("piVsTsiGraph").getContext("2d");
 		
 		graph.fillStyle = secondaryColor;

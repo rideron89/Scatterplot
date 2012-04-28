@@ -21,6 +21,7 @@
 		<script src="javascript/rh.js"></script>
 		<script src="javascript/total550.js"></script>
 		<script src="javascript/piVsTsi.js"></script>
+		<script src="javascript/piAndTsi.js"></script>
 		<script>
 			var time = 0;
 			
@@ -82,7 +83,7 @@
 			{
 				$("#loadingIconDiv").slideDown(400);
 				$("#tocItems").hide();
-				$(".canvasDiv").hide();
+				//$(".canvasDiv").hide();
 				
 				readTimes();
 			});
@@ -94,7 +95,14 @@
 			
 			function toggleToc()
 			{
-				$("#tocItems").toggle("blind");
+				$("#tocItems").toggle("blind", 200);
+			}
+			
+			function tocItem(element)
+			{
+				$('html,body').animate({
+					scrollTop: $("#"+element).css("top")
+				});
 			}
 		</script>
 	</head>
@@ -179,38 +187,41 @@
 			</div>
 			
 			<div id="tocItems">
-				<button class="tocItem"  onclick="$('html,body').animate({scrollTop: 0});">
+				<button class="tocItem"  onclick="tocItem('p11CanvasDiv')">
 					P11, aerosol only phase function
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 400});">
+				<button class="tocItem" onclick="tocItem('p11SmallCanvasDiv')">
 					P11, aerosol only phase function (small)
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 800});">
+				<button class="tocItem" onclick="tocItem('p12CanvasDiv')">
 					-P12/P11, aerosol only degree of linear polarization
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 1200});">
+				<button class="tocItem" onclick="tocItem('scatCanvasDiv')">
 					Linear Scattering Coefficient
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 1600});">
+				<button class="tocItem" onclick="tocItem('mapCanvasDiv')">
 					Graph of Flight Path
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 2000});">
+				<button class="tocItem" onclick="tocItem('altCanvasDiv')">
 					GPS Altitude
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 2400});">
+				<button class="tocItem" onclick="tocItem('presCanvasDiv')">
 					Pressure Inside PI-Neph Chamber
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 2800});">
+				<button class="tocItem" onclick="tocItem('tempCanvasDiv')">
 					Temperature Inside PI-Neph Chamber
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 3200});">
+				<button class="tocItem" onclick="tocItem('rhCanvasDiv')">
 					Relative Humidity
 				</button><br />
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 3600});">
+				<button class="tocItem" onclick="tocItem('tot550CanvasDiv')">
 					Linear Scattering Coefficient (at 550nm)
 				</button>
-				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 4000});">
+				<button class="tocItem" onclick="tocItem('piVsTsiCanvasDiv')">
 					PI-Neph (532nm) total vs. TSI (500nm) total
+				</button>
+				<button class="tocItem" onclick="tocItem('piAndTsiCanvasDiv')">
+					PI-Neph (532mn) total AND TSI (500nm) total
 				</button>
 			</div>
 		</div> <!-- tocBox -->
@@ -309,6 +320,17 @@
 				<canvas id="piVsTsiGraph" class="graph"></canvas>
 				<canvas id="piVsTsiDataPoints" class="dataPoints"></canvas>
 				<canvas id="piVsTsiTimeLine" class="timeLine"></canvas>
+			</div>
+			
+			<div id="piAndTsiCanvasDiv" class="canvasDiv">
+				<div id="piAndTsiCanvasTitle" class="canvasTitle"></div>
+				<div id="piAndTsiYAxisTitle" class="yAxisTitle"></div>
+				<div id="piAndTsiXAxisTitle" class="xAxisTitle"></div>
+				<canvas id="piAndTsiGraph" class="graph"></canvas>
+				<canvas id="tsiDataPoints" class="dataPoints"></canvas>
+				<canvas id="piDataPoints" class="dataPoints"></canvas>
+				<canvas id="piAndTsiTimeLine" class="timeLine"></canvas>
+				<canvas id="piAndTsiLegend" class="legend"></canvas>
 			</div>
 		</div> <!-- canvasBox -->
 	</body>

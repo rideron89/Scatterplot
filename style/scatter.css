@@ -298,6 +298,11 @@ html, input
 /***
  * Specific graph styles.
 ***/
+#p11CanvasDiv
+{
+	top: 0px;
+}
+
 #p11SmallCanvasDiv
 {
 	top: 400px;
@@ -346,4 +351,9 @@ html, input
 #piVsTsiCanvasDiv
 {
 	top: 4000px;
+}
+
+#piAndTsiCanvasDiv
+{
+	top: 4400px;
 }

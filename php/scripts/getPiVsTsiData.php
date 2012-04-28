@@ -9,8 +9,6 @@
 	{
 		$query = "SELECT scat FROM scat_coefficient WHERE 1";
 		
-		$param = array($_POST["time"]);
-		
 		$statement = $con->prepare($query);
 		
 		$statement->execute();
@@ -19,11 +17,6 @@
 		
 		while($result = $statement->fetchObject())
 			$data .= $result->scat . ",";
-		
-		/*$result = $statement->fetch();
-		
-		for($i = 2; $i <= 176; $i++)
-			$data .= $result["degree".$i] . ",";*/
 		
 		///////////////////////////////////////////
 		

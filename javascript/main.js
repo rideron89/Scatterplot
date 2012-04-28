@@ -89,6 +89,7 @@ function saveTimes(output)
 	graphRH();
 	graphTotal550();
 	graphPiVsTsi();
+	graphPiAndTsi();
 	
 	$.ajax({
 		type: "POST",

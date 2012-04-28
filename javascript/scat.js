@@ -119,7 +119,6 @@ function ScatGraph(output)
 	var drawAxes = function()
 	{
 		var x, y, text;
-		var times = document.getElementById("timeSelect");
 		var graph = document.getElementById("scatGraph").getContext("2d");
 		
 		graph.fillStyle = secondaryColor;

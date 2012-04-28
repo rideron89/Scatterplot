@@ -179,35 +179,38 @@
 			</div>
 			
 			<div id="tocItems">
-				<button class="tocItem">
+				<button class="tocItem"  onclick="$('html,body').animate({scrollTop: 0});">
 					P11, aerosol only phase function
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 400});">
 					P11, aerosol only phase function (small)
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 800});">
 					-P12/P11, aerosol only degree of linear polarization
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 1200});">
 					Linear Scattering Coefficient
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 1600});">
 					Graph of Flight Path
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 2000});">
 					GPS Altitude
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 2400});">
 					Pressure Inside PI-Neph Chamber
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 2800});">
 					Temperature Inside PI-Neph Chamber
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 3200});">
 					Relative Humidity
 				</button><br />
-				<button class="tocItem">
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 3600});">
 					Linear Scattering Coefficient (at 550nm)
+				</button>
+				<button class="tocItem" onclick="$('html,body').animate({scrollTop: 4000});">
+					PI-Neph (532nm) total vs. TSI (500nm) total
 				</button>
 			</div>
 		</div> <!-- tocBox -->

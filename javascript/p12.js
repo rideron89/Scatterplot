@@ -1,22 +1,6 @@
-var width = 640;
-var height = 360;
-
-var padding = 64;
-
-var primaryColor = "red";
-var secondaryColor = "black";
-
-var alphaHigh = 1.0;
-var alphaLow = 0.2;
-
-var currentTime = 0;
-var data = new Array();
-var largestY = -1;
-var yDividers = 11;
-
 function graphP12()
 {
-	currentTime = document.getElementById("timeSelect").options[time].text;
+	var currentTime = document.getElementById("timeSelect").options[time].text;
 	
 	$.ajax({
 		type: "POST",
@@ -29,13 +13,21 @@ function graphP12()
 
 function P12Graph(output)
 {
+	var width = 640;
+	var height = 360;
+	var padding = 64;
+	var primaryColor = "red";
+	var secondaryColor = "black";
+	var alphaHigh = 1.0;
+	var alphaLow = 0.2;
+	
 	var data = output.split(",");
+	var graph = document.getElementById("p12Graph");
+	var dataPoints = document.getElementById("p12DataPoints");
+	var context = null;
 	
 	var setupGraph = function()
 	{
-		var graph = document.getElementById("p12Graph");
-		var dataPoints = document.getElementById("p12DataPoints");
-		
 		graph.width = width;
 		graph.height = height;
 		
@@ -45,30 +37,29 @@ function P12Graph(output)
 	
 	var clearGraph = function()
 	{
-		var graph = document.getElementById("p12Graph").getContext("2d");
-		var dataPoints =
-			document.getElementById("p12DataPoints").getContext("2d");
-	
-		graph.clearRect(0, 0, graph.width, graph.height);
-		dataPoints.clearRect(0, 0, dataPoints.width, dataPoints.height);
+		context = graph.getContext("2d");
+		context.clearRect(0, 0, context.width, context.height);
+		
+		context = dataPoints.getContext("2d");
+		context.clearRect(0, 0, context.width, context.height);
 	};
 	
 	var drawBorder = function()
 	{
-		var graph = document.getElementById("p12Graph").getContext("2d");
+		context = graph.getContext("2d");
 	
-		graph.strokeStyle = secondaryColor;
-		graph.fillStyle = secondaryColor;
-		graph.lineWidth = 2;
+		context.strokeStyle = secondaryColor;
+		context.fillStyle = secondaryColor;
+		context.lineWidth = 2;
 	
-		graph.moveTo(padding, padding);
-		graph.lineTo(padding, (height - padding));
+		context.moveTo(padding, padding);
+		context.lineTo(padding, (height - padding));
 	
-		graph.moveTo(padding, (height / 2));
-		graph.lineTo((width - padding), (height / 2));
+		context.moveTo(padding, (height / 2));
+		context.lineTo((width - padding), (height / 2));
 	
-		graph.fill();
-		graph.stroke();
+		context.fill();
+		context.stroke();
 	};
 	
 	var updateTitle = function()
@@ -88,12 +79,13 @@ function P12Graph(output)
 	var drawAxes = function()
 	{
 		var x, y, temp, text;
-		var graph = document.getElementById("p12Graph").getContext("2d");
 		
-		graph.fillStyle = secondaryColor;
-		graph.strokeStyle = secondaryColor;
-		graph.font = "bold 11pt sans-serif";
-		graph.lineWidth = 1;
+		context = graph.getContext("2d");
+		
+		context.fillStyle = secondaryColor;
+		context.strokeStyle = secondaryColor;
+		context.font = "bold 11pt sans-serif";
+		context.lineWidth = 1;
 		
 		for(var i = 0; i <= 9; i++)
 		{
@@ -103,19 +95,19 @@ function P12Graph(output)
 		
 			text = 20 * i;
 		
-			graph.globalAlpha = alphaHigh;
-			graph.fillText(text, (x - graph.measureText(text).width / 2),
+			context.globalAlpha = alphaHigh;
+			context.fillText(text, (x - context.measureText(text).width / 2),
 				(height - padding + 20));
 		
-			graph.globalAlpha = alphaLow;
-			graph.moveTo(x, (height - padding));
-			graph.lineTo(x, padding);
+			context.globalAlpha = alphaLow;
+			context.moveTo(x, (height - padding));
+			context.lineTo(x, padding);
 		}
 		
 		y = height / 2;
 		
-		graph.globalAlpha = alphaHigh;
-		graph.fillText("0", (padding - graph.measureText("0").width - 10),
+		context.globalAlpha = alphaHigh;
+		context.fillText("0", (padding - context.measureText("0").width - 10),
 			(y + 2));
 		
 		for(var i = 0; i < 5; i++)
@@ -127,30 +119,30 @@ function P12Graph(output)
 			
 			text = 5 - i;
 			
-			graph.globalAlpha = alphaHigh;
-			graph.fillText(text,
-				(padding - graph.measureText(text).width - 10), temp);
+			context.globalAlpha = alphaHigh;
+			context.fillText(text,
+				(padding - context.measureText(text).width - 10), temp);
 			
-			graph.globalAlpha = alphaLow;
-			graph.moveTo((padding - 5), temp);
-			graph.lineTo((width - padding), temp);
+			context.globalAlpha = alphaLow;
+			context.moveTo((padding - 5), temp);
+			context.lineTo((width - padding), temp);
 			
 			temp = y;
 			temp = temp + ((y - padding) / 5) * (i + 1);
 			
 			text = (i + 1) * -1;
 			
-			graph.globalAlpha = alphaHigh;
-			graph.fillText(text,
-				(padding - graph.measureText(text).width - 10), temp);
+			context.globalAlpha = alphaHigh;
+			context.fillText(text,
+				(padding - context.measureText(text).width - 10), temp);
 			
-			graph.globalAlpha = alphaLow;
-			graph.moveTo((padding - 5), temp);
-			graph.lineTo((width - padding), temp);
+			context.globalAlpha = alphaLow;
+			context.moveTo((padding - 5), temp);
+			context.lineTo((width - padding), temp);
 		}
 		
-		graph.fill();
-		graph.stroke();
+		context.fill();
+		context.stroke();
 	};
 	
 	var plotPoints = function()

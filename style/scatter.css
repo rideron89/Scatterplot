@@ -65,7 +65,7 @@ html, input
 	padding: 5px;
 	
 	border: 1px solid #666666;
-	border-radius: 6px 6px 0px 0px / 3px 3px 0px 0px;
+	border-radius: 6px 6px 6px 6px / 3px 3px 3px 3px;
 	
 	font-weight: bold;
 	

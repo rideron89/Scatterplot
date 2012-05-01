@@ -129,8 +129,10 @@ function showLocationData(output)
 {
 	var data = output.split(",");
 	
-	var lat = data[0] + "&#176;" + data[1] + "&#39;" + data[2] + "&#34;";
-	var lon = data[3] + "&#176;" + data[4] + "&#39;" + data[5] + "&#34;";
+	var lat = data[0] + "&#176; " + data[1] + "&#39; "
+		+ parseFloat(data[2]).toFixed(1) + "&#34;";
+	var lon = data[3] + "&#176; " + data[4] + "&#39; "
+		+ parseFloat(data[5]).toFixed(1) + "&#34;";
 	
 	document.getElementById("lat").innerHTML = lat;
 	document.getElementById("lon").innerHTML = lon;

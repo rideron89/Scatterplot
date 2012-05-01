@@ -161,8 +161,8 @@
 				RH1 (inlet): <span id="rh1"></span>%<br />
 				RH2 (chamber): <span id="rh2"></span>%<br />
 				RH3 (outlet): <span id="rh3"></span>%<br />
-				Plane Latitude: <span id="lat"></span><br />
-				Plane Longitude: <span id="lon"></span><br />
+				Aircraft Latitude: <span id="lat"></span><br />
+				Aircraft Longitude: <span id="lon"></span><br />
 				GPS Altitude: <span id="alt"></span> feet
 			</div>
 			

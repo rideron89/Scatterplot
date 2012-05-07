@@ -93,11 +93,17 @@
 				$("#loadingIconDiv").slideUp(400);
 			});
 			
+			/*
+			 * Show/Hide the Table of Contents
+			 */
 			function toggleToc()
 			{
-				$("#tocItems").toggle("blind", 200);
+				$("#tocItems").toggle("blind", 100);
 			}
 			
+			/*
+			 * Move the scroll position to the top of 'element'.
+			 */
 			function tocItem(element)
 			{
 				$('html,body').animate({

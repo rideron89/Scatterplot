@@ -5,9 +5,10 @@
 		<title>
 			UMBC Pi-Neph Data
 		</title>
+		<link href="./style/smoothness/smoothness.css" rel="stylesheet" type="text/css" />
 		<link href="./style/scatter.css" rel="stylesheet" type="text/css" />
 		<script src="javascript/jquery172.js"></script>
-		<script src="javascript/jqueryui/jqueryui1819.js"></script>
+		<script src="javascript/jqueryui/jqueryui1820.js"></script>
 		<script src="javascript/utils.js"></script>
 		<script src="javascript/main.js"></script>
 		<script src="javascript/p11.js"></script>
@@ -27,14 +28,19 @@
 			
 			function updateRange()
 			{
-				time = document.getElementById("timeRange").value;
-				
-				document.getElementById("rangeCurrent").innerHTML =
-					document.getElementById("timeSelect").options[time].text;
+				updateDisplayTime();
 				
 				document.getElementById("timeSelect").value = time;
 				
 				updateGraphs();
+			}
+			
+			function updateDisplayTime()
+			{
+				time = $("#timeSlider").slider("value");
+				
+				document.getElementById("rangeCurrent").innerHTML =
+					document.getElementById("timeSelect").options[time].text;
 			}
 			
 			function updateSelect()
@@ -56,10 +62,12 @@
 			 */
 			function decrement()
 			{
-				var range = document.getElementById("timeRange");
+				var currentValue = $("#timeSlider").slider("value");
+				var minValue = $("#timeSlider").slider("option", "min");
+				var step = $("#timeSlider").slider("option", "step");
 				
-				if(range.value > range.min)
-					range.value = parseInt(range.value) - parseInt(range.step);
+				if(currentValue > minValue)
+					$("#timeSlider").slider("value", currentValue-step);
 				
 				updateRange();
 			}
@@ -71,10 +79,12 @@
 			 */
 			function increment()
 			{
-				var range = document.getElementById("timeRange");
+				var currentValue = $("#timeSlider").slider("value");
+				var maxValue = $("#timeSlider").slider("option", "max");
+				var step = $("#timeSlider").slider("option", "step");
 				
-				if(range.value < range.max)
-					range.value = parseInt(range.value) + parseInt(range.step);
+				if(currentValue < maxValue)
+					$("#timeSlider").slider("value", currentValue+step);
 				
 				updateRange();
 			}
@@ -84,6 +94,20 @@
 				$("#loadingIconDiv").slideDown(400);
 				$("#tocItems").hide();
 				//$(".canvasDiv").hide();
+				
+				$("#timeSlider").slider({
+					max: 0,
+					slide: updateDisplayTime,
+					change: updateRange
+				});
+				
+				$("input:button").button({
+				});
+				
+				$("#minusButton").click(decrement);
+				$("#plusButton").click(increment);
+				
+				
 				
 				readTimes();
 			});
@@ -128,13 +152,10 @@
 					Graph Time (Seconds)
 				</div>
 				
-				<div id="timeSlider">
-					<input id="timeMinus" type="button" value="-"
-						onclick="decrement()" />
-					<input id="timeRange" type="range" min="0" max="0" step="1"
-						value="0" onchange="updateRange()" />
-					<input id="timePlus" type="button" value="+"
-						onclick="increment()" />
+				<div id="timeSliderDiv">
+					<input id="minusButton" type="button" value="-" />
+					<div id="timeSlider"></div>
+					<input id="plusButton" type="button" value="+" />
 				</div>
 				
 				<div id="timeSliderPosition">

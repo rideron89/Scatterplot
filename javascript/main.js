@@ -40,10 +40,9 @@ function saveTimes(output)
 	// set the range's current text to the select box's current time
 	document.getElementById("rangeCurrent").innerHTML =
 		document.getElementById("timeSelect").options[time].text;
-
-	// set the range's number of selections to the number of times
-	document.getElementById("timeRange").max =
-		document.getElementById("timeSelect").length - 1;
+	
+	$("#timeSlider").slider("option", "max",
+		document.getElementById("timeSelect").length - 1);
 
 	graphP11();
 	graphP11Small();
